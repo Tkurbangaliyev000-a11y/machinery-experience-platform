@@ -18,6 +18,7 @@ export default function Catalog({
   onWheeledExcavators,
 }: Props) {
   const translations = useTranslations();
+  const lovolLogoSrc = `${import.meta.env.BASE_URL}LOVOL.png`;
 
   return (
     <div className="catalog-page catalog-page--categories">
@@ -26,7 +27,7 @@ export default function Catalog({
       </p>
 
       <h1 className="catalog-title-headline">
-        <img className="catalog-title-logo" src="/LOVOL.png" alt="LOVOL logo" />
+        <img className="catalog-title-logo" src={lovolLogoSrc} alt="LOVOL logo" />
         <span className="catalog-logo-text">{translations.chooseCategory}</span>
       </h1>
 
