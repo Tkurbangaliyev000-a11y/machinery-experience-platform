@@ -130,7 +130,7 @@
 
     cursor:pointer;
 
-    background-image: url('/category-grid.png');
+    background-image: url('../../../public/category-grid.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -146,117 +146,117 @@
 }
 
 .catalog-card--excavators {
-    background-image: url('/Excavator.png');
+    background-image: url('../../../public/Excavator.png');
 }
 
 .catalog-card--loader {
-    background-image: url('/category-frontloader.png');
+    background-image: url('../../../public/category-frontloader.png');
 }
 
 .catalog-card--dumptrucks {
-    background-image: url('/category-Dump-truck.png');
+    background-image: url('../../../public/category-Dump-truck.png');
 }
 
 .catalog-card--dumptruck-1 {
-    background-image: url('/category-Dump-truck.png');
+    background-image: url('../../../public/category-Dump-truck.png');
     background-position: 18% center;
 }
 
 .catalog-card--dumptruck-2 {
-    background-image: url('/category-Dump-truck.png');
+    background-image: url('../../../public/category-Dump-truck.png');
     background-position: center center;
 }
 
 .catalog-card--dumptruck-3 {
-    background-image: url('/category-Dump-truck.png');
+    background-image: url('../../../public/category-Dump-truck.png');
     background-position: 82% center;
 }
 
 .catalog-card--wheeled-excavators {
-    background-image: url('/category-wheel-excavator.png');
+    background-image: url('../../../public/category-wheel-excavator.png');
 }
 
 .catalog-card--fw160f {
-    background-image: url('/category-wheel-excavator160.png');
+    background-image: url('../../../public/category-wheel-excavator160.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .catalog-card--fw215f {
-    background-image: url('/category-wheel-excavator.png');
+    background-image: url('../../../public/category-wheel-excavator.png');
 }
 
 .catalog-card--backhoes {
-    background-image: url('/category-backhoe-loader.png');
+    background-image: url('../../../public/category-backhoe-loader.png');
 }
 
 .catalog-card--fb878h {
-    background-image: url('/category-backhoe-loader.png');
+    background-image: url('../../../public/category-backhoe-loader.png');
 }
 
 .catalog-card--fl955f {
-    background-image: url('/FL955F.png');
+    background-image: url('../../../public/FL955F.png');
 }
 
 .catalog-card--fl955k {
-    background-image: url('/FL955K.png');
+    background-image: url('../../../public/FL955K.png');
 }
 
 .catalog-card--fl980k {
-    background-image: url('/FL980K.png');
+    background-image: url('../../../public/FL980K.png');
 }
 
 .catalog-card--fr215f {
-    background-image: url('/FR215F.png');
+    background-image: url('../../../public/FR215F.png');
 }
 
 .catalog-card--fr260f {
-    background-image: url('/FR260F.png');
+    background-image: url('../../../public/FR260F.png');
 }
 
 .catalog-card--fr315f {
-    background-image: url('/FR315F.png');
+    background-image: url('../../../public/FR315F.png');
 }
 
 .catalog-card--fr335f {
-    background-image: url('/FR335F.png');
+    background-image: url('../../../public/FR335F.png');
 }
 
 .catalog-card--fr375f {
-    background-image: url('/FR375F.png');
+    background-image: url('../../../public/FR375F.png');
 }
 
 .catalog-card--fr560f {
-    background-image: url('/Excavator.png');
+    background-image: url('../../../public/Excavator.png');
 }
 
 .catalog-card--fr700f {
-    background-image: url('/FR700F.png');
+    background-image: url('../../../public/FR700F.png');
 }
 
 .catalog-card--fr800f {
-    background-image: url('/FR800F.png');
+    background-image: url('../../../public/FR800F.png');
 }
 
 .catalog-card--fr1000f {
-    background-image: url('/FR1000F.png');
+    background-image: url('../../../public/FR1000F.png');
 }
 
 .catalog-card--fr1350f {
-    background-image: url('/FR1350F.png');
+    background-image: url('../../../public/FR1350F.png');
 }
 
 .catalog-card--fr1500f {
-    background-image: url('/FR1500F.png');
+    background-image: url('../../../public/FR1500F.png');
 }
 
 .catalog-card--fr2000f {
-    background-image: url('/category-gornayatehnika.png');
+    background-image: url('../../../public/category-gornayatehnika.png');
 }
 
 .catalog-card--mining {
-    background-image: url('/category-gornayatehnika.png');
+    background-image: url('../../../public/category-gornayatehnika.png');
 }
 
 .catalog-card.large{

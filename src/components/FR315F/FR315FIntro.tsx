@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import "./FR315FIntro.css";
+import cardImage from "../../assets/images/FR315F/card.png";
 
 type Props = {
   onFinish: () => void;
@@ -63,7 +64,7 @@ export default function FR315FIntro({ onFinish }: Props) {
 
       {/* Экскаватор */}
       <motion.img
-        src="/images/FR315F/card.png"
+        src={cardImage}
         className="intro-machine"
         initial={{
           opacity: 0,

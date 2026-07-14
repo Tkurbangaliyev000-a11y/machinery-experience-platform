@@ -19,6 +19,11 @@ let primaryClickAudio: HTMLAudioElement | null = null;
 let hoverAudio: HTMLAudioElement | null = null;
 
 const FEEDBACK_SETTINGS_KEY = "tm-feedback-settings";
+const BASE_URL = import.meta.env.BASE_URL;
+
+function toPublicAssetUrl(path: string) {
+  return `${BASE_URL}${path.replace(/^\/+/, "")}`;
+}
 
 function getAudioContext() {
   if (typeof window === "undefined") {
@@ -109,9 +114,9 @@ function getAudioElement(cache: HTMLAudioElement | null, config: ClipConfig) {
 export function primeUiAudio() {
   getAudioContext();
 
-  clickAudio = getAudioElement(clickAudio, { src: "/sounds/click.mp3", volume: 0.32 }) ?? clickAudio;
-  primaryClickAudio = getAudioElement(primaryClickAudio, { src: "/sounds/primary-click.mp3", volume: 0.4 }) ?? primaryClickAudio;
-  hoverAudio = getAudioElement(hoverAudio, { src: "/sounds/hover.mp3", volume: 0.14 }) ?? hoverAudio;
+  clickAudio = getAudioElement(clickAudio, { src: toPublicAssetUrl("sounds/click.mp3"), volume: 0.32 }) ?? clickAudio;
+  primaryClickAudio = getAudioElement(primaryClickAudio, { src: toPublicAssetUrl("sounds/primary-click.mp3"), volume: 0.4 }) ?? primaryClickAudio;
+  hoverAudio = getAudioElement(hoverAudio, { src: toPublicAssetUrl("sounds/hover.mp3"), volume: 0.14 }) ?? hoverAudio;
 
   clickAudio?.load();
   primaryClickAudio?.load();
@@ -157,7 +162,7 @@ export function createLoaderStartAudio() {
     return null;
   }
 
-  const audio = new Audio("/sounds/loader-start.mp3");
+  const audio = new Audio(toPublicAssetUrl("sounds/loader-start.mp3"));
   audio.preload = "auto";
   audio.loop = false;
   audio.volume = 0.2;
@@ -170,7 +175,7 @@ export function createLoaderIdleAudio() {
     return null;
   }
 
-  const audio = new Audio("/sounds/loader-idle.mp3");
+  const audio = new Audio(toPublicAssetUrl("sounds/loader-idle.mp3"));
   audio.preload = "auto";
   audio.loop = true;
   audio.volume = 0.1;
@@ -183,7 +188,7 @@ export function createLoader60sAudio() {
     return null;
   }
 
-  const audio = new Audio("/sounds/loader-60s.mp3");
+  const audio = new Audio(toPublicAssetUrl("sounds/loader-60s.mp3"));
   audio.preload = "auto";
   audio.loop = false;
   audio.volume = 0.42;
@@ -192,15 +197,15 @@ export function createLoader60sAudio() {
 }
 
 export function playHoverSound() {
-  playClip({ src: "/sounds/hover.mp3", volume: 0.14 }, playHoverTone, "hover");
+  playClip({ src: toPublicAssetUrl("sounds/hover.mp3"), volume: 0.14 }, playHoverTone, "hover");
 }
 
 export function playClickSound() {
-  playClip({ src: "/sounds/click.mp3", volume: 0.32 }, playClickTone, "click");
+  playClip({ src: toPublicAssetUrl("sounds/click.mp3"), volume: 0.32 }, playClickTone, "click");
 }
 
 export function playPrimaryClickSound() {
-  playClip({ src: "/sounds/primary-click.mp3", volume: 0.4 }, playPrimaryClickTone, "primary");
+  playClip({ src: toPublicAssetUrl("sounds/primary-click.mp3"), volume: 0.4 }, playPrimaryClickTone, "primary");
 }
 
 export function playClickTone() {

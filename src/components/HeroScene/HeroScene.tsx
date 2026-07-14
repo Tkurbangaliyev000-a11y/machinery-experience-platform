@@ -17,6 +17,7 @@ const FEEDBACK_SETTINGS_KEY = "tm-feedback-settings";
 export default function HeroScene({ onEnter }: Props) {
   const loaderSound = useRef(createLoader60sAudio());
   const translations = useTranslations();
+  const logoSrc = `${import.meta.env.BASE_URL}TMlogo.png`;
 
   useEffect(() => {
     const activeLoaderSound = loaderSound.current;
@@ -209,7 +210,7 @@ export default function HeroScene({ onEnter }: Props) {
       <div className="glow glow2"></div>
 
       <div className="hero-content">
-        <img className="hero-top-logo" src="/TMlogo.png" alt="Turkuaz Machinery" />
+        <img className="hero-top-logo" src={logoSrc} alt="Turkuaz Machinery" />
 
         <button
           data-feedback="primary"
