@@ -1,0 +1,427 @@
+﻿:root {
+  --bg: #020206;
+  --glass: rgba(255, 255, 255, 0.10);
+  --glass-strong: rgba(255, 255, 255, 0.16);
+  --muted: rgba(255, 255, 255, 0.75);
+  --accent: #f9c150;
+  --accent-soft: rgba(249, 193, 80, 0.18);
+  --radius: 26px;
+  --shadow: 0 28px 100px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.fr315f-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  color: #fff;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.fr315f-video,
+.fr315f-backdrop {
+  position: absolute;
+  inset: 0;
+}
+
+.fr315f-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+}
+
+.fr315f-backdrop {
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.12), transparent 25%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.56));
+  z-index: 1;
+}
+
+.fr315f-back {
+  position: absolute;
+  top: clamp(14px, 2vw, 22px);
+  left: clamp(14px, 2vw, 22px);
+  z-index: 12;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.42);
+  color: #fff;
+  padding: 0.9rem 1.1rem;
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  font-weight: 700;
+}
+
+.fr315f-ui {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  gap: 1.8rem;
+  min-height: 100vh;
+  padding: 2rem 1.5rem 2.4rem;
+}
+
+.fr315f-header {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 720px;
+}
+
+.fr315f-label {
+  display: inline-flex;
+  font-family: Montserrat, "Segoe UI", system-ui, sans-serif;
+  color: #7be8ff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  text-shadow: 0 0 3px rgba(123, 232, 255, 0.28);
+}
+
+.fr315f-title {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(3rem, 9vw, 5.2rem);
+  line-height: 0.88;
+  letter-spacing: -0.08em;
+  font-weight: 900;
+  text-transform: uppercase;
+  max-width: 12ch;
+}
+
+.fr315f-title span {
+  display: block;
+  font-size: 0.55em;
+  letter-spacing: -0.06em;
+  font-weight: 700;
+}
+
+.fr315f-subtitle {
+  font-size: clamp(1rem, 1.15vw, 1.18rem);
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 600;
+}
+
+.fr315f-copy {
+  max-width: 44ch;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.85;
+  font-size: clamp(0.98rem, 1vw, 1.05rem);
+}
+
+.fr315f-specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  width: min(740px, 100%);
+}
+
+.fr315f-spec {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.15rem 1rem;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.16);
+}
+
+.fr315f-spec,
+.fr315f-specValue,
+.fr315f-specLabel {
+  position: relative;
+}
+
+.fr315f-spec::before,
+.fr315f-spec::after,
+.fr315f-specValue::before,
+.fr315f-specValue::after,
+.fr315f-specLabel::before,
+.fr315f-specLabel::after {
+  content: none !important;
+  display: none !important;
+}
+
+.fr315f-specValue {
+  font-size: clamp(1.05rem, 1.8vw, 1.5rem);
+  font-weight: 700;
+}
+
+.fr315f-specLabel {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.92rem;
+}
+
+.fr315f-mainImage,
+.fr315f-lowerImage {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.fr315f-mainImageCard,
+.fr315f-lowerImageCard {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.45;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 28px 76px rgba(0, 0, 0, 0.28);
+}
+
+.fr315f-mainImageCard img,
+.fr315f-lowerImageCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fr315f-features {
+  display: grid;
+  gap: 1rem;
+  width: min(740px, 100%);
+}
+
+.fr315f-featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.35rem;
+  width: 100%;
+  justify-items: stretch;
+}
+
+.fr315f-featureCard {
+  position: relative;
+  display: grid;
+  place-items: end center;
+  padding: 0;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.fr315f-featureCard:hover,
+.fr315f-featureCard.active {
+  transform: translateY(-2px);
+  border-color: rgba(249, 193, 80, 0.45);
+}
+
+.fr315f-featureImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fr315f-featureOverlay {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 0.55rem 0.5rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.42) 58%, rgba(0, 0, 0, 0.72) 100%);
+  text-align: center;
+}
+
+.fr315f-featureOverlay span {
+  display: block;
+  font-size: 0.64rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.fr315f-featureCard:hover,
+.fr315f-featureCard.active {
+  transform: translateY(-3px);
+  border-color: rgba(249, 193, 80, 0.38);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.22);
+}
+
+.fr315f-detail {
+  display: grid;
+  gap: 1rem;
+  padding: 1.4rem;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 32px 84px rgba(0, 0, 0, 0.22);
+}
+
+.fr315f-detailImage {
+  width: 100%;
+  aspect-ratio: 942 / 1280;
+  max-width: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.fr315f-detailImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fr315f-detailCopy h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.fr315f-detailCopy p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.8;
+  font-size: 0.98rem;
+}
+
+.fr315f-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  width: min(700px, 100%);
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+.fr315f-action {
+  display: grid;
+  place-items: center;
+  gap: 0.35rem;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  min-height: 0;
+  padding: 0.75rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.fr315f-action.primary {
+  background: linear-gradient(135deg, rgba(249, 193, 80, 0.96), rgba(255, 240, 180, 0.95));
+  color: #111;
+}
+
+.fr315f-action.secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.fr315f-actionIcon {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.fr315f-actionLabel {
+  display: block;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.fr315f-action:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 860px) {
+  .fr315f-ui {
+    padding: 1.6rem 0.95rem 1.8rem;
+  }
+
+  .fr315f-specs {
+    grid-template-columns: 1fr;
+  }
+
+  /* keep 4 items in a single row on narrow devices; make elements tighter */
+  .fr315f-featuresGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.25rem;
+  }
+
+  .fr315f-featureOverlay span {
+    font-size: 0.62rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .fr315f-featuresGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.18rem;
+  }
+  .fr315f-featureOverlay span {
+    font-size: 0.58rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .fr315f-shell {
+    min-height: 100vh;
+  }
+
+  .fr315f-ui {
+    padding: 1.4rem 1rem 1.8rem;
+    gap: 1.4rem;
+  }
+
+  .fr315f-title {
+    font-size: clamp(2.2rem, 10vw, 3.4rem);
+  }
+
+  .fr315f-spec,
+  .fr315f-featureCard,
+  .fr315f-detail,
+  .fr315f-action {
+    border-radius: 20px;
+  }
+
+  .fr315f-featureCard {
+    gap: 0.75rem;
+    padding: 0.95rem;
+  }
+
+  .fr315f-featureIcon {
+    width: 58px;
+    height: 58px;
+  }
+
+  .fr315f-detailImage {
+    min-height: 180px;
+  }
+}
+
+@media (max-width: 420px) {
+  .fr315f-back {
+    top: 12px;
+    left: 12px;
+    padding: 0.75rem 0.95rem;
+  }
+
+  .fr315f-ui {
+    padding: 1rem 0.9rem 1.5rem;
+  }
+
+  .fr315f-action {
+    min-height: 56px;
+    padding: 0.95rem 1rem;
+  }
+}

@@ -1,0 +1,20 @@
+.showroom{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:#0b0d12;
+color:white;
+font-family:Montserrat,sans-serif;
+}
+
+.showroom h1{
+font-size:64px;
+margin-bottom:20px;
+}
+
+.showroom p{
+font-size:22px;
+opacity:.7;
+}
