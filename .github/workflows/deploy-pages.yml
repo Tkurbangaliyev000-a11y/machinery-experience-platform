@@ -33,7 +33,7 @@ jobs:
 
       - name: Build
         env:
-          VITE_BASE_PATH: /machinery-platform/
+          VITE_BASE_PATH: /machinery-experience-platform/
         run: npm run build
 
       - name: Add SPA fallback
