@@ -115,10 +115,18 @@ const USE_CASES: UseCase[] = [
 ];
 
 const SERVICE_POINTS = ["г. Караганда", "г. Алматы", "г. Атырау", "г. Шымкент"];
+const CONTACT_PHONE = "+77000000000";
+const CONTACT_PHONE_LINK = `tel:${CONTACT_PHONE}`;
+const CONTACT_WHATSAPP_LINK = "https://wa.me/77000000000";
+const FW215F_VIDEO_SRC = `${import.meta.env.BASE_URL}videos/FW215F.MP4`;
+const FW215F_VIDEO_POSTER = `${import.meta.env.BASE_URL}videos/FW215F-poster.jpg`;
+const FW215F_CP_URL = `${import.meta.env.BASE_URL}docs/FW215F-commercial-offer.pdf`;
 
 export default function FW215F({ onBack }: Props) {
   const [activeUseCaseId, setActiveUseCaseId] = useState(USE_CASES[0].id);
+  const [isVideoAvailable, setIsVideoAvailable] = useState(true);
   const activeUseCase = USE_CASES.find((item) => item.id === activeUseCaseId) ?? USE_CASES[0];
+  const activeTabId = `fw215f-tab-${activeUseCase.id}`;
 
   return (
     <div className="fw215f-page">
@@ -160,15 +168,15 @@ export default function FW215F({ onBack }: Props) {
           </div>
 
           <div className="fw215f-heroActions">
-            <a className="fw215f-action fw215f-action--primary" href="#" data-feedback="primary">
+            <a className="fw215f-action fw215f-action--primary" href={FW215F_CP_URL} target="_blank" rel="noreferrer" data-feedback="primary">
               <Download size={18} />
               <span>Скачать коммерческое предложение</span>
             </a>
-            <a className="fw215f-action" href="tel:+77000000000" data-feedback="primary">
+            <a className="fw215f-action" href={CONTACT_PHONE_LINK} data-feedback="primary">
               <Phone size={18} />
               <span>Позвонить менеджеру</span>
             </a>
-            <a className="fw215f-action" href="https://wa.me/77000000000" target="_blank" rel="noreferrer" data-feedback="primary">
+            <a className="fw215f-action" href={CONTACT_WHATSAPP_LINK} target="_blank" rel="noreferrer" data-feedback="primary">
               <MessageCircle size={18} />
               <span>Написать в WhatsApp</span>
             </a>
@@ -244,9 +252,27 @@ export default function FW215F({ onBack }: Props) {
 
           <div className="fw215f-mediaGrid">
             <article className="fw215f-mediaCard fw215f-mediaCard--video">
-              <PlayCircle size={28} />
-              <h3>Видеообзор FW215F</h3>
-              <p>Здесь будет размещен промо-ролик с демонстрацией рабочих сценариев.</p>
+              {isVideoAvailable ? (
+                <div className="fw215f-videoWrap">
+                  <video
+                    className="fw215f-videoPlayer"
+                    controls
+                    preload="metadata"
+                    playsInline
+                    poster={FW215F_VIDEO_POSTER}
+                    onError={() => setIsVideoAvailable(false)}
+                  >
+                    <source src={FW215F_VIDEO_SRC} type="video/mp4" />
+                  </video>
+                  <span className="fw215f-videoHint">Видеообзор FW215F</span>
+                </div>
+              ) : (
+                <>
+                  <PlayCircle size={28} />
+                  <h3>Видеообзор FW215F</h3>
+                  <p>Добавьте файл videos/FW215F-overview.mp4 в папку public для автоматического подключения.</p>
+                </>
+              )}
             </article>
             <article className="fw215f-mediaCard">
               <Image size={26} />
@@ -273,8 +299,10 @@ export default function FW215F({ onBack }: Props) {
                 <button
                   key={item.id}
                   type="button"
+                  id={`fw215f-tab-${item.id}`}
                   role="tab"
                   aria-selected={item.id === activeUseCaseId}
+                  aria-controls="fw215f-usecase-panel"
                   className={`fw215f-useCaseTab ${item.id === activeUseCaseId ? "is-active" : ""}`}
                   onClick={() => setActiveUseCaseId(item.id)}
                 >
@@ -284,7 +312,7 @@ export default function FW215F({ onBack }: Props) {
               ))}
             </div>
 
-            <article className="fw215f-useCaseDetail" role="tabpanel">
+            <article className="fw215f-useCaseDetail" id="fw215f-usecase-panel" role="tabpanel" aria-labelledby={activeTabId}>
               <h3>{activeUseCase.title}</h3>
               <p>{activeUseCase.details}</p>
               <div className="fw215f-useCasePoints">
@@ -336,7 +364,7 @@ export default function FW215F({ onBack }: Props) {
               <MapPin size={16} />
               {SERVICE_POINTS.join(" • ")}
             </span>
-            <a href="tel:+77000000000" className="fw215f-inlineContact" data-feedback="primary">
+            <a href={CONTACT_PHONE_LINK} className="fw215f-inlineContact" data-feedback="primary">
               Связаться с сервисной службой
               <ChevronRight size={16} />
             </a>
@@ -350,15 +378,15 @@ export default function FW215F({ onBack }: Props) {
             и график сервисной поддержки.
           </p>
           <div className="fw215f-finalActions">
-            <a href="#" className="fw215f-action fw215f-action--primary" data-feedback="primary">
+            <a href={FW215F_CP_URL} target="_blank" rel="noreferrer" className="fw215f-action fw215f-action--primary" data-feedback="primary">
               <Download size={18} />
               <span>Скачать КП</span>
             </a>
-            <a href="tel:+77000000000" className="fw215f-action" data-feedback="primary">
+            <a href={CONTACT_PHONE_LINK} className="fw215f-action" data-feedback="primary">
               <Phone size={18} />
               <span>Позвонить</span>
             </a>
-            <a href="https://wa.me/77000000000" target="_blank" rel="noreferrer" className="fw215f-action" data-feedback="primary">
+            <a href={CONTACT_WHATSAPP_LINK} target="_blank" rel="noreferrer" className="fw215f-action" data-feedback="primary">
               <MessageCircle size={18} />
               <span>WhatsApp</span>
             </a>
