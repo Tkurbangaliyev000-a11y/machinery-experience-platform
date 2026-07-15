@@ -75,7 +75,7 @@
 
 .fr315f-label {
   display: inline-flex;
-  font-family: Montserrat, "Segoe UI", system-ui, sans-serif;
+  font-family: var(--brand-display);
   color: #7be8ff;
   font-size: 0.82rem;
   font-weight: 700;
@@ -84,8 +84,18 @@
   text-shadow: 0 0 3px rgba(123, 232, 255, 0.28);
 }
 
+.fr315f-series {
+  margin-top: -2px;
+  color: rgba(159, 220, 255, 0.92);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-family: var(--brand-display);
+  font-weight: 700;
+}
+
 .fr315f-title {
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--brand-display);
   font-size: clamp(3rem, 9vw, 5.2rem);
   line-height: 0.88;
   letter-spacing: -0.08em;

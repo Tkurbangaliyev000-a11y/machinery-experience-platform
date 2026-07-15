@@ -1,3 +1,12 @@
+@font-face {
+  font-family: "LovolBrand";
+  src: url("/fonts/LOVOL-Brand.woff2") format("woff2"),
+       url("/fonts/LOVOL-Brand.woff") format("woff");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -14,6 +23,7 @@
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
+  --brand-display: "LovolBrand", "Rajdhani", "Montserrat", "Segoe UI", sans-serif;
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;

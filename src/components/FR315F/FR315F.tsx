@@ -117,7 +117,8 @@ export default function FR315F({ onBack }: Props) {
         {showUI && (
           <motion.div className="fr315f-ui" variants={overlayVariants} initial="hidden" animate="show" exit="hidden">
             <motion.header className="fr315f-header" variants={rowVariants}>
-              <span className="fr315f-label">TURKUAZ MACHINERY CENTRAL ASIA</span>
+              <span className="fr315f-label">Turkuaz Machinery CA</span>
+              <span className="fr315f-series">Premium Excavator Series</span>
               <h1 className="fr315f-title">
                 LOVOL <span>FR315F</span>
               </h1>

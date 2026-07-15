@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./MachineViewer.css";
 import FR315F from "../FR315F/FR315F";
 import FR215F from "../FR215F/FR215F.tsx";
+import FW215F from "../FW215F/FW215F";
 import Catalog from "./Catalog";
 import { useTranslations } from "../../i18n";
 export default function MachineViewer() {
@@ -21,6 +22,14 @@ export default function MachineViewer() {
     return (
       <FR215F
         onBack={() => setPage("excavators")}
+      />
+    );
+  }
+
+  if (page === "fw215f") {
+    return (
+      <FW215F
+        onBack={() => setPage("wheeledExcavators")}
       />
     );
   }
@@ -168,7 +177,10 @@ export default function MachineViewer() {
             <h2>FW160F</h2>
           </button>
 
-          <button className="catalog-card catalog-card--model catalog-card--fw215f">
+          <button
+            className="catalog-card catalog-card--model catalog-card--fw215f"
+            onClick={() => setPage("fw215f")}
+          >
             <h2>FW215F</h2>
           </button>
 

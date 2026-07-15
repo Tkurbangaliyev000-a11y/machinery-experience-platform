@@ -31,6 +31,8 @@
     margin-bottom:18px;
 
     text-transform:uppercase;
+    font-family: var(--brand-display);
+    font-weight: 700;
 }
 
 .catalog-page h1{
@@ -372,6 +374,8 @@
     border: 1px solid rgba(255, 255, 255, 0.16);
     backdrop-filter: blur(4px);
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+    font-family: var(--brand-display);
+    letter-spacing: 0.08em;
 }
 
 .catalog-card:hover h2{
