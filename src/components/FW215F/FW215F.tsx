@@ -126,6 +126,7 @@ const FW215F_CP_URL = `${import.meta.env.BASE_URL}docs/FW215F-commercial-offer.p
 export default function FW215F({ onBack }: Props) {
   const [activeUseCaseId, setActiveUseCaseId] = useState(USE_CASES[0].id);
   const [isVideoAvailable, setIsVideoAvailable] = useState(true);
+  const [isVideoActivated, setIsVideoActivated] = useState(false);
   const activeUseCase = USE_CASES.find((item) => item.id === activeUseCaseId) ?? USE_CASES[0];
   const activeTabId = `fw215f-tab-${activeUseCase.id}`;
 
@@ -255,18 +256,31 @@ export default function FW215F({ onBack }: Props) {
             <article className="fw215f-mediaCard fw215f-mediaCard--video">
               {isVideoAvailable ? (
                 <div className="fw215f-videoWrap">
-                  <video
-                    className="fw215f-videoPlayer"
-                    controls
-                    preload="metadata"
-                    playsInline
-                    muted={false}
-                    poster={FW215F_VIDEO_POSTER}
-                    onError={() => setIsVideoAvailable(false)}
-                  >
-                    <source src={FW215F_VIDEO_SRC} type="video/mp4" />
-                    <source src={FW215F_VIDEO_FALLBACK_SRC} type="video/mp4" />
-                  </video>
+                  {isVideoActivated ? (
+                    <video
+                      className="fw215f-videoPlayer"
+                      controls
+                      preload="none"
+                      playsInline
+                      muted={false}
+                      poster={FW215F_VIDEO_POSTER}
+                      onError={() => setIsVideoAvailable(false)}
+                    >
+                      <source src={FW215F_VIDEO_SRC} type="video/mp4" />
+                      <source src={FW215F_VIDEO_FALLBACK_SRC} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <button
+                      type="button"
+                      className="fw215f-videoActivator"
+                      onClick={() => setIsVideoActivated(true)}
+                      aria-label="Запустить видеообзор FW215F"
+                    >
+                      <PlayCircle size={42} />
+                      <span>Запустить видеообзор</span>
+                      <small>Видео загружается только после нажатия для более быстрого открытия страницы</small>
+                    </button>
+                  )}
                   <span className="fw215f-videoHint">Видеообзор FW215F</span>
                 </div>
               ) : (
