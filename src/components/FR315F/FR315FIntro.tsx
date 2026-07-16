@@ -59,7 +59,7 @@ export default function FR315FIntro({ onFinish }: Props) {
           duration: 1,
         }}
       >
-        TURKUAZ MACHINERY CENTRAL ASIA
+        ТУРКУАЗ МАШИНЕРИ КАЗАХСТАН
       </motion.div>
 
       {/* Экскаватор */}
@@ -126,7 +126,7 @@ export default function FR315FIntro({ onFinish }: Props) {
           duration: 1,
         }}
       >
-        Premium Excavator Experience
+        Премиальный опыт эксплуатации экскаватора
       </motion.div>
     </motion.div>
   );

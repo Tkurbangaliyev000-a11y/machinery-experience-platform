@@ -1,20 +1,27 @@
-.showroom{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-background:#0b0d12;
-color:white;
-font-family:Montserrat,sans-serif;
+.showroom {
+	min-height: 100vh;
+	display: grid;
+	place-content: center;
+	gap: 14px;
+	padding: 24px;
+	text-align: center;
+	color: #f2f8ff;
+	font-family: var(--sans);
+	background:
+		radial-gradient(55% 42% at 12% 8%, rgba(255, 198, 75, 0.16), transparent 62%),
+		radial-gradient(48% 36% at 92% 18%, rgba(23, 180, 209, 0.18), transparent 64%),
+		linear-gradient(155deg, #070f16 0%, #0a1722 52%, #0d141d 100%);
 }
 
-.showroom h1{
-font-size:64px;
-margin-bottom:20px;
+.showroom h1 {
+	font-size: clamp(2rem, 5.8vw, 4rem);
+	line-height: 1.06;
+	letter-spacing: 0.02em;
 }
 
-.showroom p{
-font-size:22px;
-opacity:.7;
+.showroom p {
+	max-width: 34ch;
+	margin: 0 auto;
+	font-size: clamp(1rem, 2.6vw, 1.25rem);
+	color: rgba(226, 236, 245, 0.84);
 }

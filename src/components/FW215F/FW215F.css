@@ -15,17 +15,11 @@
     radial-gradient(circle at 92% 10%, rgba(96, 136, 255, 0.2), transparent 34%),
     linear-gradient(165deg, var(--fw215f-bg-0), var(--fw215f-bg-1));
   overflow: hidden;
-  font-family: "Montserrat", "Segoe UI", sans-serif;
+  font-family: var(--sans);
 }
 
 .fw215f-noise {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.26;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.18) 0.7px, transparent 0.7px);
-  background-size: 3px 3px;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 92%);
+  display: none;
 }
 
 .fw215f-layout {
@@ -47,25 +41,26 @@
   align-items: center;
   gap: 10px;
   padding: 11px 16px;
-  border-radius: 999px;
+  border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.24);
   background: rgba(6, 13, 22, 0.84);
   color: var(--fw215f-text);
   backdrop-filter: blur(14px);
   cursor: pointer;
-  transition: transform 0.24s ease, border-color 0.24s ease;
+  transition: transform 0.24s var(--ease-premium), border-color 0.24s var(--ease-premium), box-shadow 0.24s var(--ease-premium);
 }
 
 .fw215f-back:hover {
   transform: translateY(-2px);
   border-color: rgba(30, 187, 210, 0.58);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
 }
 
 .fw215f-hero,
 .fw215f-section,
 .fw215f-finalCta {
   border: 1px solid var(--fw215f-border);
-  border-radius: 28px;
+  border-radius: 24px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
   backdrop-filter: blur(16px);
   box-shadow: 0 22px 64px rgba(2, 8, 17, 0.38);
@@ -162,17 +157,19 @@
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  border-radius: 999px;
+  min-height: 48px;
+  border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--fw215f-text);
   text-decoration: none;
   background: rgba(12, 18, 27, 0.65);
-  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+  transition: transform 0.24s var(--ease-premium), border-color 0.24s var(--ease-premium), background 0.24s var(--ease-premium), box-shadow 0.24s var(--ease-premium);
 }
 
 .fw215f-action:hover {
   transform: translateY(-2px);
   border-color: rgba(30, 187, 210, 0.62);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.26);
 }
 
 .fw215f-action--primary {

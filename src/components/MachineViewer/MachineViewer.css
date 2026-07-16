@@ -1,501 +1,313 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.catalog-page{
-
-    min-height:100vh;
-
-    padding:70px 60px;
-
-    overflow:hidden;
-
-    background:
-        radial-gradient(circle at top left,#ffbf0030,transparent 35%),
-        radial-gradient(circle at top right,#0066ff30,transparent 35%),
-        #090909;
+.catalog-page {
+  --catalog-surface: rgba(8, 17, 27, 0.62);
+  --catalog-border: rgba(255, 255, 255, 0.15);
+  --catalog-shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+  min-height: 100vh;
+  padding: 68px 54px;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(70% 80% at 0% -10%, rgba(23, 180, 209, 0.22), transparent 58%),
+    radial-gradient(75% 65% at 100% 0%, rgba(255, 191, 0, 0.15), transparent 60%),
+    linear-gradient(145deg, #060b12 0%, #08131d 52%, #0b1722 100%);
 }
 
-.catalog-subtitle{
-
-    text-align:center;
-
-    color:#7be6ff;
-
-    font-size:20px;
-
-    letter-spacing:6px;
-
-    margin-bottom:18px;
-
-    text-transform:uppercase;
-    font-family: var(--brand-display);
-    font-weight: 700;
+.catalog-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background:
+    linear-gradient(30deg, rgba(255, 255, 255, 0.36) 1px, transparent 1px),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.36) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.24) 1px, transparent 1px);
+  background-size: 62px 108px, 62px 108px, 62px 108px;
+  background-position: 0 0, 0 0, 31px 54px;
+  mask-image: radial-gradient(circle at 50% 20%, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
 }
 
-.catalog-page h1{
-
-    text-align:center;
-
-    color:#fff;
-
-    font-size:25px;
-
-    font-weight:700;
-
-    line-height:1.2;
-
-    margin-bottom:16px;
+.catalog-page--models {
+  background:
+    radial-gradient(65% 70% at 8% 0%, rgba(23, 180, 209, 0.16), transparent 55%),
+    radial-gradient(60% 65% at 100% 8%, rgba(109, 145, 255, 0.12), transparent 58%),
+    linear-gradient(145deg, #070d15 0%, #091826 52%, #0a1521 100%);
 }
 
-.catalog-title-brand{
-    display:inline-block;
-    font-weight:800;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    background: linear-gradient(135deg, #e3e5e7 0%, #b8bbbf 22%, #f7f8f9 45%, #adadb0 62%, #d0d2d5 82%, #f5f6f7 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 10px rgba(255,255,255,0.55), 0 0 18px rgba(255,255,255,0.12);
+.catalog-subtitle {
+  text-align: center;
+  color: #90ecff;
+  font-size: 0.82rem;
+  letter-spacing: 0.24em;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  font-family: var(--brand-display);
+  font-weight: 700;
 }
 
-.catalog-title-logo{
-    display:block;
-    width:100%;
-    max-width:100%;
-    height:auto;
-    margin:0;
-    mix-blend-mode: screen;
+.catalog-page h1 {
+  text-align: center;
+  color: #f5faff;
+  font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  letter-spacing: 0.01em;
 }
 
-.catalog-title-headline{
-    position:relative;
-    width:min(1300px,92%);
-    margin:0 auto 20px;
+.catalog-title-logo {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  mix-blend-mode: screen;
 }
 
-.catalog-logo-text{
-    position:absolute;
-    left:50%;
-    top:64%;
-    transform:translateX(-50%);
-    width:100%;
-    text-align:center;
-    color:#d9dde0;
-    font-size:22px;
-    letter-spacing:.6px;
-    text-shadow:0 2px 10px rgba(0,0,0,.55);
+.catalog-title-headline {
+  position: relative;
+  width: min(1300px, 92%);
+  margin: 0 auto 18px;
 }
 
-.catalog-text{
-
-    text-align:center;
-
-    color:#c8c8c8;
-
-    font-size:22px;
+.catalog-logo-text {
+  position: absolute;
+  left: 50%;
+  top: 64%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  color: #e7eff5;
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
 }
 
-.catalog-grid{
-
-    width:min(1300px,92%);
-
-    margin:70px auto 120px;
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:30px;
+.catalog-text {
+  text-align: center;
+  color: rgba(226, 236, 245, 0.82);
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
 }
 
-.catalog-card{
-
-    position:relative;
-
-    height:240px;
-
-    overflow:hidden;
-
-    border:none;
-
-    border-radius:28px;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    cursor:pointer;
-
-    background-image: url('../../../public/category-grid.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-color: #111;
-    border:1px solid rgba(255,255,255,.1);
-
-    backdrop-filter:blur(20px);
-
-    transition:.45s;
-
-    box-shadow:
-        0 15px 45px rgba(0,0,0,.35);
+.catalog-grid {
+  width: min(1300px, 92%);
+  margin: 52px auto 86px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
 }
 
-.catalog-card--excavators {
-    background-image: url('../../../public/Excavator.png');
+.catalog-card {
+  position: relative;
+  height: 230px;
+  overflow: hidden;
+  border: 1px solid var(--catalog-border);
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-image: url("../../../public/category-grid.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: #111;
+  backdrop-filter: blur(16px) saturate(128%);
+  transition: transform 0.32s var(--ease-premium), border-color 0.32s var(--ease-premium), box-shadow 0.32s var(--ease-premium);
+  box-shadow: var(--catalog-shadow);
 }
 
-.catalog-card--loader {
-    background-image: url('../../../public/category-frontloader.png');
+.catalog-card.large {
+  grid-column: 1 / 3;
+  height: 286px;
 }
 
-.catalog-card--dumptrucks {
-    background-image: url('../../../public/category-Dump-truck.png');
+.catalog-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(123, 230, 255, 0.72);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(123, 230, 255, 0.24);
 }
 
-.catalog-card--dumptruck-1 {
-    background-image: url('../../../public/category-Dump-truck.png');
-    background-position: 18% center;
-}
-
-.catalog-card--dumptruck-2 {
-    background-image: url('../../../public/category-Dump-truck.png');
-    background-position: center center;
-}
-
-.catalog-card--dumptruck-3 {
-    background-image: url('../../../public/category-Dump-truck.png');
-    background-position: 82% center;
-}
-
-.catalog-card--wheeled-excavators {
-    background-image: url('../../../public/category-wheel-excavator.png');
-}
-
-.catalog-card--fw160f {
-    background-image: url('../../../public/category-wheel-excavator160.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.catalog-card--fw215f {
-    background-image: url('../../../public/category-wheel-excavator.png');
-}
-
-.catalog-card--backhoes {
-    background-image: url('../../../public/category-backhoe-loader.png');
-}
-
-.catalog-card--fb878h {
-    background-image: url('../../../public/category-backhoe-loader.png');
-}
-
-.catalog-card--fl955f {
-    background-image: url('../../../public/FL955F.png');
-}
-
-.catalog-card--fl955k {
-    background-image: url('../../../public/FL955K.png');
-}
-
-.catalog-card--fl980k {
-    background-image: url('../../../public/FL980K.png');
-}
-
-.catalog-card--fr215f {
-    background-image: url('../../../public/FR215F.png');
-}
-
-.catalog-card--fr260f {
-    background-image: url('../../../public/FR260F.png');
-}
-
-.catalog-card--fr315f {
-    background-image: url('../../../public/FR315F.png');
-}
-
-.catalog-card--fr335f {
-    background-image: url('../../../public/FR335F.png');
-}
-
-.catalog-card--fr375f {
-    background-image: url('../../../public/FR375F.png');
-}
-
-.catalog-card--fr560f {
-    background-image: url('../../../public/Excavator.png');
-}
-
-.catalog-card--fr700f {
-    background-image: url('../../../public/FR700F.png');
-}
-
-.catalog-card--fr800f {
-    background-image: url('../../../public/FR800F.png');
-}
-
-.catalog-card--fr1000f {
-    background-image: url('../../../public/FR1000F.png');
-}
-
-.catalog-card--fr1350f {
-    background-image: url('../../../public/FR1350F.png');
-}
-
-.catalog-card--fr1500f {
-    background-image: url('../../../public/FR1500F.png');
-}
-
-.catalog-card--fr2000f {
-    background-image: url('../../../public/category-gornayatehnika.png');
-}
-
-.catalog-card--mining {
-    background-image: url('../../../public/category-gornayatehnika.png');
-}
-
-.catalog-card.large{
-
-    grid-column:1/3;
-
-    height:290px;
-}
-
-.catalog-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        radial-gradient(circle, rgba(255,255,255,.2) 1px, transparent 1px) 0 0/10px 10px,
-        linear-gradient(135deg, rgba(255,255,255,.07) 1px, transparent 1px);
-
-    opacity:.45;
-
-    transition:.45s;
-}
-
-.catalog-page--categories .catalog-card::before{
-
-    display:none;
-}
-
-.catalog-card:hover{
-
-    transform:
-        translateY(-12px)
-        scale(1.02);
-
-    border-color:#7be6ff;
-
-    box-shadow:
-        0 0 50px rgba(123,230,255,.25),
-        0 30px 70px rgba(0,0,0,.45);
-}
-
-.catalog-card:hover::before{
-
-    opacity:1;
-}
-
-
-
-.catalog-card h2{
-
-    position:relative;
-
-    z-index:2;
-
-    color:#fff;
-
-    font-size:42px;
-
-    font-weight:800;
-
-    text-align:center;
-
-    letter-spacing:1px;
-
-    transition:.35s;
-
-    padding:0 20px;
+.catalog-card h2 {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  font-size: clamp(1.7rem, 4.2vw, 2.55rem);
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0.01em;
+  transition: color 0.3s var(--ease-premium), transform 0.3s var(--ease-premium), text-shadow 0.3s var(--ease-premium);
+  padding: 0 20px;
 }
 
 .catalog-page--categories .catalog-card h2 {
-    position: absolute;
-    left: 18px;
-    right: auto;
-    bottom: 18px;
-    top: auto;
-    z-index: 2;
-    margin: 0;
-    padding: 0;
-    max-width: min(78%, 520px);
-    text-align: left;
-    font-size: 31px;
-    font-weight: 800;
-    line-height: 1.08;
-    letter-spacing: 0.4px;
-    color: #fff;
-    text-wrap: balance;
-    text-shadow: 0 8px 26px rgba(0,0,0,.78), 0 2px 10px rgba(0,0,0,.65);
-    transform-origin: left bottom;
+  position: absolute;
+  left: 18px;
+  right: auto;
+  bottom: 18px;
+  top: auto;
+  margin: 0;
+  padding: 0;
+  max-width: min(78%, 520px);
+  text-align: left;
+  font-size: clamp(1.5rem, 3.2vw, 2rem);
+  line-height: 1.08;
+  color: #fff;
+  text-wrap: balance;
+  text-shadow: 0 8px 26px rgba(0, 0, 0, 0.78), 0 2px 10px rgba(0, 0, 0, 0.65);
 }
 
 .catalog-page--categories .catalog-card.large h2 {
-    font-size: 36px;
+  font-size: clamp(1.65rem, 3.8vw, 2.25rem);
 }
 
 .catalog-page--models .catalog-card--model h2 {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    left: auto;
-    z-index: 2;
-    margin: 0;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 0.4px;
-    text-align: right;
-    padding: 10px 14px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(8, 8, 8, 0.82), rgba(24, 24, 24, 0.62));
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    backdrop-filter: blur(4px);
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
-    font-family: var(--brand-display);
-    letter-spacing: 0.08em;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  left: auto;
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-align: right;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(8, 8, 8, 0.82), rgba(24, 24, 24, 0.62));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+  font-family: var(--brand-display);
 }
 
-.catalog-card:hover h2{
-
-    color:#7be6ff;
-
-    transform:scale(1.05);
-
-    text-shadow:
-        0 0 25px rgba(123,230,255,.8);
+.catalog-card:hover h2 {
+  color: #9cf2ff;
+  transform: scale(1.02);
+  text-shadow: 0 0 25px rgba(123, 230, 255, 0.6);
 }
 
 .catalog-page--models .catalog-card--model:hover h2 {
-    transform: translateY(-1px);
+  transform: translateY(-1px);
 }
 
-.card-overlay{
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        linear-gradient(
-        to top,
-        rgba(0,0,0,.65),
-        rgba(0,0,0,.05));
-
-    pointer-events:none;
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.08));
+  pointer-events: none;
 }
 
-@media (max-width:900px){
+.catalog-backWrap {
+  display: flex;
+  justify-content: center;
+  margin: 44px 0 10px;
+}
 
-    .catalog-page{
+.back-btn {
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  background: linear-gradient(145deg, rgba(15, 35, 52, 0.86), rgba(9, 20, 31, 0.82));
+  color: #eefaff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.24s var(--ease-premium), border-color 0.24s var(--ease-premium), box-shadow 0.24s var(--ease-premium);
+}
 
-        padding:32px 18px;
-    }
+.back-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(123, 230, 255, 0.66);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(123, 230, 255, 0.22);
+}
 
-    .catalog-subtitle{
+.catalog-card--excavators { background-image: url("../../../public/Excavator.png"); }
+.catalog-card--loader { background-image: url("../../../public/category-frontloader.png"); }
+.catalog-card--dumptrucks { background-image: url("../../../public/category-Dump-truck.png"); }
+.catalog-card--dumptruck-1 { background-image: url("../../../public/category-Dump-truck.png"); background-position: 18% center; }
+.catalog-card--dumptruck-2 { background-image: url("../../../public/category-Dump-truck.png"); background-position: center center; }
+.catalog-card--dumptruck-3 { background-image: url("../../../public/category-Dump-truck.png"); background-position: 82% center; }
+.catalog-card--wheeled-excavators { background-image: url("../../../public/category-wheel-excavator.png"); }
+.catalog-card--fw160f { background-image: url("../../../public/category-wheel-excavator160.png"); }
+.catalog-card--fw215f { background-image: url("../../../public/category-wheel-excavator.png"); }
+.catalog-card--backhoes { background-image: url("../../../public/category-backhoe-loader.png"); }
+.catalog-card--fb878h { background-image: url("../../../public/category-backhoe-loader.png"); }
+.catalog-card--fl955f { background-image: url("../../../public/FL955F.png"); }
+.catalog-card--fl955k { background-image: url("../../../public/FL955K.png"); }
+.catalog-card--fl980k { background-image: url("../../../public/FL980K.png"); }
+.catalog-card--fr215f { background-image: url("../../../public/FR215F.png"); }
+.catalog-card--fr260f { background-image: url("../../../public/FR260F.png"); }
+.catalog-card--fr315f { background-image: url("../../../public/FR315F.png"); }
+.catalog-card--fr335f { background-image: url("../../../public/FR335F.png"); }
+.catalog-card--fr375f { background-image: url("../../../public/FR375F.png"); }
+.catalog-card--fr560f { background-image: url("../../../public/Excavator.png"); }
+.catalog-card--fr700f { background-image: url("../../../public/FR700F.png"); }
+.catalog-card--fr800f { background-image: url("../../../public/FR800F.png"); }
+.catalog-card--fr1000f { background-image: url("../../../public/FR1000F.png"); }
+.catalog-card--fr1350f { background-image: url("../../../public/FR1350F.png"); }
+.catalog-card--fr1500f { background-image: url("../../../public/FR1500F.png"); }
+.catalog-card--fr2000f { background-image: url("../../../public/category-gornayatehnika.png"); }
+.catalog-card--mining { background-image: url("../../../public/category-gornayatehnika.png"); }
 
-        font-size:12px;
+@media (max-width: 900px) {
+  .catalog-page {
+    padding: 32px 16px;
+  }
 
-        letter-spacing:4px;
+  .catalog-subtitle {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    margin-bottom: 12px;
+  }
 
-        margin-bottom:14px;
-    }
+  .catalog-logo-text {
+    top: 68%;
+  }
 
-    .catalog-page h1{
+  .catalog-grid {
+    width: 100%;
+    margin: 32px auto 58px;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
 
-        font-size:42px;
+  .catalog-card,
+  .catalog-card.large {
+    grid-column: auto;
+    height: 196px;
+    border-radius: 20px;
+  }
 
-        line-height:1.15;
+  .catalog-page--categories .catalog-card h2 {
+    left: 12px;
+    bottom: 12px;
+    max-width: 88%;
+    font-size: 1.28rem;
+  }
 
-        margin-bottom:12px;
-    }
+  .catalog-page--models .catalog-card--model h2 {
+    top: 10px;
+    right: 10px;
+    font-size: 0.84rem;
+    padding: 8px 10px;
+    border-radius: 10px;
+  }
 
-    .catalog-text{
+  .catalog-backWrap {
+    margin-top: 26px;
+  }
 
-        font-size:18px;
-
-        margin-bottom:10px;
-    }
-
-    .catalog-logo-text{
-        top:68%;
-        font-size:17px;
-    }
-
-    .catalog-grid{
-
-        width:100%;
-
-        margin:40px auto 80px;
-
-        grid-template-columns:1fr;
-
-        gap:22px;
-    }
-
-    .catalog-card{
-
-        height:200px;
-
-        border-radius:24px;
-    }
-
-    .catalog-card.large{
-
-        grid-column:auto;
-
-        height:220px;
-    }
-
-    .catalog-card h2{
-
-        font-size:26px;
-
-        padding:0 20px;
-
-        line-height:1.2;
-    }
-
-    .catalog-page--categories .catalog-card h2 {
-        left: 12px;
-        bottom: 12px;
-        max-width: 88%;
-        font-size: 24px;
-        line-height: 1.12;
-    }
-
-    .catalog-page--categories .catalog-card.large h2 {
-        font-size: 26px;
-    }
-
-    .catalog-page--models .catalog-card--model h2 {
-        top: 10px;
-        right: 10px;
-        font-size: 16px;
-        padding: 8px 10px;
-        border-radius: 10px;
-    }
-
+  .back-btn {
+    width: 100%;
+    justify-content: center;
+    max-width: 320px;
+  }
 }

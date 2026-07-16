@@ -96,7 +96,7 @@ const FEATURE_CARDS: FeatureCard[] = [
 const STAT_CARDS: StatCard[] = [
   { value: "129 kW", label: "Мощность двигателя", icon: Gauge },
   { value: "-25%", label: "Расход топлива ниже конкурентов", icon: Fuel },
-  { value: "High", label: "Высокая производительность", icon: Sparkles },
+  { value: "Высокая", label: "Производительность", icon: Sparkles },
 ];
 
 const SPEC_ROWS: SpecCard[] = [
@@ -165,7 +165,7 @@ const USE_CASES: UseCase[] = [
   },
 ];
 
-const SERVICE_POINTS = ["г. Караганда", "г. Алматы", "г. Атырау", "г. Шымкент"];
+const SERVICE_POINTS = ["г. Алматы", "г. Астана", "г. Актобе"];
 const CONTACT_PHONE = "+77000000000";
 const CONTACT_PHONE_LINK = `tel:${CONTACT_PHONE}`;
 const CONTACT_WHATSAPP_LINK = "https://wa.me/77000000000";
@@ -201,7 +201,6 @@ export default function FR215F({ onBack }: Props) {
 
   return (
     <div className={`fr215f-page ${isPageReady ? "is-ready" : ""}`}>
-      <div className="fr215f-noise" aria-hidden="true" />
       <motion.div
         className="fr215f-loader"
         aria-hidden={isPageReady}
@@ -215,8 +214,8 @@ export default function FR215F({ onBack }: Props) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span>Turkuaz Machinery CA</span>
-          <strong>Preparing FR215F Presentation</strong>
+          <span>Туркуаз Машинери Казахстан</span>
+          <strong>Подготовка презентации FR215F</strong>
           <motion.em
             className="fr215f-loaderBar"
             initial={{ scaleX: 0.2 }}
@@ -236,8 +235,8 @@ export default function FR215F({ onBack }: Props) {
           <div className="fr215f-heroGrid">
             <div className="fr215f-heroPrimary">
               <span className="fr215f-kicker">
-                <span className="fr215f-brandLine">Turkuaz Machinery CA</span>
-                <span className="fr215f-brandLine">Premium Excavator Series</span>
+                <span className="fr215f-brandLine">Туркуаз Машинери Казахстан</span>
+                <span className="fr215f-brandLine">Премиальная серия экскаваторов</span>
               </span>
               <h1 className="fr215f-modelTitle">
                 LOVOL <span>FR215F</span>
@@ -274,7 +273,7 @@ export default function FR215F({ onBack }: Props) {
                 </a>
                 <a className="fr215f-action" href={CONTACT_WHATSAPP_LINK} target="_blank" rel="noreferrer" data-feedback="primary">
                   <MessageCircle size={18} />
-                  <span>Написать в WhatsApp</span>
+                  <span>Написать в мессенджер</span>
                 </a>
               </div>
             </div>
@@ -286,12 +285,12 @@ export default function FR215F({ onBack }: Props) {
               transition={{ duration: 0.62, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="fr215f-heroMediaWrap">
-                <img src={FR215F_HERO_IMAGE} alt="Lovol FR215F" loading="eager" decoding="async" />
+                <img src={FR215F_HERO_IMAGE} alt="Экскаватор LOVOL FR215F" loading="eager" decoding="async" />
               </div>
               <div className="fr215f-heroBadges" aria-hidden="true">
                 <span>21-22 т класс</span>
                 <span>129 kW</span>
-                <span>Fuel Save до 25%</span>
+                <span>Экономия топлива до 25%</span>
               </div>
             </motion.aside>
           </div>
@@ -299,7 +298,7 @@ export default function FR215F({ onBack }: Props) {
 
         <motion.section className="fr215f-section" variants={revealVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}>
           <header className="fr215f-sectionHeader">
-            <span className="fr215f-sectionKicker">Advantages</span>
+            <span className="fr215f-sectionKicker">Преимущества</span>
             <h2>Ключевые преимущества</h2>
             <p>Практичные технологии, которые напрямую влияют на безопасность, производительность и гибкость эксплуатации.</p>
           </header>
@@ -323,7 +322,7 @@ export default function FR215F({ onBack }: Props) {
 
         <motion.section className="fr215f-section" variants={revealVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}>
           <header className="fr215f-sectionHeader">
-            <span className="fr215f-sectionKicker">Specifications</span>
+            <span className="fr215f-sectionKicker">Характеристики</span>
             <h2>Технические характеристики</h2>
             <p>Современная инфографика для быстрого понимания сильных сторон модели FR215F.</p>
           </header>
@@ -377,7 +376,7 @@ export default function FR215F({ onBack }: Props) {
 
         <motion.section className="fr215f-section" variants={revealVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}>
           <header className="fr215f-sectionHeader">
-            <span className="fr215f-sectionKicker">Media</span>
+            <span className="fr215f-sectionKicker">Медиа</span>
             <h2>Фото и видео презентация</h2>
             <p>Резервные зоны для медиа высокого качества. Контент можно быстро заменить на реальные материалы.</p>
           </header>
@@ -421,7 +420,7 @@ export default function FR215F({ onBack }: Props) {
 
         <motion.section className="fr215f-section" variants={revealVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}>
           <header className="fr215f-sectionHeader">
-            <span className="fr215f-sectionKicker">Use Cases</span>
+            <span className="fr215f-sectionKicker">Сценарии</span>
             <h2>Сценарии применения</h2>
             <p>Выберите отрасль и оцените, как FR215F закрывает реальные задачи бизнеса.</p>
           </header>
@@ -470,9 +469,9 @@ export default function FR215F({ onBack }: Props) {
 
         <motion.section className="fr215f-section fr215f-section--service" variants={revealVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}>
           <header className="fr215f-sectionHeader">
-            <span className="fr215f-sectionKicker">Service</span>
+            <span className="fr215f-sectionKicker">Сервис</span>
             <h2>Гарантия, сервис и поддержка</h2>
-            <p>Надежная послепродажная экосистема Turkuaz Machinery CA для снижения операционных рисков.</p>
+            <p>Надежная послепродажная экосистема Туркуаз Машинери Казахстан для снижения операционных рисков.</p>
           </header>
 
           <div className="fr215f-serviceGrid">
@@ -524,7 +523,7 @@ export default function FR215F({ onBack }: Props) {
             </a>
             <a href={CONTACT_WHATSAPP_LINK} target="_blank" rel="noreferrer" className="fr215f-action" data-feedback="primary">
               <MessageCircle size={18} />
-              <span>WhatsApp</span>
+              <span>Мессенджер</span>
             </a>
           </div>
         </motion.section>

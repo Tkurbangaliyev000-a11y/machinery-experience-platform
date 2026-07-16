@@ -22,12 +22,10 @@ export default function Catalog({
 
   return (
     <div className="catalog-page catalog-page--categories">
-      <p className="catalog-subtitle">
-        Turkuaz Machinery CA
-      </p>
+      <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
 
       <h1 className="catalog-title-headline">
-        <img className="catalog-title-logo" src={lovolLogoSrc} alt="LOVOL logo" />
+        <img className="catalog-title-logo" src={lovolLogoSrc} alt="Логотип LOVOL" />
         <span className="catalog-logo-text">{translations.chooseCategory}</span>
       </h1>
 

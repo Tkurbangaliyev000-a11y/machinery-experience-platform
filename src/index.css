@@ -8,64 +8,41 @@
 }
 
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --text: #e9f1f7;
+  --text-h: #f4f9ff;
+  --bg: #070d14;
+  --border: rgba(255, 255, 255, 0.14);
+  --code-bg: rgba(255, 255, 255, 0.08);
+  --accent: #17b4d1;
+  --accent-bg: rgba(23, 180, 209, 0.2);
+  --accent-border: rgba(23, 180, 209, 0.52);
+  --social-bg: rgba(255, 255, 255, 0.08);
+  --shadow: 0 22px 56px rgba(0, 0, 0, 0.34);
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: "Montserrat", "Segoe UI Variable", "Segoe UI", sans-serif;
+  --heading: "Montserrat", "Segoe UI Variable", "Segoe UI", sans-serif;
   --mono: ui-monospace, Consolas, monospace;
   --brand-display: "LovolBrand", "Rajdhani", "Montserrat", "Segoe UI", sans-serif;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
+  font: 16px/1.6 var(--sans);
+  letter-spacing: 0.01em;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
 }
 
 #root {
-  width: 1126px;
+  width: 100%;
   max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
+  margin: 0;
+  text-align: left;
+  border-inline: none;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -74,6 +51,11 @@
 
 body {
   margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  scroll-behavior: smooth;
 }
 
 button.viewport-attention-highlight {
@@ -107,30 +89,34 @@ a.viewport-attention-highlight,
 h1,
 h2 {
   font-family: var(--heading);
-  font-weight: 500;
+  font-weight: 700;
   color: var(--text-h);
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+  font-size: clamp(2rem, 5.2vw, 3.6rem);
+  letter-spacing: -0.025em;
+  line-height: 1.04;
+  margin: 0;
 }
+
 h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+  font-size: clamp(1.25rem, 3.2vw, 1.85rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
 }
+
 p {
   margin: 0;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
 code,

@@ -38,9 +38,7 @@ export default function MachineViewer() {
     return (
       <div className="catalog-page catalog-page--models catalog-page--excavators">
 
-        <p className="catalog-subtitle">
-          Turkuaz Machinery CA
-        </p>
+        <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
 
         <h1>{translations.excavatorsTitle}</h1>
 
@@ -78,7 +76,7 @@ export default function MachineViewer() {
 
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", margin: "50px 0" }}>
+        <div className="catalog-backWrap">
           <button
             className="back-btn"
             onClick={() => setPage("catalog")}
@@ -95,9 +93,7 @@ export default function MachineViewer() {
     return (
       <div className="catalog-page catalog-page--models">
 
-        <p className="catalog-subtitle">
-          Turkuaz Machinery CA
-        </p>
+        <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
 
         <h1>{translations.loadersTitle}</h1>
 
@@ -117,7 +113,7 @@ export default function MachineViewer() {
 
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", margin: "50px 0" }}>
+        <div className="catalog-backWrap">
           <button
             className="back-btn"
             onClick={() => setPage("catalog")}
@@ -134,9 +130,7 @@ export default function MachineViewer() {
     return (
       <div className="catalog-page catalog-page--models">
 
-        <p className="catalog-subtitle">
-          Turkuaz Machinery CA
-        </p>
+        <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
 
         <h1>{translations.backhoesTitle}</h1>
 
@@ -148,7 +142,7 @@ export default function MachineViewer() {
 
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", margin: "50px 0" }}>
+        <div className="catalog-backWrap">
           <button
             className="back-btn"
             onClick={() => setPage("catalog")}
@@ -165,9 +159,7 @@ export default function MachineViewer() {
     return (
       <div className="catalog-page catalog-page--models">
 
-        <p className="catalog-subtitle">
-          Turkuaz Machinery CA
-        </p>
+        <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
 
         <h1>{translations.wheeledExcavatorsTitle}</h1>
 
@@ -186,7 +178,7 @@ export default function MachineViewer() {
 
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", margin: "50px 0" }}>
+        <div className="catalog-backWrap">
           <button
             className="back-btn"
             onClick={() => setPage("catalog")}
@@ -203,9 +195,7 @@ export default function MachineViewer() {
     return (
       <div className="catalog-page catalog-page--models">
 
-        <p className="catalog-subtitle">
-          Turkuaz Machinery CA
-        </p>
+        <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
 
         <h1>{translations.miningTitle}</h1>
 
@@ -241,7 +231,7 @@ export default function MachineViewer() {
 
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", margin: "50px 0" }}>
+        <div className="catalog-backWrap">
           <button
             className="back-btn"
             onClick={() => setPage("catalog")}
@@ -258,9 +248,7 @@ export default function MachineViewer() {
     return (
       <div className="catalog-page catalog-page--models">
 
-        <p className="catalog-subtitle">
-          Turkuaz Machinery CA
-        </p>
+        <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
 
         <h1>{translations.dumptrucksTitle}</h1>
 
@@ -280,7 +268,7 @@ export default function MachineViewer() {
 
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", margin: "50px 0" }}>
+        <div className="catalog-backWrap">
           <button
             className="back-btn"
             onClick={() => setPage("catalog")}

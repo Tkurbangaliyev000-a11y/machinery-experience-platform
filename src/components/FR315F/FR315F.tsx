@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ComponentType } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
+import { ArrowLeft, Download, MessageCircle, Phone } from "lucide-react";
 import "./FR315F.css";
 
 import introVideo from "../../assets/videos/FR315F.mp4";
@@ -13,7 +14,7 @@ type Props = { onBack: () => void };
 
 type SpecCard = { label: string; value: string };
 type FeatureItem = { id: string; title: string; description: string; image: string };
-type ActionItem = { label: string; href: string; external?: boolean; primary?: boolean; icon?: string };
+type ActionItem = { label: string; href: string; external?: boolean; primary?: boolean; icon: ComponentType<{ size?: number }> };
 
 const SPEC_CARDS: SpecCard[] = [
   { label: "Эксплуатационная масса", value: "31 300 кг" },
@@ -51,9 +52,9 @@ const FEATURE_CARDS: FeatureItem[] = [
 ];
 
 const ACTIONS: ActionItem[] = [
-  { label: "Коммерческое предложение", href: "#", primary: true, icon: "💼" },
-  { label: "WhatsApp", href: "https://wa.me/77000000000", external: true, icon: "💬" },
-  { label: "Позвонить", href: "tel:+77000000000", icon: "📞" },
+  { label: "Коммерческое предложение", href: "#", primary: true, icon: Download },
+  { label: "Написать в мессенджер", href: "https://wa.me/77000000000", external: true, icon: MessageCircle },
+  { label: "Позвонить", href: "tel:+77000000000", icon: Phone },
 ];
 
 const overlayVariants: Variants = {
@@ -109,16 +110,17 @@ export default function FR315F({ onBack }: Props) {
       />
       <div className="fr315f-backdrop" />
 
-      <button className="fr315f-back" onClick={onBack} aria-label="Назад">
-        ← Назад
+      <button className="fr315f-back" onClick={onBack} aria-label="Назад к каталогу">
+        <ArrowLeft size={16} />
+        <span>Назад</span>
       </button>
 
       <AnimatePresence>
         {showUI && (
           <motion.div className="fr315f-ui" variants={overlayVariants} initial="hidden" animate="show" exit="hidden">
             <motion.header className="fr315f-header" variants={rowVariants}>
-              <span className="fr315f-label">Turkuaz Machinery CA</span>
-              <span className="fr315f-series">Premium Excavator Series</span>
+              <span className="fr315f-label">Туркуаз Машинери Казахстан</span>
+              <span className="fr315f-series">Премиальная серия экскаваторов</span>
               <h1 className="fr315f-title">
                 LOVOL <span>FR315F</span>
               </h1>
@@ -187,7 +189,9 @@ export default function FR315F({ onBack }: Props) {
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <span className="fr315f-actionIcon">{action.icon}</span>
+                  <span className="fr315f-actionIcon" aria-hidden="true">
+                    <action.icon size={18} />
+                  </span>
                   <span className="fr315f-actionLabel">{action.label}</span>
                 </motion.a>
               ))}

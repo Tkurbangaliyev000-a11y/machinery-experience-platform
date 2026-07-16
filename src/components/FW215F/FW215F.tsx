@@ -75,7 +75,7 @@ const FEATURE_CARDS: FeatureCard[] = [
 const STAT_CARDS: StatCard[] = [
   { value: "124 kW", label: "Мощность двигателя", icon: Gauge },
   { value: "-25%", label: "Расход топлива ниже конкурентов", icon: Fuel },
-  { value: "High", label: "Высокая производительность", icon: Sparkles },
+  { value: "Высокая", label: "Производительность", icon: Sparkles },
 ];
 
 const SPEC_ROWS = [
@@ -114,7 +114,7 @@ const USE_CASES: UseCase[] = [
   },
 ];
 
-const SERVICE_POINTS = ["г. Караганда", "г. Алматы", "г. Атырау", "г. Шымкент"];
+const SERVICE_POINTS = ["г. Алматы", "г. Астана", "г. Актобе"];
 const CONTACT_PHONE = "+77000000000";
 const CONTACT_PHONE_LINK = `tel:${CONTACT_PHONE}`;
 const CONTACT_WHATSAPP_LINK = "https://wa.me/77000000000";
@@ -132,8 +132,6 @@ export default function FW215F({ onBack }: Props) {
 
   return (
     <div className="fw215f-page">
-      <div className="fw215f-noise" aria-hidden="true" />
-
       <button className="fw215f-back" type="button" onClick={onBack} aria-label="Назад к каталогу">
         <ArrowLeft size={18} />
         <span>Назад</span>
@@ -142,8 +140,8 @@ export default function FW215F({ onBack }: Props) {
       <main className="fw215f-layout">
         <motion.section className="fw215f-hero" variants={revealVariants} initial="hidden" animate="show">
           <span className="fw215f-kicker">
-            <span className="fw215f-brandLine">Turkuaz Machinery CA</span>
-            <span className="fw215f-brandLine">Premium Excavator Series</span>
+            <span className="fw215f-brandLine">Туркуаз Машинери Казахстан</span>
+            <span className="fw215f-brandLine">Премиальная серия экскаваторов</span>
           </span>
           <h1 className="fw215f-modelTitle">
             LOVOL <span>FW215F</span>
@@ -180,7 +178,7 @@ export default function FW215F({ onBack }: Props) {
             </a>
             <a className="fw215f-action" href={CONTACT_WHATSAPP_LINK} target="_blank" rel="noreferrer" data-feedback="primary">
               <MessageCircle size={18} />
-              <span>Написать в WhatsApp</span>
+              <span>Написать в мессенджер</span>
             </a>
           </div>
         </motion.section>
@@ -353,7 +351,7 @@ export default function FW215F({ onBack }: Props) {
         <motion.section className="fw215f-section fw215f-section--service" variants={revealVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}>
           <header className="fw215f-sectionHeader">
             <h2>Гарантия, сервис и поддержка</h2>
-            <p>Надежная послепродажная экосистема Turkuaz Machinery CA для снижения операционных рисков.</p>
+            <p>Надежная послепродажная экосистема Туркуаз Машинери Казахстан для снижения операционных рисков.</p>
           </header>
 
           <div className="fw215f-serviceGrid">
@@ -405,7 +403,7 @@ export default function FW215F({ onBack }: Props) {
             </a>
             <a href={CONTACT_WHATSAPP_LINK} target="_blank" rel="noreferrer" className="fw215f-action" data-feedback="primary">
               <MessageCircle size={18} />
-              <span>WhatsApp</span>
+              <span>Мессенджер</span>
             </a>
           </div>
         </motion.section>

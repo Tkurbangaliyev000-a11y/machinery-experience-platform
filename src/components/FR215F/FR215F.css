@@ -20,7 +20,7 @@
     linear-gradient(146deg, var(--fr215f-bg-0), var(--fr215f-bg-1) 45%, var(--fr215f-bg-2));
   overflow: hidden;
   isolation: isolate;
-  font-family: "Segoe UI Variable", "Segoe UI", "Montserrat", sans-serif;
+  font-family: var(--sans);
 }
 
 .fr215f-page::before {
@@ -47,13 +47,7 @@
 }
 
 .fr215f-noise {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.22;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.24) 0.8px, transparent 0.8px);
-  background-size: 3px 3px;
-  animation: fr215fNoiseShift 9s steps(8) infinite;
+  display: none;
 }
 
 .fr215f-loader {
@@ -122,14 +116,14 @@
   align-items: center;
   gap: 10px;
   padding: 11px 16px;
-  border-radius: 999px;
+  border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.26);
   background: rgba(4, 16, 23, 0.84);
   color: var(--fr215f-text);
   backdrop-filter: blur(14px);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  transition: transform 0.25s var(--ease-premium), border-color 0.25s var(--ease-premium), box-shadow 0.25s var(--ease-premium), background 0.25s var(--ease-premium);
 }
 
 .fr215f-back:hover {
@@ -143,7 +137,7 @@
 .fr215f-section,
 .fr215f-finalCta {
   position: relative;
-  border-radius: 30px;
+  border-radius: 24px;
   border: 1px solid var(--fr215f-border);
   background: linear-gradient(172deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
   backdrop-filter: blur(18px) saturate(140%);
@@ -322,12 +316,13 @@
   align-items: center;
   gap: 8px;
   padding: 12px 18px;
-  border-radius: 999px;
+  min-height: 48px;
+  border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.24);
   color: var(--fr215f-text);
   text-decoration: none;
   background: rgba(7, 22, 34, 0.66);
-  transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
+  transition: transform 0.24s var(--ease-premium), border-color 0.24s var(--ease-premium), box-shadow 0.24s var(--ease-premium), background 0.24s var(--ease-premium);
 }
 
 .fr215f-action::after {
@@ -784,16 +779,6 @@
   outline-offset: 2px;
 }
 
-@keyframes fr215fNoiseShift {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-
-  100% {
-    transform: translate3d(3px, -2px, 0);
-  }
-}
-
 @media (max-width: 1200px) {
   .fr215f-layout {
     width: min(1240px, calc(100% - 28px));
@@ -878,7 +863,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fr215f-noise,
   .fr215f-back,
   .fr215f-action,
   .fr215f-useCaseTab,

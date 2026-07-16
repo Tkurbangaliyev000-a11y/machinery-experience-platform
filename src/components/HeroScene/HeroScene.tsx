@@ -210,7 +210,7 @@ export default function HeroScene({ onEnter }: Props) {
       <div className="glow glow2"></div>
 
       <div className="hero-content">
-        <img className="hero-top-logo" src={logoSrc} alt="Turkuaz Machinery" />
+        <img className="hero-top-logo" src={logoSrc} alt="Логотип Туркуаз Машинери" />
 
         <button
           data-feedback="primary"
