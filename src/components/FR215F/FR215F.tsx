@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
@@ -37,6 +37,17 @@ type StatCard = {
   icon: LucideIcon;
 };
 
+type SpecCard = {
+  label: string;
+  value: string;
+  details: string;
+  metrics: {
+    power: number;
+    efficiency: number;
+    cycle: number;
+  };
+};
+
 type UseCase = {
   id: string;
   title: string;
@@ -47,6 +58,16 @@ type UseCase = {
 const revealVariants: Variants = {
   hidden: { opacity: 0, y: 32, filter: "blur(8px)" },
   show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.64, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const sectionStaggerVariants: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.04,
+    },
+  },
 };
 
 const cardVariants: Variants = {
@@ -78,13 +99,43 @@ const STAT_CARDS: StatCard[] = [
   { value: "High", label: "Высокая производительность", icon: Sparkles },
 ];
 
-const SPEC_ROWS = [
-  { label: "Класс техники", value: "Гидравлический экскаватор 21-22 т" },
-  { label: "Силовая установка", value: "Двигатель 129 kW с оптимизированной тягой" },
-  { label: "Экономичность", value: "Снижение расхода топлива до 25%" },
-  { label: "Рабочий режим", value: "Стабильная производительность в цикле 24/7" },
-  { label: "Навесное оборудование", value: "Поддержка гидромолота, грейфера, быстросъема" },
-  { label: "Комфорт оператора", value: "Тихая кабина, улучшенная обзорность, эргономичное управление" },
+const SPEC_ROWS: SpecCard[] = [
+  {
+    label: "Класс техники",
+    value: "Гидравлический экскаватор 21-22 т",
+    details: "Оптимальный баланс массы и тяги для городского и промышленного применения.",
+    metrics: { power: 86, efficiency: 84, cycle: 90 },
+  },
+  {
+    label: "Силовая установка",
+    value: "Двигатель 129 kW с оптимизированной тягой",
+    details: "Высокий крутящий момент обеспечивает быстрый отклик гидросистемы даже под нагрузкой.",
+    metrics: { power: 94, efficiency: 85, cycle: 91 },
+  },
+  {
+    label: "Экономичность",
+    value: "Снижение расхода топлива до 25%",
+    details: "Интеллектуальное управление рабочими режимами уменьшает стоимость моточаса.",
+    metrics: { power: 84, efficiency: 96, cycle: 89 },
+  },
+  {
+    label: "Рабочий режим",
+    value: "Стабильная производительность в цикле 24/7",
+    details: "Компоненты рассчитаны на длительную эксплуатацию в интенсивных сменах.",
+    metrics: { power: 90, efficiency: 87, cycle: 95 },
+  },
+  {
+    label: "Навесное оборудование",
+    value: "Поддержка гидромолота, грейфера, быстросъема",
+    details: "Расширенная гидролиния ускоряет адаптацию FR215F под разные виды задач.",
+    metrics: { power: 91, efficiency: 83, cycle: 93 },
+  },
+  {
+    label: "Комфорт оператора",
+    value: "Тихая кабина, улучшенная обзорность, эргономичное управление",
+    details: "Комфортная среда снижает утомляемость и повышает стабильность качества работ.",
+    metrics: { power: 82, efficiency: 88, cycle: 92 },
+  },
 ];
 
 const USE_CASES: UseCase[] = [
@@ -121,16 +172,59 @@ const CONTACT_WHATSAPP_LINK = "https://wa.me/77000000000";
 const FR215F_VIDEO_SRC = `${import.meta.env.BASE_URL}videos/FR215F-overview.mp4`;
 const FR215F_VIDEO_POSTER = `${import.meta.env.BASE_URL}videos/FR215F-poster.jpg`;
 const FR215F_CP_URL = `${import.meta.env.BASE_URL}docs/FR215F-commercial-offer.pdf`;
+const FR215F_HERO_IMAGE = `${import.meta.env.BASE_URL}FR215F.png`;
 
 export default function FR215F({ onBack }: Props) {
   const [activeUseCaseId, setActiveUseCaseId] = useState(USE_CASES[0].id);
   const [isVideoAvailable, setIsVideoAvailable] = useState(true);
+  const [activeSpecLabel, setActiveSpecLabel] = useState(SPEC_ROWS[1].label);
+  const [isPageReady, setIsPageReady] = useState(false);
   const activeUseCase = USE_CASES.find((item) => item.id === activeUseCaseId) ?? USE_CASES[0];
+  const activeSpec = SPEC_ROWS.find((item) => item.label === activeSpecLabel) ?? SPEC_ROWS[1];
   const activeTabId = `fr215f-tab-${activeUseCase.id}`;
+  const metricRows = useMemo(
+    () => [
+      { label: "Мощность", value: activeSpec.metrics.power },
+      { label: "Топливная экономичность", value: activeSpec.metrics.efficiency },
+      { label: "Производительность цикла", value: activeSpec.metrics.cycle },
+    ],
+    [activeSpec.metrics.cycle, activeSpec.metrics.efficiency, activeSpec.metrics.power]
+  );
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setIsPageReady(true);
+    }, 520);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   return (
-    <div className="fr215f-page">
+    <div className={`fr215f-page ${isPageReady ? "is-ready" : ""}`}>
       <div className="fr215f-noise" aria-hidden="true" />
+      <motion.div
+        className="fr215f-loader"
+        aria-hidden={isPageReady}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: isPageReady ? 0 : 1 }}
+        transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+      >
+        <motion.div
+          className="fr215f-loaderCard"
+          initial={{ opacity: 0, y: 22, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <span>Turkuaz Machinery CA</span>
+          <strong>Preparing FR215F Presentation</strong>
+          <motion.em
+            className="fr215f-loaderBar"
+            initial={{ scaleX: 0.2 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          />
+        </motion.div>
+      </motion.div>
 
       <button className="fr215f-back" type="button" onClick={onBack} aria-label="Назад к каталогу">
         <ArrowLeft size={18} />
@@ -139,57 +233,78 @@ export default function FR215F({ onBack }: Props) {
 
       <main className="fr215f-layout">
         <motion.section className="fr215f-hero" variants={revealVariants} initial="hidden" animate="show">
-          <span className="fr215f-kicker">
-            <span className="fr215f-brandLine">Turkuaz Machinery CA</span>
-            <span className="fr215f-brandLine">Premium Excavator Series</span>
-          </span>
-          <h1 className="fr215f-modelTitle">
-            LOVOL <span>FR215F</span>
-          </h1>
-          <p className="fr215f-heroCopy">
-            Интерактивная презентация экскаватора нового поколения: мощность, экономичность и сервисная инфраструктура,
-            которая снижает риски простоя и ускоряет окупаемость проекта.
-          </p>
+          <div className="fr215f-heroGrid">
+            <div className="fr215f-heroPrimary">
+              <span className="fr215f-kicker">
+                <span className="fr215f-brandLine">Turkuaz Machinery CA</span>
+                <span className="fr215f-brandLine">Premium Excavator Series</span>
+              </span>
+              <h1 className="fr215f-modelTitle">
+                LOVOL <span>FR215F</span>
+              </h1>
+              <p className="fr215f-heroCopy">
+                Интерактивная презентация экскаватора нового поколения: мощность, экономичность и сервисная инфраструктура,
+                которая снижает риски простоя и ускоряет окупаемость проекта.
+              </p>
 
-          <div className="fr215f-heroStats">
-            {STAT_CARDS.map((item) => {
-              const Icon = item.icon;
+              <motion.div className="fr215f-heroStats" variants={sectionStaggerVariants} initial="hidden" animate="show">
+                {STAT_CARDS.map((item) => {
+                  const Icon = item.icon;
 
-              return (
-                <motion.article key={item.label} className="fr215f-stat" variants={cardVariants} whileHover={{ y: -4 }}>
-                  <span className="fr215f-statIcon" aria-hidden="true">
-                    <Icon size={16} />
-                  </span>
-                  <strong>{item.value}</strong>
-                  <span>{item.label}</span>
-                </motion.article>
-              );
-            })}
-          </div>
+                  return (
+                    <motion.article key={item.label} className="fr215f-stat" variants={cardVariants} whileHover={{ y: -4 }}>
+                      <span className="fr215f-statIcon" aria-hidden="true">
+                        <Icon size={16} />
+                      </span>
+                      <strong>{item.value}</strong>
+                      <span>{item.label}</span>
+                    </motion.article>
+                  );
+                })}
+              </motion.div>
 
-          <div className="fr215f-heroActions">
-            <a className="fr215f-action fr215f-action--primary" href={FR215F_CP_URL} target="_blank" rel="noreferrer" data-feedback="primary">
-              <Download size={18} />
-              <span>Скачать коммерческое предложение</span>
-            </a>
-            <a className="fr215f-action" href={CONTACT_PHONE_LINK} data-feedback="primary">
-              <Phone size={18} />
-              <span>Позвонить менеджеру</span>
-            </a>
-            <a className="fr215f-action" href={CONTACT_WHATSAPP_LINK} target="_blank" rel="noreferrer" data-feedback="primary">
-              <MessageCircle size={18} />
-              <span>Написать в WhatsApp</span>
-            </a>
+              <div className="fr215f-heroActions">
+                <a className="fr215f-action fr215f-action--primary" href={FR215F_CP_URL} target="_blank" rel="noreferrer" data-feedback="primary">
+                  <Download size={18} />
+                  <span>Скачать коммерческое предложение</span>
+                </a>
+                <a className="fr215f-action" href={CONTACT_PHONE_LINK} data-feedback="primary">
+                  <Phone size={18} />
+                  <span>Позвонить менеджеру</span>
+                </a>
+                <a className="fr215f-action" href={CONTACT_WHATSAPP_LINK} target="_blank" rel="noreferrer" data-feedback="primary">
+                  <MessageCircle size={18} />
+                  <span>Написать в WhatsApp</span>
+                </a>
+              </div>
+            </div>
+
+            <motion.aside
+              className="fr215f-heroVisual"
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.62, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="fr215f-heroMediaWrap">
+                <img src={FR215F_HERO_IMAGE} alt="Lovol FR215F" loading="eager" decoding="async" />
+              </div>
+              <div className="fr215f-heroBadges" aria-hidden="true">
+                <span>21-22 т класс</span>
+                <span>129 kW</span>
+                <span>Fuel Save до 25%</span>
+              </div>
+            </motion.aside>
           </div>
         </motion.section>
 
         <motion.section className="fr215f-section" variants={revealVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}>
           <header className="fr215f-sectionHeader">
+            <span className="fr215f-sectionKicker">Advantages</span>
             <h2>Ключевые преимущества</h2>
             <p>Практичные технологии, которые напрямую влияют на безопасность, производительность и гибкость эксплуатации.</p>
           </header>
 
-          <div className="fr215f-featureGrid">
+          <motion.div className="fr215f-featureGrid" variants={sectionStaggerVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
             {FEATURE_CARDS.map((feature) => {
               const Icon = feature.icon;
 
@@ -203,49 +318,66 @@ export default function FR215F({ onBack }: Props) {
                 </motion.article>
               );
             })}
-          </div>
+          </motion.div>
         </motion.section>
 
         <motion.section className="fr215f-section" variants={revealVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}>
           <header className="fr215f-sectionHeader">
+            <span className="fr215f-sectionKicker">Specifications</span>
             <h2>Технические характеристики</h2>
             <p>Современная инфографика для быстрого понимания сильных сторон модели FR215F.</p>
           </header>
 
           <div className="fr215f-specPanel">
-            <div className="fr215f-specTable" role="list">
+            <div className="fr215f-specCardGrid" role="list" aria-label="Интерактивные технические характеристики FR215F">
               {SPEC_ROWS.map((row) => (
-                <div key={row.label} className="fr215f-specRow" role="listitem">
+                <motion.button
+                  key={row.label}
+                  type="button"
+                  role="listitem"
+                  className={`fr215f-specCard ${row.label === activeSpec.label ? "is-active" : ""}`}
+                  onMouseEnter={() => setActiveSpecLabel(row.label)}
+                  onFocus={() => setActiveSpecLabel(row.label)}
+                  onClick={() => setActiveSpecLabel(row.label)}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.99 }}
+                >
                   <span>{row.label}</span>
                   <strong>{row.value}</strong>
-                </div>
+                </motion.button>
               ))}
             </div>
             <div className="fr215f-performanceCard">
               <h3>Профиль эффективности</h3>
+              <h4>{activeSpec.label}</h4>
+              <p>{activeSpec.details}</p>
               <div className="fr215f-performanceBars">
-                <div>
-                  <span>Мощность</span>
-                  <em style={{ width: "92%" }} />
-                </div>
-                <div>
-                  <span>Топливная экономичность</span>
-                  <em style={{ width: "88%" }} />
-                </div>
-                <div>
-                  <span>Производительность цикла</span>
-                  <em style={{ width: "95%" }} />
-                </div>
+                {metricRows.map((metric) => (
+                  <div key={metric.label}>
+                    <header>
+                      <span>{metric.label}</span>
+                      <strong>{metric.value}%</strong>
+                    </header>
+                    <span className="fr215f-performanceTrack" aria-hidden="true">
+                      <motion.em
+                        key={`${activeSpec.label}-${metric.label}`}
+                        style={{ width: `${metric.value}%` }}
+                        initial={{ scaleX: 0.2, opacity: 0.6 }}
+                        animate={{ scaleX: 1, opacity: 1 }}
+                        transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
+                      />
+                    </span>
+                  </div>
+                ))}
               </div>
-              <p>
-                Конфигурация FR215F ориентирована на минимизацию стоимости моточаса при сохранении высокой скорости выполнения задач.
-              </p>
+              <p>Конфигурация FR215F ориентирована на минимизацию стоимости моточаса при сохранении высокой скорости выполнения задач.</p>
             </div>
           </div>
         </motion.section>
 
         <motion.section className="fr215f-section" variants={revealVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}>
           <header className="fr215f-sectionHeader">
+            <span className="fr215f-sectionKicker">Media</span>
             <h2>Фото и видео презентация</h2>
             <p>Резервные зоны для медиа высокого качества. Контент можно быстро заменить на реальные материалы.</p>
           </header>
@@ -289,6 +421,7 @@ export default function FR215F({ onBack }: Props) {
 
         <motion.section className="fr215f-section" variants={revealVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}>
           <header className="fr215f-sectionHeader">
+            <span className="fr215f-sectionKicker">Use Cases</span>
             <h2>Сценарии применения</h2>
             <p>Выберите отрасль и оцените, как FR215F закрывает реальные задачи бизнеса.</p>
           </header>
@@ -296,7 +429,7 @@ export default function FR215F({ onBack }: Props) {
           <div className="fr215f-useCases">
             <div className="fr215f-useCaseTabs" role="tablist" aria-label="Сценарии применения FR215F">
               {USE_CASES.map((item) => (
-                <button
+                <motion.button
                   key={item.id}
                   type="button"
                   id={`fr215f-tab-${item.id}`}
@@ -305,10 +438,12 @@ export default function FR215F({ onBack }: Props) {
                   aria-controls="fr215f-usecase-panel"
                   className={`fr215f-useCaseTab ${item.id === activeUseCaseId ? "is-active" : ""}`}
                   onClick={() => setActiveUseCaseId(item.id)}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.99 }}
                 >
                   <span>{item.title}</span>
                   <small>{item.short}</small>
-                </button>
+                </motion.button>
               ))}
             </div>
 
@@ -335,6 +470,7 @@ export default function FR215F({ onBack }: Props) {
 
         <motion.section className="fr215f-section fr215f-section--service" variants={revealVariants} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}>
           <header className="fr215f-sectionHeader">
+            <span className="fr215f-sectionKicker">Service</span>
             <h2>Гарантия, сервис и поддержка</h2>
             <p>Надежная послепродажная экосистема Turkuaz Machinery CA для снижения операционных рисков.</p>
           </header>
