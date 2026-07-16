@@ -141,3 +141,24 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+# Dependencies
+node_modules/
+
+# Build
+dist/
+
+# Cursor
+.cursor/
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
