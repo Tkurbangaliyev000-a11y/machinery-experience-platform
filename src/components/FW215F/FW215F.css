@@ -517,11 +517,28 @@
   flex-wrap: wrap;
 }
 
-.fw215f-serviceFooter > span {
-  display: inline-flex;
+.fw215f-serviceCities {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   color: rgba(224, 242, 255, 0.88);
+}
+
+.fw215f-serviceCities svg {
+  flex-shrink: 0;
+}
+
+.fw215f-serviceCities span {
+  padding: 7px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(168, 239, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.82rem;
+}
+
+.fw215f-serviceCities span:first-of-type {
+  margin-left: 2px;
 }
 
 .fw215f-inlineContact {

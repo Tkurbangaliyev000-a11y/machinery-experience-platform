@@ -16,6 +16,7 @@ const FEEDBACK_SETTINGS_KEY = "tm-feedback-settings";
 
 export default function HeroScene({ onEnter }: Props) {
   const loaderSound = useRef(createLoader60sAudio());
+  const sceneRef = useRef<HTMLElement | null>(null);
   const translations = useTranslations();
   const logoSrc = `${import.meta.env.BASE_URL}TMlogo.png`;
 
@@ -196,24 +197,62 @@ export default function HeroScene({ onEnter }: Props) {
     };
   }, []);
 
+  useEffect(() => {
+    const scene = sceneRef.current;
+
+    if (!scene) {
+      return;
+    }
+
+    const handlePointerMove = (event: PointerEvent) => {
+      const rect = scene.getBoundingClientRect();
+      const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
+      const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
+
+      scene.style.setProperty("--hero-x", `${offsetX * 18}px`);
+      scene.style.setProperty("--hero-y", `${offsetY * 18}px`);
+    };
+
+    const handlePointerLeave = () => {
+      scene.style.setProperty("--hero-x", "0px");
+      scene.style.setProperty("--hero-y", "0px");
+    };
+
+    scene.addEventListener("pointermove", handlePointerMove);
+    scene.addEventListener("pointerleave", handlePointerLeave);
+
+    return () => {
+      scene.removeEventListener("pointermove", handlePointerMove);
+      scene.removeEventListener("pointerleave", handlePointerLeave);
+    };
+  }, []);
+
   const handleEnter = () => {
     onEnter();
   };
 
   return (
-    <section className="hero-scene">
-      <div className="overlay"></div>
+    <section ref={sceneRef} className="hero-scene">
+      <div className="overlay" />
 
-      <div className="grid"></div>
+      <div className="grid" />
 
-      <div className="glow glow1"></div>
-      <div className="glow glow2"></div>
+      <div className="glow glow1" />
+      <div className="glow glow2" />
+      <div className="glow glow3" />
 
       <div className="hero-content">
-        <img className="hero-top-logo" src={logoSrc} alt="Логотип Туркуаз Машинери" />
+        <img className="hero-top-logo" src={logoSrc} alt="Turkuaz Machinery CA" />
+
+        <div className="hero-copy">
+          <p className="subtitle">{translations.heroEyebrow}</p>
+          <h1>{translations.heroTitle}</h1>
+          <p className="description">{translations.heroLead}</p>
+        </div>
 
         <button
           data-feedback="primary"
+          className="hero-enter premium-button"
           onMouseEnter={() => {
             playHoverSound();
           }}

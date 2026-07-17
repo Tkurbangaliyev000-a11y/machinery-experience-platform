@@ -114,14 +114,6 @@ function LanguageIcon() {
   );
 }
 
-function sanitizeLanguage(language: unknown): AppLanguage {
-  if (language === "en" || language === "ru" || language === "kk") {
-    return language;
-  }
-
-  return "ru";
-}
-
 function readFeedbackSettings(): FeedbackSettings {
   if (typeof window === "undefined") {
     return { soundEnabled: true, vibrationEnabled: true, language: "ru" };
@@ -139,7 +131,7 @@ function readFeedbackSettings(): FeedbackSettings {
     return {
       soundEnabled: parsed.soundEnabled ?? true,
       vibrationEnabled: parsed.vibrationEnabled ?? true,
-      language: sanitizeLanguage(parsed.language),
+      language: parsed.language === "en" || parsed.language === "ru" || parsed.language === "kk" ? parsed.language : "ru",
     };
   } catch {
     return { soundEnabled: true, vibrationEnabled: true, language: "ru" };

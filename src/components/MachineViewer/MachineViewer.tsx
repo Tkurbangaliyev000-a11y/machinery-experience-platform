@@ -38,7 +38,7 @@ export default function MachineViewer() {
     return (
       <div className="catalog-page catalog-page--models catalog-page--excavators">
 
-        <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
+        <p className="catalog-subtitle">Turkuaz Machinery CA</p>
 
         <h1>{translations.excavatorsTitle}</h1>
 
@@ -91,9 +91,9 @@ export default function MachineViewer() {
 
   if (page === "loaders") {
     return (
-      <div className="catalog-page catalog-page--models">
+      <div className="catalog-page catalog-page--models catalog-page--loaders">
 
-        <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
+        <p className="catalog-subtitle">Turkuaz Machinery CA</p>
 
         <h1>{translations.loadersTitle}</h1>
 
@@ -128,9 +128,9 @@ export default function MachineViewer() {
 
   if (page === "backhoes") {
     return (
-      <div className="catalog-page catalog-page--models">
+      <div className="catalog-page catalog-page--models catalog-page--backhoes">
 
-        <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
+        <p className="catalog-subtitle">Turkuaz Machinery CA</p>
 
         <h1>{translations.backhoesTitle}</h1>
 
@@ -157,9 +157,9 @@ export default function MachineViewer() {
 
   if (page === "wheeledExcavators") {
     return (
-      <div className="catalog-page catalog-page--models">
+      <div className="catalog-page catalog-page--models catalog-page--wheeled-excavators">
 
-        <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
+        <p className="catalog-subtitle">Turkuaz Machinery CA</p>
 
         <h1>{translations.wheeledExcavatorsTitle}</h1>
 
@@ -193,9 +193,9 @@ export default function MachineViewer() {
 
   if (page === "mining") {
     return (
-      <div className="catalog-page catalog-page--models">
+      <div className="catalog-page catalog-page--models catalog-page--mining">
 
-        <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
+        <p className="catalog-subtitle">Turkuaz Machinery CA</p>
 
         <h1>{translations.miningTitle}</h1>
 
@@ -246,9 +246,9 @@ export default function MachineViewer() {
 
   if (page === "dumptrucks") {
     return (
-      <div className="catalog-page catalog-page--models">
+      <div className="catalog-page catalog-page--models catalog-page--dumptrucks">
 
-        <p className="catalog-subtitle">Туркуаз Машинери Казахстан</p>
+        <p className="catalog-subtitle">Turkuaz Machinery CA</p>
 
         <h1>{translations.dumptrucksTitle}</h1>
 

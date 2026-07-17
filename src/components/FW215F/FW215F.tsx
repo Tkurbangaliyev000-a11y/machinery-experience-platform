@@ -114,7 +114,7 @@ const USE_CASES: UseCase[] = [
   },
 ];
 
-const SERVICE_POINTS = ["г. Алматы", "г. Астана", "г. Актобе"];
+const SERVICE_POINTS = ["Алматы", "Астана", "Актобе", "Караганда", "Атырау", "Шымкент"];
 const CONTACT_PHONE = "+77000000000";
 const CONTACT_PHONE_LINK = `tel:${CONTACT_PHONE}`;
 const CONTACT_WHATSAPP_LINK = "https://wa.me/77000000000";
@@ -375,10 +375,12 @@ export default function FW215F({ onBack }: Props) {
           </div>
 
           <div className="fw215f-serviceFooter">
-            <span>
+            <div className="fw215f-serviceCities" aria-label="Сервисные центры">
               <MapPin size={16} />
-              {SERVICE_POINTS.join(" • ")}
-            </span>
+              {SERVICE_POINTS.map((city) => (
+                <span key={city}>{city}</span>
+              ))}
+            </div>
             <a href={CONTACT_PHONE_LINK} className="fw215f-inlineContact" data-feedback="primary">
               Связаться с сервисной службой
               <ChevronRight size={16} />

@@ -1,30 +1,21 @@
-@font-face {
-  font-family: "LovolBrand";
-  src: url("/fonts/LOVOL-Brand.woff2") format("woff2"),
-       url("/fonts/LOVOL-Brand.woff") format("woff");
-  font-weight: 400 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
-  --text: #e9f1f7;
-  --text-h: #f4f9ff;
-  --bg: #070d14;
-  --border: rgba(255, 255, 255, 0.14);
-  --code-bg: rgba(255, 255, 255, 0.08);
-  --accent: #17b4d1;
-  --accent-bg: rgba(23, 180, 209, 0.2);
-  --accent-border: rgba(23, 180, 209, 0.52);
-  --social-bg: rgba(255, 255, 255, 0.08);
-  --shadow: 0 22px 56px rgba(0, 0, 0, 0.34);
+  --text: #dfe9f0;
+  --text-h: #f7fbff;
+  --bg: #05080d;
+  --border: rgba(255, 255, 255, 0.12);
+  --code-bg: rgba(255, 255, 255, 0.06);
+  --accent: #9cecff;
+  --accent-bg: rgba(156, 236, 255, 0.16);
+  --accent-border: rgba(156, 236, 255, 0.34);
+  --social-bg: rgba(255, 255, 255, 0.06);
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
 
-  --sans: "Montserrat", "Segoe UI Variable", "Segoe UI", sans-serif;
-  --heading: "Montserrat", "Segoe UI Variable", "Segoe UI", sans-serif;
+  --sans: "Inter", "Segoe UI Variable", "Segoe UI", sans-serif;
+  --heading: "Inter", "Segoe UI Variable", "Segoe UI", sans-serif;
   --mono: ui-monospace, Consolas, monospace;
-  --brand-display: "LovolBrand", "Rajdhani", "Montserrat", "Segoe UI", sans-serif;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  --brand-display: "Rajdhani", "Avenir Next Condensed", "Franklin Gothic Medium", "Segoe UI", sans-serif;
+  --radius-md: 18px;
+  --radius-lg: 28px;
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 
   font: 16px/1.6 var(--sans);
@@ -51,7 +42,10 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  min-width: 320px;
+  background:
+    radial-gradient(60% 40% at 50% -10%, rgba(156, 236, 255, 0.08), transparent 70%),
+    linear-gradient(180deg, #05080d 0%, #070c13 54%, #04070b 100%);
   color: var(--text);
   font-family: var(--sans);
   line-height: 1.6;
@@ -89,7 +83,7 @@ a.viewport-attention-highlight,
 h1,
 h2 {
   font-family: var(--heading);
-  font-weight: 700;
+  font-weight: 650;
   color: var(--text-h);
 }
 
@@ -117,6 +111,45 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+button {
+  border: 0;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.lovol-brand,
+[data-brand="lovol"] {
+  font-family: var(--brand-display);
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.premium-panel {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(24px) saturate(120%);
+  box-shadow: var(--shadow);
+}
+
+.premium-button {
+  min-height: 48px;
+  border-radius: 16px;
+  transition: transform 0.24s var(--ease-premium), box-shadow 0.24s var(--ease-premium), border-color 0.24s var(--ease-premium), background 0.24s var(--ease-premium);
+}
+
+.premium-button:hover {
+  transform: translateY(-2px);
+}
+
+.premium-button:active {
+  transform: translateY(0) scale(0.98);
 }
 
 code,
