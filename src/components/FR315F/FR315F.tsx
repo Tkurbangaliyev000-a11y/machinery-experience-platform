@@ -31,6 +31,8 @@ const buttonVariants: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
+const LOVOL_LOGO_SRC = `${import.meta.env.BASE_URL}LOVOL-original.png`;
+
 const FR315F_COPY: Record<AppLanguage, {
   back: string;
   brand: string;
@@ -199,7 +201,9 @@ export default function FR315F({ onBack }: Props) {
             <motion.header className="fr315f-header" variants={rowVariants}>
               <span className="fr315f-label">{copy.brand}</span>
               <h1 className="fr315f-title fr315f-title--logo" aria-label="LOVOL FR315F">
-                <span className="fr315f-titleLovol">LOVOL</span>
+                <span className="fr315f-titleLovol">
+                  <img className="fr315f-titleLovolImage" src={LOVOL_LOGO_SRC} alt="LOVOL" loading="eager" decoding="async" />
+                </span>
                 <span className="fr315f-titleModel">FR315F</span>
               </h1>
               <p className="fr315f-subtitle">{copy.subtitle}</p>

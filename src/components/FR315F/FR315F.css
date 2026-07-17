@@ -31,7 +31,7 @@
 }
 
 .fr315f-video {
-  width: 100%;
+  display: inline-block;
   height: 100%;
   object-fit: cover;
   object-position: center center;
@@ -48,6 +48,7 @@
   position: absolute;
   top: clamp(14px, 2vw, 22px);
   left: clamp(14px, 2vw, 22px);
+  line-height: 0;
   z-index: 12;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(0, 0, 0, 0.42);
@@ -127,23 +128,17 @@
 }
 
 .fr315f-titleLovol {
-  display: block;
+  display: inline-block;
   margin: 0;
-  font-family: "Impact", "Arial Black", var(--brand-display);
-  font-size: clamp(2.35rem, 6.9vw, 4.15rem);
-  letter-spacing: 0.08em;
-  font-weight: 900;
-  text-transform: uppercase;
-  line-height: 0.9;
-  color: transparent;
-  background: linear-gradient(180deg, #ffffff 4%, #e6eaee 28%, #a7afb8 50%, #6f7782 63%, #bcc3cb 82%, #f4f7fb 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-stroke: 1.2px rgba(40, 44, 50, 0.9);
-  text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.34),
-    0 3px 0 rgba(40, 44, 50, 0.48),
-    0 10px 22px rgba(0, 0, 0, 0.45);
+  line-height: 0;
+}
+
+.fr315f-titleLovolImage {
+  width: clamp(300px, 45vw, 620px);
+  max-width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.44));
 }
 
 .fr315f-titleModel {
