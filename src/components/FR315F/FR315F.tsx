@@ -48,7 +48,7 @@ const FR315F_COPY: Record<AppLanguage, {
     subtitle: "Premium hydraulic excavator",
     lead: "Emphasized power, engineering precision and premium ergonomics for operators who work at the next level.",
     actionOffer: "Commercial offer",
-    actionChat: "Message",
+    actionChat: "WhatsApp",
     actionCall: "Call",
     specCards: [
       { label: "Operating weight", value: "31,300 kg" },
@@ -90,7 +90,7 @@ const FR315F_COPY: Record<AppLanguage, {
     subtitle: "Премиальный гидравлический экскаватор",
     lead: "Подчеркнутая мощь, инженерная точность и премиальная эргономика для людей, которые работают с техникой на новом уровне.",
     actionOffer: "Коммерческое предложение",
-    actionChat: "Написать в мессенджер",
+    actionChat: "WhatsApp",
     actionCall: "Позвонить",
     specCards: [
       { label: "Эксплуатационная масса", value: "31 300 кг" },
@@ -132,7 +132,7 @@ const FR315F_COPY: Record<AppLanguage, {
     subtitle: "Премиум гидравликалық экскаватор",
     lead: "Келесі деңгейде жұмыс істейтін мамандар үшін айқын қуат, инженерлік дәлдік және премиум эргономика.",
     actionOffer: "Коммерциялық ұсыныс",
-    actionChat: "Мессенджерге жазу",
+    actionChat: "WhatsApp",
     actionCall: "Қоңырау шалу",
     specCards: [
       { label: "Пайдалану салмағы", value: "31 300 кг" },
