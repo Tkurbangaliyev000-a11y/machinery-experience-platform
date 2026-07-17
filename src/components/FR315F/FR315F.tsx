@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState, type ComponentType } from "react";
+import { useState, type ComponentType } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { ArrowLeft, Download, MessageCircle, Phone } from "lucide-react";
 import { useAppLanguage, type AppLanguage } from "../../i18n";
 import "./FR315F.css";
 
-import introVideo from "../../assets/videos/FR315F.mp4";
 import cameraImage from "../../assets/images/FR315F/camera.png";
 import ledImage from "../../assets/images/FR315F/led.png";
 import cabinImage from "../../assets/images/FR315F/cabin.png";
@@ -35,7 +34,6 @@ const buttonVariants: Variants = {
 const FR315F_COPY: Record<AppLanguage, {
   back: string;
   brand: string;
-  series: string;
   subtitle: string;
   lead: string;
   actionOffer: string;
@@ -47,7 +45,6 @@ const FR315F_COPY: Record<AppLanguage, {
   en: {
     back: "Back",
     brand: "Turkuaz Machinery CA",
-    series: "Premium excavator series",
     subtitle: "Premium hydraulic excavator",
     lead: "Emphasized power, engineering precision and premium ergonomics for operators who work at the next level.",
     actionOffer: "Commercial offer",
@@ -90,7 +87,6 @@ const FR315F_COPY: Record<AppLanguage, {
   ru: {
     back: "Назад",
     brand: "Turkuaz Machinery CA",
-    series: "Премиальная серия экскаваторов",
     subtitle: "Премиальный гидравлический экскаватор",
     lead: "Подчеркнутая мощь, инженерная точность и премиальная эргономика для людей, которые работают с техникой на новом уровне.",
     actionOffer: "Коммерческое предложение",
@@ -133,7 +129,6 @@ const FR315F_COPY: Record<AppLanguage, {
   kk: {
     back: "Артқа",
     brand: "Turkuaz Machinery CA",
-    series: "Экскаваторлардың премиум сериясы",
     subtitle: "Премиум гидравликалық экскаватор",
     lead: "Келесі деңгейде жұмыс істейтін мамандар үшін айқын қуат, инженерлік дәлдік және премиум эргономика.",
     actionOffer: "Коммерциялық ұсыныс",
@@ -176,8 +171,7 @@ const FR315F_COPY: Record<AppLanguage, {
 };
 
 export default function FR315F({ onBack }: Props) {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [showUI, setShowUI] = useState(false);
+  const [showUI] = useState(true);
   const language = useAppLanguage();
   const copy = FR315F_COPY[language] ?? FR315F_COPY.ru;
   const [activeFeatureId, setActiveFeatureId] = useState(copy.features[0].id);
@@ -187,38 +181,11 @@ export default function FR315F({ onBack }: Props) {
     { label: copy.actionCall, href: "tel:+77000000000", icon: Phone },
   ];
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleEnded = () => {
-      try {
-        video.pause();
-        video.currentTime = Math.max(0, (video.duration || 0) - 0.04);
-      } catch {
-        // ignore
-      }
-      setTimeout(() => setShowUI(true), 240);
-    };
-
-    video.addEventListener("ended", handleEnded);
-    return () => video.removeEventListener("ended", handleEnded);
-  }, []);
-
   const selectedFeatureId = copy.features.some((feature) => feature.id === activeFeatureId) ? activeFeatureId : copy.features[0].id;
   const activeFeature = copy.features.find((feature) => feature.id === selectedFeatureId) ?? copy.features[0];
 
   return (
     <div className="fr315f-shell">
-      <video
-        ref={videoRef}
-        className="fr315f-video"
-        src={introVideo}
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-      />
       <div className="fr315f-backdrop" />
 
       <button className="fr315f-back" onClick={onBack} aria-label={copy.back}>
@@ -231,9 +198,9 @@ export default function FR315F({ onBack }: Props) {
           <motion.div className="fr315f-ui" variants={overlayVariants} initial="hidden" animate="show" exit="hidden">
             <motion.header className="fr315f-header" variants={rowVariants}>
               <span className="fr315f-label">{copy.brand}</span>
-              <span className="fr315f-series">{copy.series}</span>
-              <h1 className="fr315f-title">
-                LOVOL <span>FR315F</span>
+              <h1 className="fr315f-title fr315f-title--logo" aria-label="LOVOL FR315F">
+                <span className="fr315f-titleLovol">LOVOL</span>
+                <span className="fr315f-titleModel">FR315F</span>
               </h1>
               <p className="fr315f-subtitle">{copy.subtitle}</p>
               <p className="fr315f-copy">{copy.lead}</p>
