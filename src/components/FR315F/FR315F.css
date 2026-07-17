@@ -141,24 +141,68 @@
   filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.44));
 }
 
-.fr315f-titleModel {
-  display: inline-block;
-  padding: 0;
-  clip-path: none;
-  background: transparent;
-  color: #f2f5f9;
-  font-family: var(--brand-display);
-  font-size: clamp(1.34rem, 3.95vw, 2.2rem);
-  letter-spacing: 0.13em;
-  font-weight: 800;
-  font-style: italic;
-  text-transform: uppercase;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+.fr315f-titleBadge {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 0.22rem;
+  width: clamp(188px, 31vw, 286px);
+  padding: clamp(0.42rem, 1.1vw, 0.58rem) clamp(0.8rem, 1.4vw, 1rem) clamp(0.48rem, 1.3vw, 0.66rem) clamp(1.02rem, 1.8vw, 1.18rem);
+  border: 3px solid #f02331;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(22, 25, 30, 0.98), rgba(8, 10, 13, 0.96));
+  clip-path: polygon(7% 0, 100% 0, 100% 66%, 87% 66%, 76% 100%, 0 100%, 0 24%);
+  box-shadow:
+    0 0 0 2px rgba(19, 20, 24, 0.9) inset,
+    0 8px 22px rgba(0, 0, 0, 0.42);
 }
 
-.fr315f-titleModel::before,
-.fr315f-titleModel::after {
-  content: none;
+.fr315f-titleBadge::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(240, 35, 49, 0.55);
+  clip-path: polygon(7% 0, 100% 0, 100% 66%, 87% 66%, 76% 100%, 0 100%, 0 24%);
+  pointer-events: none;
+}
+
+.fr315f-titleBadgeMain {
+  position: relative;
+  z-index: 1;
+  font-family: "Rajdhani", var(--brand-display);
+  font-size: clamp(1.78rem, 4.9vw, 2.58rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 0.92;
+  color: #f6f9fb;
+}
+
+.fr315f-titleBadgeSub {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.02em;
+  margin-left: clamp(0.3rem, 1.2vw, 0.54rem);
+  font-family: "Rajdhani", var(--brand-display);
+  line-height: 1;
+}
+
+.fr315f-titleBadgeSubAccent {
+  color: #f02331;
+  font-size: clamp(1.14rem, 2.5vw, 1.42rem);
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.fr315f-titleBadgeSubText {
+  color: rgba(246, 249, 252, 0.92);
+  font-size: clamp(0.96rem, 2.2vw, 1.18rem);
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
 .fr315f-subtitle {

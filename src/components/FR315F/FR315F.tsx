@@ -204,7 +204,13 @@ export default function FR315F({ onBack }: Props) {
                 <span className="fr315f-titleLovol">
                   <img className="fr315f-titleLovolImage" src={LOVOL_LOGO_SRC} alt="LOVOL" loading="eager" decoding="async" />
                 </span>
-                <span className="fr315f-titleModel">FR315F</span>
+                <span className="fr315f-titleBadge" aria-hidden="true">
+                  <span className="fr315f-titleBadgeMain">FR315F</span>
+                  <span className="fr315f-titleBadgeSub">
+                    <span className="fr315f-titleBadgeSubAccent">W</span>
+                    <span className="fr315f-titleBadgeSubText">Phi</span>
+                  </span>
+                </span>
               </h1>
               <p className="fr315f-subtitle">{copy.subtitle}</p>
               <p className="fr315f-copy">{copy.lead}</p>
