@@ -75,7 +75,7 @@
   display: grid;
   gap: 1.8rem;
   min-height: 100vh;
-  padding: 2rem 1.5rem 2.4rem;
+  padding: clamp(4.8rem, 7.2vw, 6rem) 1.5rem 2.4rem;
 }
 
 .fr315f-header {
@@ -126,19 +126,26 @@
 
 .fr315f-titleLovol {
   display: block;
-  font-family: var(--brand-display);
-  font-size: clamp(2.3rem, 6.8vw, 4.2rem);
-  letter-spacing: 0.12em;
-  font-weight: 800;
+  font-family: "Impact", "Arial Black", var(--brand-display);
+  font-size: clamp(2.2rem, 6.4vw, 4rem);
+  letter-spacing: 0.065em;
+  font-weight: 900;
   text-transform: uppercase;
+  line-height: 0.88;
+  transform: scaleX(1.06);
+  transform-origin: center;
   color: transparent;
-  background: linear-gradient(180deg, #ffffff 6%, #d7dbe0 34%, #8f969f 58%, #eef1f4 86%);
+  background:
+    linear-gradient(180deg, #f9fbff 0%, #ffffff 11%, #d5dbe3 31%, #7d8691 52%, #5f6772 59%, #c7cdd4 79%, #eef2f6 100%);
   -webkit-background-clip: text;
   background-clip: text;
+  -webkit-text-stroke: 1.4px rgba(44, 48, 55, 0.94);
   text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.28),
-    0 8px 18px rgba(0, 0, 0, 0.44),
-    0 2px 4px rgba(0, 0, 0, 0.34);
+    0 1px 0 rgba(255, 255, 255, 0.44),
+    0 2px 0 rgba(255, 255, 255, 0.22),
+    0 4px 0 rgba(37, 41, 48, 0.62),
+    0 11px 24px rgba(0, 0, 0, 0.46);
+  filter: drop-shadow(0 2px 0 rgba(28, 31, 38, 0.5));
 }
 
 .fr315f-titleModel {
