@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useAppLanguage, type AppLanguage } from "../../i18n";
 import "./FR315FIntro.css";
 import cardImage from "../../assets/images/FR315F/card.png";
 
@@ -6,7 +7,25 @@ type Props = {
   onFinish: () => void;
 };
 
+const INTRO_COPY: Record<AppLanguage, { brand: string; lead: string }> = {
+  en: {
+    brand: "TURKUAZ MACHINERY CA",
+    lead: "Premium excavator operation experience",
+  },
+  ru: {
+    brand: "TURKUAZ MACHINERY CA",
+    lead: "Премиальный опыт эксплуатации экскаватора",
+  },
+  kk: {
+    brand: "TURKUAZ MACHINERY CA",
+    lead: "Экскаваторды премиум деңгейде пайдалану тәжірибесі",
+  },
+};
+
 export default function FR315FIntro({ onFinish }: Props) {
+  const language = useAppLanguage();
+  const copy = INTRO_COPY[language] ?? INTRO_COPY.ru;
+
   return (
     <motion.div
       className="intro-screen"
@@ -59,7 +78,7 @@ export default function FR315FIntro({ onFinish }: Props) {
           duration: 1,
         }}
       >
-        ТУРКУАЗ МАШИНЕРИ КАЗАХСТАН
+        {copy.brand}
       </motion.div>
 
       {/* Экскаватор */}
@@ -126,7 +145,7 @@ export default function FR315FIntro({ onFinish }: Props) {
           duration: 1,
         }}
       >
-        Премиальный опыт эксплуатации экскаватора
+        {copy.lead}
       </motion.div>
     </motion.div>
   );

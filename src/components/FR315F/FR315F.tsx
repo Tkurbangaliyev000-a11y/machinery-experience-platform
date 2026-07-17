@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ComponentType } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { ArrowLeft, Download, MessageCircle, Phone } from "lucide-react";
+import { useAppLanguage, type AppLanguage } from "../../i18n";
 import "./FR315F.css";
 
 import introVideo from "../../assets/videos/FR315F.mp4";
@@ -15,47 +16,6 @@ type Props = { onBack: () => void };
 type SpecCard = { label: string; value: string };
 type FeatureItem = { id: string; title: string; description: string; image: string };
 type ActionItem = { label: string; href: string; external?: boolean; primary?: boolean; icon: ComponentType<{ size?: number }> };
-
-const SPEC_CARDS: SpecCard[] = [
-  { label: "Эксплуатационная масса", value: "31 300 кг" },
-  { label: "Двигатель", value: "WEICHAI 8.2L" },
-  { label: "Мощность", value: "228 кВт / 310 HP" },
-  { label: "Объём ковша", value: "1.7 м³" },
-  { label: "Макс. глубина копания", value: "6806 мм" },
-];
-
-const FEATURE_CARDS: FeatureItem[] = [
-  {
-    id: "camera",
-    title: "Камера заднего вида",
-    description: "Панорамный обзор с четким изображением для точного маневрирования.",
-    image: cameraImage,
-  },
-  {
-    id: "led",
-    title: "LED-оптика",
-    description: "Яркое световое решение для работы в рассветные и ночные смены.",
-    image: ledImage,
-  },
-  {
-    id: "roof",
-    title: "Защита крыши",
-    description: "Усиленный каркас крыши для максимальной безопасности оператора.",
-    image: roofImage,
-  },
-  {
-    id: "cabin",
-    title: "Защита кабины",
-    description: "Компактная и прозрачная решетка сохраняет обзор и безопасность.",
-    image: cabinImage,
-  },
-];
-
-const ACTIONS: ActionItem[] = [
-  { label: "Коммерческое предложение", href: "#", primary: true, icon: Download },
-  { label: "Написать в мессенджер", href: "https://wa.me/77000000000", external: true, icon: MessageCircle },
-  { label: "Позвонить", href: "tel:+77000000000", icon: Phone },
-];
 
 const overlayVariants: Variants = {
   hidden: { opacity: 0 },
@@ -72,10 +32,160 @@ const buttonVariants: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
+const FR315F_COPY: Record<AppLanguage, {
+  back: string;
+  brand: string;
+  series: string;
+  subtitle: string;
+  lead: string;
+  actionOffer: string;
+  actionChat: string;
+  actionCall: string;
+  specCards: SpecCard[];
+  features: FeatureItem[];
+}> = {
+  en: {
+    back: "Back",
+    brand: "Turkuaz Machinery CA",
+    series: "Premium excavator series",
+    subtitle: "Premium hydraulic excavator",
+    lead: "Emphasized power, engineering precision and premium ergonomics for operators who work at the next level.",
+    actionOffer: "Commercial offer",
+    actionChat: "Message",
+    actionCall: "Call",
+    specCards: [
+      { label: "Operating weight", value: "31,300 kg" },
+      { label: "Engine", value: "WEICHAI 8.2L" },
+      { label: "Power", value: "228 kW / 310 HP" },
+      { label: "Bucket capacity", value: "1.7 m3" },
+      { label: "Max digging depth", value: "6806 mm" },
+    ],
+    features: [
+      {
+        id: "camera",
+        title: "Rear-view camera",
+        description: "Panoramic visibility with a clear image for precise maneuvering.",
+        image: cameraImage,
+      },
+      {
+        id: "led",
+        title: "LED optics",
+        description: "High-output lighting for confident work in dawn and night shifts.",
+        image: ledImage,
+      },
+      {
+        id: "roof",
+        title: "Roof protection",
+        description: "Reinforced roof frame that improves operator safety in harsh conditions.",
+        image: roofImage,
+      },
+      {
+        id: "cabin",
+        title: "Cabin protection",
+        description: "Compact and transparent guard design that keeps visibility and safety balanced.",
+        image: cabinImage,
+      },
+    ],
+  },
+  ru: {
+    back: "Назад",
+    brand: "Turkuaz Machinery CA",
+    series: "Премиальная серия экскаваторов",
+    subtitle: "Премиальный гидравлический экскаватор",
+    lead: "Подчеркнутая мощь, инженерная точность и премиальная эргономика для людей, которые работают с техникой на новом уровне.",
+    actionOffer: "Коммерческое предложение",
+    actionChat: "Написать в мессенджер",
+    actionCall: "Позвонить",
+    specCards: [
+      { label: "Эксплуатационная масса", value: "31 300 кг" },
+      { label: "Двигатель", value: "WEICHAI 8.2L" },
+      { label: "Мощность", value: "228 кВт / 310 HP" },
+      { label: "Объем ковша", value: "1.7 м3" },
+      { label: "Макс. глубина копания", value: "6806 мм" },
+    ],
+    features: [
+      {
+        id: "camera",
+        title: "Камера заднего вида",
+        description: "Панорамный обзор с четким изображением для точного маневрирования.",
+        image: cameraImage,
+      },
+      {
+        id: "led",
+        title: "LED-оптика",
+        description: "Яркое световое решение для работы в рассветные и ночные смены.",
+        image: ledImage,
+      },
+      {
+        id: "roof",
+        title: "Защита крыши",
+        description: "Усиленный каркас крыши для максимальной безопасности оператора.",
+        image: roofImage,
+      },
+      {
+        id: "cabin",
+        title: "Защита кабины",
+        description: "Компактная и прозрачная решетка сохраняет обзор и безопасность.",
+        image: cabinImage,
+      },
+    ],
+  },
+  kk: {
+    back: "Артқа",
+    brand: "Turkuaz Machinery CA",
+    series: "Экскаваторлардың премиум сериясы",
+    subtitle: "Премиум гидравликалық экскаватор",
+    lead: "Келесі деңгейде жұмыс істейтін мамандар үшін айқын қуат, инженерлік дәлдік және премиум эргономика.",
+    actionOffer: "Коммерциялық ұсыныс",
+    actionChat: "Мессенджерге жазу",
+    actionCall: "Қоңырау шалу",
+    specCards: [
+      { label: "Пайдалану салмағы", value: "31 300 кг" },
+      { label: "Қозғалтқыш", value: "WEICHAI 8.2L" },
+      { label: "Қуат", value: "228 кВт / 310 HP" },
+      { label: "Шөміш көлемі", value: "1.7 м3" },
+      { label: "Қазу тереңдігі (макс.)", value: "6806 мм" },
+    ],
+    features: [
+      {
+        id: "camera",
+        title: "Артқы көрініс камерасы",
+        description: "Дәл маневр жасауға арналған анық кескіні бар панорамалық шолу.",
+        image: cameraImage,
+      },
+      {
+        id: "led",
+        title: "LED-оптика",
+        description: "Таңғы және түнгі ауысымда сенімді жұмыс істеуге арналған қуатты жарық.",
+        image: ledImage,
+      },
+      {
+        id: "roof",
+        title: "Төбе қорғанысы",
+        description: "Қатаң жағдайда оператор қауіпсіздігін арттыратын күшейтілген төбе қаңқасы.",
+        image: roofImage,
+      },
+      {
+        id: "cabin",
+        title: "Кабина қорғанысы",
+        description: "Шолу мен қауіпсіздікті тең ұстайтын ықшам әрі ашық торлы қорғаныс.",
+        image: cabinImage,
+      },
+    ],
+  },
+};
+
 export default function FR315F({ onBack }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-    const [showUI, setShowUI] = useState(false);
-    const [activeFeatureId, setActiveFeatureId] = useState(FEATURE_CARDS[0].id);
+  const [showUI, setShowUI] = useState(false);
+  const language = useAppLanguage();
+  const copy = FR315F_COPY[language] ?? FR315F_COPY.ru;
+  const [activeFeatureId, setActiveFeatureId] = useState(copy.features[0].id);
+  const actions: ActionItem[] = [
+    { label: copy.actionOffer, href: "#", primary: true, icon: Download },
+    { label: copy.actionChat, href: "https://wa.me/77000000000", external: true, icon: MessageCircle },
+    { label: copy.actionCall, href: "tel:+77000000000", icon: Phone },
+  ];
 
   useEffect(() => {
     const video = videoRef.current;
@@ -95,7 +205,8 @@ export default function FR315F({ onBack }: Props) {
     return () => video.removeEventListener("ended", handleEnded);
   }, []);
 
-  const activeFeature = FEATURE_CARDS.find((feature) => feature.id === activeFeatureId) ?? FEATURE_CARDS[0];
+  const selectedFeatureId = copy.features.some((feature) => feature.id === activeFeatureId) ? activeFeatureId : copy.features[0].id;
+  const activeFeature = copy.features.find((feature) => feature.id === selectedFeatureId) ?? copy.features[0];
 
   return (
     <div className="fr315f-shell">
@@ -110,28 +221,26 @@ export default function FR315F({ onBack }: Props) {
       />
       <div className="fr315f-backdrop" />
 
-      <button className="fr315f-back" onClick={onBack} aria-label="Назад к каталогу">
+      <button className="fr315f-back" onClick={onBack} aria-label={copy.back}>
         <ArrowLeft size={16} />
-        <span>Назад</span>
+        <span>{copy.back}</span>
       </button>
 
       <AnimatePresence>
         {showUI && (
           <motion.div className="fr315f-ui" variants={overlayVariants} initial="hidden" animate="show" exit="hidden">
             <motion.header className="fr315f-header" variants={rowVariants}>
-              <span className="fr315f-label">Туркуаз Машинери Казахстан</span>
-              <span className="fr315f-series">Премиальная серия экскаваторов</span>
+              <span className="fr315f-label">{copy.brand}</span>
+              <span className="fr315f-series">{copy.series}</span>
               <h1 className="fr315f-title">
                 LOVOL <span>FR315F</span>
               </h1>
-              <p className="fr315f-subtitle">Премиальный гидравлический экскаватор</p>
-              <p className="fr315f-copy">
-                Подчеркнутая мощь, инженерная точность и премиальная эргономика для людей, которые работают с техникой на новом уровне.
-              </p>
+              <p className="fr315f-subtitle">{copy.subtitle}</p>
+              <p className="fr315f-copy">{copy.lead}</p>
             </motion.header>
 
             <motion.section className="fr315f-specs" variants={rowVariants}>
-              {SPEC_CARDS.map((spec) => (
+              {copy.specCards.map((spec) => (
                 <motion.article key={spec.label} className="fr315f-spec" whileHover={{ y: -3, scale: 1.01 }} transition={{ duration: 0.2 }}>
                   <span className="fr315f-specValue">{spec.value}</span>
                   <span className="fr315f-specLabel">{spec.label}</span>
@@ -154,8 +263,8 @@ export default function FR315F({ onBack }: Props) {
 
             <motion.section className="fr315f-features" variants={rowVariants}>
               <div className="fr315f-featuresGrid">
-                {FEATURE_CARDS.map((feature) => {
-                  const active = feature.id === activeFeatureId;
+                {copy.features.map((feature) => {
+                  const active = feature.id === selectedFeatureId;
                   return (
                     <motion.button
                       key={feature.id}
@@ -177,7 +286,7 @@ export default function FR315F({ onBack }: Props) {
             </motion.section>
 
             <motion.section className="fr315f-actions" variants={buttonVariants}>
-              {ACTIONS.map((action) => (
+              {actions.map((action) => (
                 <motion.a
                   key={action.label}
                   className={`fr315f-action ${action.primary ? "primary" : "secondary"}`}
