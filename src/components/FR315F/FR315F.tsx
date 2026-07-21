@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { ArrowLeft, Download, HandCoins, MessageCircle, Phone } from "lucide-react";
 import { useAppLanguage, type AppLanguage } from "../../i18n";
+import LeasingApplicationModal from "../LeasingApplicationModal/LeasingApplicationModal";
 import "./FR315F.css";
 
 import cameraImage from "../../assets/images/FR315F/camera.png";
@@ -14,7 +15,15 @@ type Props = { onBack: () => void };
 
 type SpecCard = { label: string; value: string };
 type FeatureItem = { id: string; title: string; description: string; image: string };
-type ActionItem = { label: string; href: string; external?: boolean; primary?: boolean; stacked?: boolean; icon: ComponentType<{ size?: number }> };
+type ActionItem = {
+  label: string;
+  href?: string;
+  external?: boolean;
+  primary?: boolean;
+  stacked?: boolean;
+  icon: ComponentType<{ size?: number }>;
+  onClick?: () => void;
+};
 
 const overlayVariants: Variants = {
   hidden: { opacity: 0 },
@@ -178,14 +187,21 @@ const FR315F_COPY: Record<AppLanguage, {
 
 export default function FR315F({ onBack }: Props) {
   const [showUI] = useState(true);
+  const [isLeasingModalOpen, setIsLeasingModalOpen] = useState(false);
+  const [leasingModalKey, setLeasingModalKey] = useState(0);
   const language = useAppLanguage();
   const copy = FR315F_COPY[language] ?? FR315F_COPY.ru;
   const [activeFeatureId, setActiveFeatureId] = useState(copy.features[0].id);
+  const openLeasingModal = () => {
+    setLeasingModalKey((prev) => prev + 1);
+    setIsLeasingModalOpen(true);
+  };
+
   const actions: ActionItem[] = [
     { label: copy.actionOffer, href: "#", primary: true, icon: Download },
     { label: copy.actionChat, href: "https://wa.me/77000000000", external: true, icon: MessageCircle },
     { label: copy.actionCall, href: "tel:+77000000000", icon: Phone },
-    { label: copy.actionLeasing, href: "https://halykls.kz/quiz?utm_source=google&utm_medium=cpc&utm_campaign=quiz_halyk_leasing_obshie&utm_content=lizing_tehniki_obshie&gad_source=1&gad_campaignid=23321310479&gbraid=0AAAAA-Q5BvSYafMu17u62tHHLeFEAuKWo&gclid=Cj0KCQjwjvfSBhDpARIsAEiOpSs5iK7v1cm0y2aRvlcaM-mxiypCJ4KYiaMrgFyUKKabx0-rcD8t6poaAnu5EALw_wcB", external: true, stacked: true, icon: HandCoins },
+    { label: copy.actionLeasing, stacked: true, icon: HandCoins, onClick: openLeasingModal },
   ];
 
   const selectedFeatureId = copy.features.some((feature) => feature.id === activeFeatureId) ? activeFeatureId : copy.features[0].id;
@@ -269,27 +285,47 @@ export default function FR315F({ onBack }: Props) {
 
             <motion.section className="fr315f-actions" variants={buttonVariants}>
               {actions.map((action) => (
-                <motion.a
-                  key={action.label}
-                  className={`fr315f-action ${action.primary ? "primary" : "secondary"}${action.stacked ? " fr315f-action--stacked" : ""}`}
-                  data-feedback={action.primary ? "primary" : undefined}
-                  href={action.href}
-                  target={action.external ? "_blank" : undefined}
-                  rel={action.external ? "noreferrer" : undefined}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <span className="fr315f-actionIcon" aria-hidden="true">
-                    <action.icon size={18} />
-                  </span>
-                  <span className="fr315f-actionLabel">{action.label}</span>
-                </motion.a>
+                action.href ? (
+                  <motion.a
+                    key={action.label}
+                    className={`fr315f-action ${action.primary ? "primary" : "secondary"}${action.stacked ? " fr315f-action--stacked" : ""}`}
+                    data-feedback={action.primary ? "primary" : undefined}
+                    href={action.href}
+                    target={action.external ? "_blank" : undefined}
+                    rel={action.external ? "noreferrer" : undefined}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span className="fr315f-actionIcon" aria-hidden="true">
+                      <action.icon size={18} />
+                    </span>
+                    <span className="fr315f-actionLabel">{action.label}</span>
+                  </motion.a>
+                ) : (
+                  <motion.button
+                    key={action.label}
+                    type="button"
+                    className={`fr315f-action ${action.primary ? "primary" : "secondary"}${action.stacked ? " fr315f-action--stacked" : ""}`}
+                    data-feedback={action.primary ? "primary" : undefined}
+                    onClick={action.onClick}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span className="fr315f-actionIcon" aria-hidden="true">
+                      <action.icon size={18} />
+                    </span>
+                    <span className="fr315f-actionLabel">{action.label}</span>
+                  </motion.button>
+                )
               ))}
             </motion.section>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <LeasingApplicationModal key={leasingModalKey} isOpen={isLeasingModalOpen} model="LOVOL FR315F" onClose={() => setIsLeasingModalOpen(false)} />
 
       
     </div>
