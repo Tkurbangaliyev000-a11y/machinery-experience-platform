@@ -56,7 +56,6 @@ const initialPayload = (model: string): LeasingApplicationPayload => ({
   phone: "",
   company: "",
   city: "",
-  email: "",
   comment: "",
   consent: false,
 });
@@ -148,7 +147,6 @@ export default function LeasingApplicationModal({ isOpen, model, onClose }: Leas
         phone: form.phone.trim(),
         company: form.company.trim(),
         city: form.city.trim(),
-        email: form.email.trim(),
         comment: form.comment.trim(),
       });
 
@@ -272,17 +270,6 @@ export default function LeasingApplicationModal({ isOpen, model, onClose }: Leas
                     value={form.city}
                     onChange={(event) => setField("city", event.target.value)}
                     autoComplete="address-level2"
-                    disabled={isLoading || isSuccess}
-                  />
-                </label>
-
-                <label className="leasing-field leasing-field--full">
-                  <span>E-mail (необязательно)</span>
-                  <input
-                    type="email"
-                    value={form.email}
-                    onChange={(event) => setField("email", event.target.value)}
-                    autoComplete="email"
                     disabled={isLoading || isSuccess}
                   />
                 </label>

@@ -5,7 +5,6 @@ export type LeasingApplicationPayload = {
   phone: string;
   company: string;
   city: string;
-  email: string;
   comment: string;
   consent: boolean;
 };

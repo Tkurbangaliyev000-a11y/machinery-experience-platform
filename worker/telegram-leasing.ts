@@ -5,7 +5,6 @@ type LeasingPayload = {
   phone: string;
   company?: string;
   city?: string;
-  email?: string;
   comment?: string;
   consent: boolean;
 };
@@ -69,7 +68,6 @@ const normalizePayload = async (request: Request): Promise<LeasingPayload | null
       phone: getText(body.phone),
       company: getText(body.company),
       city: getText(body.city),
-      email: getText(body.email),
       comment: getText(body.comment),
       consent: Boolean(body.consent),
     };
@@ -83,7 +81,6 @@ const validatePayload = (payload: LeasingPayload): string | null => {
   if (!payload.cost) return "missing_cost";
   if (!payload.name) return "missing_name";
   if (!payload.phone || !/^[0-9+()\-\s]{6,20}$/.test(payload.phone)) return "invalid_phone";
-  if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) return "invalid_email";
   if (!payload.consent) return "missing_consent";
   return null;
 };
@@ -107,14 +104,12 @@ const formatMessage = (payload: LeasingPayload): string => {
   const comment = payload.comment ? payload.comment : "—";
   const company = payload.company || "—";
   const city = payload.city || "—";
-  const email = payload.email || "—";
 
   return [
     "🚜 <b>Новая заявка на лизинг</b>",
     "━━━━━━━━━━━━━━━━━━━━",
     `<b>Имя:</b> ${escapeHtml(payload.name)}`,
     `<b>Телефон:</b> ${escapeHtml(payload.phone)}`,
-    `<b>Email:</b> ${escapeHtml(email)}`,
     `<b>Модель техники:</b> ${escapeHtml(payload.model)}`,
     `<b>Стоимость:</b> ${escapeHtml(payload.cost)}`,
     `<b>Комментарий:</b> ${escapeHtml(comment)}`,
