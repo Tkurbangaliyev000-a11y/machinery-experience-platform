@@ -165,6 +165,10 @@ export default function MachineViewer() {
 
         <div className="catalog-grid">
 
+          <button className="catalog-card catalog-card--model catalog-card--fw60f">
+            <h2>FW60F</h2>
+          </button>
+
           <button className="catalog-card catalog-card--model catalog-card--fw160f">
             <h2>FW160F</h2>
           </button>

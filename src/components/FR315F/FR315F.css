@@ -418,6 +418,10 @@
   transition: transform 0.24s var(--ease-premium), box-shadow 0.24s var(--ease-premium), background 0.24s var(--ease-premium), border-color 0.24s var(--ease-premium);
 }
 
+.fr315f-action--stacked {
+  flex-basis: 100%;
+}
+
 .fr315f-action.primary {
   background: linear-gradient(135deg, rgba(249, 193, 80, 0.96), rgba(255, 240, 180, 0.95));
   color: #111;

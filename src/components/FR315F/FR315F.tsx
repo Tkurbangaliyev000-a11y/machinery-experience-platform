@@ -1,7 +1,7 @@
 import { useState, type ComponentType } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { ArrowLeft, Download, MessageCircle, Phone } from "lucide-react";
+import { ArrowLeft, Download, HandCoins, MessageCircle, Phone } from "lucide-react";
 import { useAppLanguage, type AppLanguage } from "../../i18n";
 import "./FR315F.css";
 
@@ -14,7 +14,7 @@ type Props = { onBack: () => void };
 
 type SpecCard = { label: string; value: string };
 type FeatureItem = { id: string; title: string; description: string; image: string };
-type ActionItem = { label: string; href: string; external?: boolean; primary?: boolean; icon: ComponentType<{ size?: number }> };
+type ActionItem = { label: string; href: string; external?: boolean; primary?: boolean; stacked?: boolean; icon: ComponentType<{ size?: number }> };
 
 const overlayVariants: Variants = {
   hidden: { opacity: 0 },
@@ -41,6 +41,7 @@ const FR315F_COPY: Record<AppLanguage, {
   actionOffer: string;
   actionChat: string;
   actionCall: string;
+  actionLeasing: string;
   specCards: SpecCard[];
   features: FeatureItem[];
 }> = {
@@ -52,6 +53,7 @@ const FR315F_COPY: Record<AppLanguage, {
     actionOffer: "Commercial offer",
     actionChat: "WhatsApp",
     actionCall: "Call",
+    actionLeasing: "Leasing",
     specCards: [
       { label: "Operating weight", value: "31,300 kg" },
       { label: "Engine", value: "WEICHAI 8.2L" },
@@ -94,6 +96,7 @@ const FR315F_COPY: Record<AppLanguage, {
     actionOffer: "Коммерческое предложение",
     actionChat: "WhatsApp",
     actionCall: "Позвонить",
+    actionLeasing: "Лизинг",
     specCards: [
       { label: "Эксплуатационная масса", value: "31 300 кг" },
       { label: "Двигатель", value: "WEICHAI 8.2L" },
@@ -136,6 +139,7 @@ const FR315F_COPY: Record<AppLanguage, {
     actionOffer: "Коммерциялық ұсыныс",
     actionChat: "WhatsApp",
     actionCall: "Қоңырау шалу",
+    actionLeasing: "Лизинг",
     specCards: [
       { label: "Пайдалану салмағы", value: "31 300 кг" },
       { label: "Қозғалтқыш", value: "WEICHAI 8.2L" },
@@ -181,6 +185,7 @@ export default function FR315F({ onBack }: Props) {
     { label: copy.actionOffer, href: "#", primary: true, icon: Download },
     { label: copy.actionChat, href: "https://wa.me/77000000000", external: true, icon: MessageCircle },
     { label: copy.actionCall, href: "tel:+77000000000", icon: Phone },
+    { label: copy.actionLeasing, href: "https://halykls.kz/quiz?utm_source=google&utm_medium=cpc&utm_campaign=quiz_halyk_leasing_obshie&utm_content=lizing_tehniki_obshie&gad_source=1&gad_campaignid=23321310479&gbraid=0AAAAA-Q5BvSYafMu17u62tHHLeFEAuKWo&gclid=Cj0KCQjwjvfSBhDpARIsAEiOpSs5iK7v1cm0y2aRvlcaM-mxiypCJ4KYiaMrgFyUKKabx0-rcD8t6poaAnu5EALw_wcB", external: true, stacked: true, icon: HandCoins },
   ];
 
   const selectedFeatureId = copy.features.some((feature) => feature.id === activeFeatureId) ? activeFeatureId : copy.features[0].id;
@@ -266,7 +271,7 @@ export default function FR315F({ onBack }: Props) {
               {actions.map((action) => (
                 <motion.a
                   key={action.label}
-                  className={`fr315f-action ${action.primary ? "primary" : "secondary"}`}
+                  className={`fr315f-action ${action.primary ? "primary" : "secondary"}${action.stacked ? " fr315f-action--stacked" : ""}`}
                   data-feedback={action.primary ? "primary" : undefined}
                   href={action.href}
                   target={action.external ? "_blank" : undefined}
