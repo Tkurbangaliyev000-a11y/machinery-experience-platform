@@ -1,7 +1,7 @@
 import { useState, type ComponentType } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { ArrowLeft, Download, HandCoins, MessageCircle, Phone } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Download, HandCoins, MessageCircle, Phone, PlayCircle } from "lucide-react";
 import { useAppLanguage, type AppLanguage } from "../../i18n";
 import LeasingApplicationModal from "../LeasingApplicationModal/LeasingApplicationModal";
 import "./FR315F.css";
@@ -11,10 +11,19 @@ import ledImage from "../../assets/images/FR315F/led.png";
 import cabinImage from "../../assets/images/FR315F/cabin.png";
 import roofImage from "../../assets/images/FR315F/roof.png";
 
+import galleryImage1 from "../../assets/images/FR315F/gallery/1.jpg";
+import galleryImage2 from "../../assets/images/FR315F/gallery/2.jpg";
+import galleryImage3 from "../../assets/images/FR315F/gallery/3.jpg";
+import galleryImage4 from "../../assets/images/FR315F/gallery/4.jpg";
+import galleryImage5 from "../../assets/images/FR315F/gallery/5.jpg";
+import galleryImage6 from "../../assets/images/FR315F/gallery/6.jpg";
+import galleryImage7 from "../../assets/images/FR315F/gallery/7.jpg";
+
 type Props = { onBack: () => void };
 
 type SpecCard = { label: string; value: string };
 type FeatureItem = { id: string; title: string; description: string; image: string };
+type GalleryItem = { id: string; src: string; alt: string };
 type ActionItem = {
   label: string;
   href?: string;
@@ -41,6 +50,9 @@ const buttonVariants: Variants = {
 };
 
 const LOVOL_LOGO_SRC = `${import.meta.env.BASE_URL}LOVOL-original.png`;
+const FR315F_VIDEO_SRC = `${import.meta.env.BASE_URL}videos/FR315F-mobile.mp4`;
+const FR315F_VIDEO_FALLBACK_SRC = `${import.meta.env.BASE_URL}videos/FR315F.MP4`;
+const FR315F_VIDEO_POSTER = `${import.meta.env.BASE_URL}videos/FR315F-poster.jpg`;
 
 const FR315F_COPY: Record<AppLanguage, {
   back: string;
@@ -53,6 +65,19 @@ const FR315F_COPY: Record<AppLanguage, {
   actionLeasing: string;
   specCards: SpecCard[];
   features: FeatureItem[];
+  sectionGalleryTitle: string;
+  sectionGalleryLead: string;
+  galleryItems: GalleryItem[];
+  sectionMediaTitle: string;
+  sectionMediaLead: string;
+  photoTitle: string;
+  photoLead: string;
+  videoStartAria: string;
+  videoStartTitle: string;
+  videoStartLead: string;
+  videoHint: string;
+  videoTitle: string;
+  videoMissing: string;
 }> = {
   en: {
     back: "Back",
@@ -96,6 +121,27 @@ const FR315F_COPY: Record<AppLanguage, {
         image: cabinImage,
       },
     ],
+    sectionGalleryTitle: "Photo Gallery",
+    sectionGalleryLead: "Real-world operation and design details of the FR315F.",
+    galleryItems: [
+      { id: "1", src: galleryImage1, alt: "FR315F operation view 1" },
+      { id: "2", src: galleryImage2, alt: "FR315F operation view 2" },
+      { id: "3", src: galleryImage3, alt: "FR315F operation view 3" },
+      { id: "4", src: galleryImage4, alt: "FR315F operation view 4" },
+      { id: "5", src: galleryImage5, alt: "FR315F operation view 5" },
+      { id: "6", src: galleryImage6, alt: "FR315F operation view 6" },
+      { id: "7", src: galleryImage7, alt: "FR315F operation view 7" },
+    ],
+    sectionMediaTitle: "Media",
+    sectionMediaLead: "Photo and video overview of the FR315F in action.",
+    photoTitle: "Photo",
+    photoLead: "High-quality exterior and working-zone images.",
+    videoStartAria: "Start FR315F video overview",
+    videoStartTitle: "Start video overview",
+    videoStartLead: "The video loads only after click for faster page opening.",
+    videoHint: "FR315F video overview",
+    videoTitle: "FR315F video overview",
+    videoMissing: "Add videos/FR315F-overview.mp4 in public to connect the preview automatically.",
   },
   ru: {
     back: "Назад",
@@ -139,6 +185,27 @@ const FR315F_COPY: Record<AppLanguage, {
         image: cabinImage,
       },
     ],
+    sectionGalleryTitle: "Фотогалерея",
+    sectionGalleryLead: "Реальная работа и детали конструкции FR315F.",
+    galleryItems: [
+      { id: "1", src: galleryImage1, alt: "FR315F вид эксплуатации 1" },
+      { id: "2", src: galleryImage2, alt: "FR315F вид эксплуатации 2" },
+      { id: "3", src: galleryImage3, alt: "FR315F вид эксплуатации 3" },
+      { id: "4", src: galleryImage4, alt: "FR315F вид эксплуатации 4" },
+      { id: "5", src: galleryImage5, alt: "FR315F вид эксплуатации 5" },
+      { id: "6", src: galleryImage6, alt: "FR315F вид эксплуатации 6" },
+      { id: "7", src: galleryImage7, alt: "FR315F вид эксплуатации 7" },
+    ],
+    sectionMediaTitle: "Медиа",
+    sectionMediaLead: "Фото и видеообзор FR315F в работе.",
+    photoTitle: "Фото",
+    photoLead: "Материалы по экстерьеру и рабочим сценариям в высоком качестве.",
+    videoStartAria: "Запустить видеообзор FR315F",
+    videoStartTitle: "Запустить видеообзор",
+    videoStartLead: "Видео загружается только после нажатия для более быстрого открытия страницы.",
+    videoHint: "Видеообзор FR315F",
+    videoTitle: "Видеообзор FR315F",
+    videoMissing: "Добавьте файл videos/FR315F-overview.mp4 в папку public для автоматического подключения.",
   },
   kk: {
     back: "Артқа",
@@ -182,6 +249,27 @@ const FR315F_COPY: Record<AppLanguage, {
         image: cabinImage,
       },
     ],
+    sectionGalleryTitle: "Фото галереясы",
+    sectionGalleryLead: "FR315F-ның нақты жұмысы және конструкция ерекшеліктері.",
+    galleryItems: [
+      { id: "1", src: galleryImage1, alt: "FR315F пайдалану көрінісі 1" },
+      { id: "2", src: galleryImage2, alt: "FR315F пайдалану көрінісі 2" },
+      { id: "3", src: galleryImage3, alt: "FR315F пайдалану көрінісі 3" },
+      { id: "4", src: galleryImage4, alt: "FR315F пайдалану көрінісі 4" },
+      { id: "5", src: galleryImage5, alt: "FR315F пайдалану көрінісі 5" },
+      { id: "6", src: galleryImage6, alt: "FR315F пайдалану көрінісі 6" },
+      { id: "7", src: galleryImage7, alt: "FR315F пайдалану көрінісі 7" },
+    ],
+    sectionMediaTitle: "Медиа",
+    sectionMediaLead: "FR315F жұмыста фото және видеошолуы.",
+    photoTitle: "Фото",
+    photoLead: "Жоғары сапалы экстерьер және жұмыс сценарийлері.",
+    videoStartAria: "FR315F видео шолуын іске қосу",
+    videoStartTitle: "Видео шолуды іске қосу",
+    videoStartLead: "Бет тез ашылуы үшін видео тек басқаннан кейін жүктеледі.",
+    videoHint: "FR315F видео шолуы",
+    videoTitle: "FR315F видео шолуы",
+    videoMissing: "Автоматты қосу үшін public қалтасына videos/FR315F-overview.mp4 файлын қосыңыз.",
   },
 };
 
@@ -189,12 +277,34 @@ export default function FR315F({ onBack }: Props) {
   const [showUI] = useState(true);
   const [isLeasingModalOpen, setIsLeasingModalOpen] = useState(false);
   const [leasingModalKey, setLeasingModalKey] = useState(0);
+  const [isVideoAvailable, setIsVideoAvailable] = useState(true);
+  const [isVideoActivated, setIsVideoActivated] = useState(false);
+  const [galleryCurrentIndex, setGalleryCurrentIndex] = useState(0);
+  const [galleryTouchStart, setGalleryTouchStart] = useState(0);
   const language = useAppLanguage();
   const copy = FR315F_COPY[language] ?? FR315F_COPY.ru;
   const [activeFeatureId, setActiveFeatureId] = useState(copy.features[0].id);
   const openLeasingModal = () => {
     setLeasingModalKey((prev) => prev + 1);
     setIsLeasingModalOpen(true);
+  };
+
+  const goToGalleryNext = () => {
+    setGalleryCurrentIndex((prev) => (prev + 1) % copy.galleryItems.length);
+  };
+
+  const goToGalleryPrev = () => {
+    setGalleryCurrentIndex((prev) => (prev - 1 + copy.galleryItems.length) % copy.galleryItems.length);
+  };
+
+  const handleGalleryTouchStart = (e: React.TouchEvent) => {
+    setGalleryTouchStart(e.touches[0].clientX);
+  };
+
+  const handleGalleryTouchEnd = (e: React.TouchEvent) => {
+    const touchEnd = e.changedTouches[0].clientX;
+    if (galleryTouchStart - touchEnd > 50) goToGalleryNext();
+    if (touchEnd - galleryTouchStart > 50) goToGalleryPrev();
   };
 
   const actions: ActionItem[] = [
@@ -280,6 +390,90 @@ export default function FR315F({ onBack }: Props) {
                     </motion.button>
                   );
                 })}
+              </div>
+            </motion.section>
+
+            <motion.section className="fr315f-media" variants={rowVariants}>
+              <header className="fr315f-mediaHeader">
+                <h2>{copy.sectionMediaTitle}</h2>
+                <p>{copy.sectionMediaLead}</p>
+              </header>
+
+              <div className="fr315f-mediaGrid">
+                <article className="fr315f-mediaCard fr315f-mediaCard--gallery">
+                  <div className="fr315f-galleryCarousel">
+                    <div
+                      className="fr315f-galleryCarouselTrack"
+                      onTouchStart={handleGalleryTouchStart}
+                      onTouchEnd={handleGalleryTouchEnd}
+                    >
+                      <motion.img
+                        key={galleryCurrentIndex}
+                        src={copy.galleryItems[galleryCurrentIndex].src}
+                        alt={copy.galleryItems[galleryCurrentIndex].alt}
+                        className="fr315f-galleryCarouselImage"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                      />
+                    </div>
+
+                    <button
+                      className="fr315f-galleryCarouselNav fr315f-galleryCarouselNav--prev"
+                      onClick={goToGalleryPrev}
+                      aria-label="Previous photo"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+
+                    <button
+                      className="fr315f-galleryCarouselNav fr315f-galleryCarouselNav--next"
+                      onClick={goToGalleryNext}
+                      aria-label="Next photo"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+
+                    <div className="fr315f-galleryCarouselCounter">
+                      {galleryCurrentIndex + 1}/{copy.galleryItems.length}
+                    </div>
+                  </div>
+                </article>
+
+                <article className="fr315f-mediaCard fr315f-mediaCard--video">
+                  {isVideoAvailable ? (
+                    <div className="fr315f-videoWrap">
+                      {isVideoActivated ? (
+                        <video
+                          className="fr315f-videoPlayer"
+                          controls
+                          preload="none"
+                          poster={FR315F_VIDEO_POSTER}
+                          playsInline
+                          muted={false}
+                          onError={() => setIsVideoAvailable(false)}
+                        >
+                          <source src={FR315F_VIDEO_SRC} type="video/mp4" />
+                          <source src={FR315F_VIDEO_FALLBACK_SRC} type="video/mp4" />
+                        </video>
+                      ) : (
+                        <button type="button" className="fr315f-videoActivator" onClick={() => setIsVideoActivated(true)} aria-label={copy.videoStartAria}>
+                          <PlayCircle size={40} />
+                          <span>{copy.videoStartTitle}</span>
+                          <small>{copy.videoStartLead}</small>
+                        </button>
+                      )}
+                      <span className="fr315f-videoHint">{copy.videoHint}</span>
+                    </div>
+                  ) : (
+                    <>
+                      <PlayCircle size={28} />
+                      <h3>{copy.videoTitle}</h3>
+                      <p>{copy.videoMissing}</p>
+                    </>
+                  )}
+                </article>
               </div>
             </motion.section>
 

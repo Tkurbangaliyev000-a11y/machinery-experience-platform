@@ -244,12 +244,6 @@ export default function HeroScene({ onEnter }: Props) {
       <div className="hero-content">
         <img className="hero-top-logo" src={logoSrc} alt="Turkuaz Machinery CA" />
 
-        <div className="hero-copy">
-          <p className="subtitle">{translations.heroEyebrow}</p>
-          <h1>{translations.heroTitle}</h1>
-          <p className="description">{translations.heroLead}</p>
-        </div>
-
         <button
           data-feedback="primary"
           className="hero-enter premium-button"

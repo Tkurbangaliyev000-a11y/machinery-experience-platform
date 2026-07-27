@@ -1,3 +1,5 @@
+import { ChevronLeft } from "lucide-react";
+import { playHoverSound } from "../../hooks/uiAudio.ts";
 import { useTranslations } from "../../i18n";
 
 type Props = {
@@ -22,14 +24,24 @@ export default function Catalog({
 
   return (
     <div className="catalog-page catalog-page--categories">
+      <button
+        className="catalog-back-button"
+        onClick={() => window.history.back()}
+        aria-label="Go back"
+        data-feedback="none"
+        onMouseEnter={() => {
+          playHoverSound();
+        }}
+      >
+        <ChevronLeft size={20} strokeWidth={2.5} />
+      </button>
+
       <p className="catalog-subtitle">Turkuaz Machinery CA</p>
 
       <h1 className="catalog-title-headline">
         <img className="catalog-title-logo" src={lovolLogoSrc} alt="LOVOL" />
         <span className="catalog-logo-text">{translations.chooseCategory}</span>
       </h1>
-
-      <p className="catalog-text">{translations.chooseCategoryLead}</p>
 
       <div className="catalog-grid">
         <button

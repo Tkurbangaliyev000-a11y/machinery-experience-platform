@@ -16,14 +16,6 @@ type IconProps = {
   active: boolean;
 };
 
-function supportsVibration() {
-  return typeof navigator !== "undefined" && typeof navigator.vibrate === "function";
-}
-
-function showsVibrationToggle() {
-  return supportsVibration();
-}
-
 function SoundIcon({ active }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" className="feedback-controls__iconSvg">
@@ -42,32 +34,6 @@ function SoundIcon({ active }: IconProps) {
         </>
       ) : (
         <path d="M17 8 22 16M22 8l-5 8" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
-      )}
-    </svg>
-  );
-}
-
-function VibrationIcon({ active }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="feedback-controls__iconSvg">
-      <rect
-        x="7"
-        y="4"
-        width="10"
-        height="16"
-        rx="2.4"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.9"
-      />
-      <circle cx="12" cy="16.5" r="0.9" fill="currentColor" />
-      {active ? (
-        <>
-          <path d="M4.5 9.2a4.2 4.2 0 0 0 0 5.6" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
-          <path d="M19.5 9.2a4.2 4.2 0 0 1 0 5.6" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
-        </>
-      ) : (
-        <path d="M6 6l12 12" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
       )}
     </svg>
   );
@@ -140,7 +106,6 @@ function readFeedbackSettings(): FeedbackSettings {
 
 export default function App() {
   const [feedbackSettings, setFeedbackSettings] = useState<FeedbackSettings>(readFeedbackSettings);
-  const [vibrationSupported] = useState(showsVibrationToggle);
   const [isControlsOpen, setIsControlsOpen] = useState(false);
   const controlsRef = useRef<HTMLElement | null>(null);
   const translations = getTranslations(feedbackSettings.language);
@@ -222,15 +187,10 @@ export default function App() {
         </button>
 
         <div id="feedback-controls-panel" className="feedback-controls__panel">
-          <div className="feedback-controls__header">
-            <p className="feedback-controls__title">{translations.interfaceFeedback}</p>
-            <span className="feedback-controls__badge">{translations.systemBadge}</span>
-          </div>
-
           <div className="feedback-controls__grid">
             <button
               type="button"
-              className={`feedback-controls__button ${feedbackSettings.soundEnabled ? "is-active" : ""}`}
+              className={`feedback-controls__button feedback-controls__button--sound ${feedbackSettings.soundEnabled ? "is-active" : ""}`}
               onClick={() => toggleSetting("soundEnabled")}
               aria-pressed={feedbackSettings.soundEnabled}
               data-feedback="none"
@@ -238,40 +198,15 @@ export default function App() {
               <span className="feedback-controls__icon" aria-hidden="true">
                 <SoundIcon active={feedbackSettings.soundEnabled} />
               </span>
-              <span className="feedback-controls__copy">
-                <span className="feedback-controls__label">{translations.sound}</span>
-                <span className="feedback-controls__hint">{translations.soundHint}</span>
-              </span>
+              <span className="feedback-controls__label">{translations.sound}</span>
               <span className="feedback-controls__state">{feedbackSettings.soundEnabled ? translations.on : translations.off}</span>
             </button>
-
-            {vibrationSupported && (
-              <button
-                type="button"
-                className={`feedback-controls__button ${feedbackSettings.vibrationEnabled ? "is-active" : ""}`}
-                onClick={() => toggleSetting("vibrationEnabled")}
-                aria-pressed={feedbackSettings.vibrationEnabled}
-                data-feedback="none"
-              >
-                <span className="feedback-controls__icon" aria-hidden="true">
-                  <VibrationIcon active={feedbackSettings.vibrationEnabled} />
-                </span>
-                <span className="feedback-controls__copy">
-                  <span className="feedback-controls__label">{translations.vibration}</span>
-                  <span className="feedback-controls__hint">{translations.vibrationHint}</span>
-                </span>
-                <span className="feedback-controls__state">{feedbackSettings.vibrationEnabled ? translations.on : translations.off}</span>
-              </button>
-            )}
 
             <div className="feedback-controls__button feedback-controls__button--language" role="group" aria-label={translations.language}>
               <span className="feedback-controls__icon" aria-hidden="true">
                 <LanguageIcon />
               </span>
-              <span className="feedback-controls__copy">
-                <span className="feedback-controls__label">{translations.language}</span>
-                <span className="feedback-controls__hint">{translations.languageHint}</span>
-              </span>
+              <span className="feedback-controls__label">{translations.language}</span>
               <div className="feedback-controls__languageRow">
                 {languageOptions.map((language) => (
                   <button
