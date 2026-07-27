@@ -281,9 +281,11 @@ export default function FR315F({ onBack }: Props) {
   const [isVideoActivated, setIsVideoActivated] = useState(false);
   const [galleryCurrentIndex, setGalleryCurrentIndex] = useState(0);
   const [galleryTouchStart, setGalleryTouchStart] = useState(0);
+  const [isFullscreenGallery, setIsFullscreenGallery] = useState(false);
   const language = useAppLanguage();
   const copy = FR315F_COPY[language] ?? FR315F_COPY.ru;
   const [activeFeatureId, setActiveFeatureId] = useState(copy.features[0].id);
+  
   const openLeasingModal = () => {
     setLeasingModalKey((prev) => prev + 1);
     setIsLeasingModalOpen(true);
@@ -305,6 +307,26 @@ export default function FR315F({ onBack }: Props) {
     const touchEnd = e.changedTouches[0].clientX;
     if (galleryTouchStart - touchEnd > 50) goToGalleryNext();
     if (touchEnd - galleryTouchStart > 50) goToGalleryPrev();
+  };
+
+  const handleOpenFullscreen = () => {
+    setIsFullscreenGallery(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const handleCloseFullscreen = () => {
+    setIsFullscreenGallery(false);
+    document.body.style.overflow = "";
+  };
+
+  const handleFullscreenKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Escape") {
+      handleCloseFullscreen();
+    } else if (e.key === "ArrowRight") {
+      goToGalleryNext();
+    } else if (e.key === "ArrowLeft") {
+      goToGalleryPrev();
+    }
   };
 
   const actions: ActionItem[] = [
@@ -406,6 +428,8 @@ export default function FR315F({ onBack }: Props) {
                       className="fr315f-galleryCarouselTrack"
                       onTouchStart={handleGalleryTouchStart}
                       onTouchEnd={handleGalleryTouchEnd}
+                      onClick={handleOpenFullscreen}
+                      style={{ cursor: "pointer" }}
                     >
                       <motion.img
                         key={galleryCurrentIndex}
@@ -521,7 +545,65 @@ export default function FR315F({ onBack }: Props) {
 
       <LeasingApplicationModal key={leasingModalKey} isOpen={isLeasingModalOpen} model="LOVOL FR315F" onClose={() => setIsLeasingModalOpen(false)} />
 
-      
+      <AnimatePresence>
+        {isFullscreenGallery && (
+          <motion.div
+            className="fr315f-fullscreenGallery"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onKeyDown={handleFullscreenKeyDown}
+            role="dialog"
+            aria-modal="true"
+            tabIndex={0}
+          >
+            <button
+              className="fr315f-fullscreenClose"
+              onClick={handleCloseFullscreen}
+              aria-label="Close fullscreen"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+
+            <div className="fr315f-fullscreenContainer">
+              <motion.img
+                key={`fullscreen-${galleryCurrentIndex}`}
+                src={copy.galleryItems[galleryCurrentIndex].src}
+                alt={copy.galleryItems[galleryCurrentIndex].alt}
+                className="fr315f-fullscreenImage"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+              />
+
+              <button
+                className="fr315f-fullscreenNav fr315f-fullscreenNav--prev"
+                onClick={goToGalleryPrev}
+                aria-label="Previous photo"
+              >
+                <ChevronLeft size={32} />
+              </button>
+
+              <button
+                className="fr315f-fullscreenNav fr315f-fullscreenNav--next"
+                onClick={goToGalleryNext}
+                aria-label="Next photo"
+              >
+                <ChevronRight size={32} />
+              </button>
+
+              <div className="fr315f-fullscreenCounter">
+                {galleryCurrentIndex + 1}/{copy.galleryItems.length}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
