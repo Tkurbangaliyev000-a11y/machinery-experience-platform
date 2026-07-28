@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import HeroScene from "../../components/HeroScene/HeroScene";
-import MachineViewer from "../../components/MachineViewer/MachineViewer";
 
 export default function Home() {
-  const [entered, setEntered] = useState(false);
+  const navigate = useNavigate();
 
-  return !entered ? <HeroScene onEnter={() => setEntered(true)} /> : <MachineViewer />;
+  return <HeroScene onEnter={() => navigate("/catalog")} />;
 }

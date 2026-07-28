@@ -1,4 +1,5 @@
 import { ChevronLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { playHoverSound } from "../../hooks/uiAudio.ts";
 import { useTranslations } from "../../i18n";
 
@@ -19,6 +20,7 @@ export default function Catalog({
   onBackhoes,
   onWheeledExcavators,
 }: Props) {
+  const navigate = useNavigate();
   const translations = useTranslations();
   const lovolLogoSrc = `${import.meta.env.BASE_URL}LOVOL.png`;
 
@@ -26,7 +28,7 @@ export default function Catalog({
     <div className="catalog-page catalog-page--categories">
       <button
         className="catalog-back-button"
-        onClick={() => window.history.back()}
+        onClick={() => navigate("/", { state: { showStartScreen: true } })}
         aria-label="Go back"
         data-feedback="none"
         onMouseEnter={() => {

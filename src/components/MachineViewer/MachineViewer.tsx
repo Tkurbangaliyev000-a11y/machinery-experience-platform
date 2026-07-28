@@ -1,19 +1,77 @@
-import { useState } from "react";
+import { useMemo } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./MachineViewer.css";
 import FR315F from "../FR315F/FR315F";
 import FR215F from "../FR215F/FR215F.tsx";
 import FW215F from "../FW215F/FW215F";
 import Catalog from "./Catalog";
 import { useTranslations } from "../../i18n";
-export default function MachineViewer() {
 
-  const [page, setPage] = useState("catalog");
+type ViewerPage =
+  | "catalog"
+  | "excavators"
+  | "loaders"
+  | "dumptrucks"
+  | "mining"
+  | "backhoes"
+  | "wheeledExcavators"
+  | "fr315f"
+  | "fr215f"
+  | "fw215f";
+
+const routeToPage: Record<string, ViewerPage> = {
+  catalog: "catalog",
+  excavators: "excavators",
+  loaders: "loaders",
+  dumptrucks: "dumptrucks",
+  mining: "mining",
+  backhoes: "backhoes",
+  "wheeled-excavators": "wheeledExcavators",
+  fr315f: "fr315f",
+  fr215f: "fr215f",
+  fw215f: "fw215f",
+};
+
+const pageToRoute: Record<ViewerPage, string> = {
+  catalog: "catalog",
+  excavators: "excavators",
+  loaders: "loaders",
+  dumptrucks: "dumptrucks",
+  mining: "mining",
+  backhoes: "backhoes",
+  wheeledExcavators: "wheeled-excavators",
+  fr315f: "fr315f",
+  fr215f: "fr215f",
+  fw215f: "fw215f",
+};
+
+export default function MachineViewer() {
+  const navigate = useNavigate();
+  const { page: routePage } = useParams();
   const translations = useTranslations();
+
+  const page = useMemo<ViewerPage>(() => {
+    if (!routePage) {
+      return "catalog";
+    }
+
+    return routeToPage[routePage] ?? "catalog";
+  }, [routePage]);
+
+  const goToPage = (nextPage: ViewerPage) => {
+    const routeSegment = pageToRoute[nextPage];
+    if (routeSegment === "catalog") {
+      navigate("/catalog");
+      return;
+    }
+
+    navigate(`/catalog/${routeSegment}`);
+  };
 
   if (page === "fr315f") {
     return (
       <FR315F
-        onBack={() => setPage("excavators")}
+        onBack={() => goToPage("excavators")}
       />
     );
   }
@@ -21,7 +79,7 @@ export default function MachineViewer() {
   if (page === "fr215f") {
     return (
       <FR215F
-        onBack={() => setPage("excavators")}
+        onBack={() => goToPage("excavators")}
       />
     );
   }
@@ -29,7 +87,7 @@ export default function MachineViewer() {
   if (page === "fw215f") {
     return (
       <FW215F
-        onBack={() => setPage("wheeledExcavators")}
+        onBack={() => goToPage("wheeledExcavators")}
       />
     );
   }
@@ -50,7 +108,7 @@ export default function MachineViewer() {
 
           <button
             className="catalog-card catalog-card--model catalog-card--excavator-model catalog-card--fr215f"
-            onClick={() => setPage("fr215f")}
+            onClick={() => goToPage("fr215f")}
           >
             <h2>FR215F</h2>
           </button>
@@ -61,7 +119,7 @@ export default function MachineViewer() {
 
           <button
             className="catalog-card catalog-card--model catalog-card--excavator-model catalog-card--fr315f"
-            onClick={() => setPage("fr315f")}
+            onClick={() => goToPage("fr315f")}
           >
             <h2>FR315F</h2>
           </button>
@@ -79,7 +137,7 @@ export default function MachineViewer() {
         <div className="catalog-backWrap">
           <button
             className="back-btn"
-            onClick={() => setPage("catalog")}
+            onClick={() => goToPage("catalog")}
           >
             {translations.backToCatalog}
           </button>
@@ -116,7 +174,7 @@ export default function MachineViewer() {
         <div className="catalog-backWrap">
           <button
             className="back-btn"
-            onClick={() => setPage("catalog")}
+            onClick={() => goToPage("catalog")}
           >
             {translations.backToCatalog}
           </button>
@@ -145,7 +203,7 @@ export default function MachineViewer() {
         <div className="catalog-backWrap">
           <button
             className="back-btn"
-            onClick={() => setPage("catalog")}
+            onClick={() => goToPage("catalog")}
           >
             {translations.backToCatalog}
           </button>
@@ -175,7 +233,7 @@ export default function MachineViewer() {
 
           <button
             className="catalog-card catalog-card--model catalog-card--fw215f"
-            onClick={() => setPage("fw215f")}
+            onClick={() => goToPage("fw215f")}
           >
             <h2>FW215F</h2>
           </button>
@@ -185,7 +243,7 @@ export default function MachineViewer() {
         <div className="catalog-backWrap">
           <button
             className="back-btn"
-            onClick={() => setPage("catalog")}
+            onClick={() => goToPage("catalog")}
           >
             {translations.backToCatalog}
           </button>
@@ -238,7 +296,7 @@ export default function MachineViewer() {
         <div className="catalog-backWrap">
           <button
             className="back-btn"
-            onClick={() => setPage("catalog")}
+            onClick={() => goToPage("catalog")}
           >
             {translations.backToCatalog}
           </button>
@@ -275,7 +333,7 @@ export default function MachineViewer() {
         <div className="catalog-backWrap">
           <button
             className="back-btn"
-            onClick={() => setPage("catalog")}
+            onClick={() => goToPage("catalog")}
           >
             {translations.backToCatalog}
           </button>
@@ -287,12 +345,12 @@ export default function MachineViewer() {
   
   return (
   <Catalog
-    onExcavators={() => setPage("excavators")}
-    onLoaders={() => setPage("loaders")}
-    onDumptrucks={() => setPage("dumptrucks")}
-    onMining={() => setPage("mining")}
-    onBackhoes={() => setPage("backhoes")}
-    onWheeledExcavators={() => setPage("wheeledExcavators")}
+    onExcavators={() => goToPage("excavators")}
+    onLoaders={() => goToPage("loaders")}
+    onDumptrucks={() => goToPage("dumptrucks")}
+    onMining={() => goToPage("mining")}
+    onBackhoes={() => goToPage("backhoes")}
+    onWheeledExcavators={() => goToPage("wheeledExcavators")}
   />
 );
 }

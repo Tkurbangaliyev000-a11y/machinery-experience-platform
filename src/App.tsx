@@ -107,6 +107,7 @@ function readFeedbackSettings(): FeedbackSettings {
 export default function App() {
   const [feedbackSettings, setFeedbackSettings] = useState<FeedbackSettings>(readFeedbackSettings);
   const [isControlsOpen, setIsControlsOpen] = useState(false);
+  const [isStartScreenVisible, setIsStartScreenVisible] = useState(true);
   const controlsRef = useRef<HTMLElement | null>(null);
   const translations = getTranslations(feedbackSettings.language);
   const languageOptions: AppLanguage[] = ["en", "ru", "kk"];
@@ -147,6 +148,39 @@ export default function App() {
     };
   }, [isControlsOpen]);
 
+  useEffect(() => {
+    const checkStartScreen = () => {
+      const heroLauncher = document.querySelector(".hero-scene .hero-enter");
+      setIsStartScreenVisible(Boolean(heroLauncher));
+    };
+
+    checkStartScreen();
+
+    const observer = new MutationObserver(() => {
+      checkStartScreen();
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    window.addEventListener("hashchange", checkStartScreen);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("hashchange", checkStartScreen);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isStartScreenVisible) {
+      setIsControlsOpen(false);
+    }
+  }, [isStartScreenVisible]);
+
   const toggleSetting = (setting: keyof FeedbackSettings) => {
     if (setting === "language") {
       return;
@@ -169,62 +203,64 @@ export default function App() {
     <LanguageProvider language={feedbackSettings.language}>
       <AppRouter />
 
-      <aside
-        ref={controlsRef}
-        className={`feedback-controls ${isControlsOpen ? "is-open" : ""}`}
-        aria-label={translations.settingsPanelLabel}
-      >
-        <button
-          type="button"
-          className={`feedback-controls__launcher ${isControlsOpen ? "is-open" : ""}`}
-          onClick={() => setIsControlsOpen((current) => !current)}
-          aria-expanded={isControlsOpen}
-          aria-controls="feedback-controls-panel"
-          aria-label={isControlsOpen ? translations.closeSettings : translations.openSettings}
-          data-feedback="none"
+      {isStartScreenVisible && (
+        <aside
+          ref={controlsRef}
+          className={`feedback-controls ${isControlsOpen ? "is-open" : ""}`}
+          aria-label={translations.settingsPanelLabel}
         >
-          <GearIcon />
-        </button>
+          <button
+            type="button"
+            className={`feedback-controls__launcher ${isControlsOpen ? "is-open" : ""}`}
+            onClick={() => setIsControlsOpen((current) => !current)}
+            aria-expanded={isControlsOpen}
+            aria-controls="feedback-controls-panel"
+            aria-label={isControlsOpen ? translations.closeSettings : translations.openSettings}
+            data-feedback="none"
+          >
+            <GearIcon />
+          </button>
 
-        <div id="feedback-controls-panel" className="feedback-controls__panel">
-          <div className="feedback-controls__grid">
-            <button
-              type="button"
-              className={`feedback-controls__button feedback-controls__button--sound ${feedbackSettings.soundEnabled ? "is-active" : ""}`}
-              onClick={() => toggleSetting("soundEnabled")}
-              aria-pressed={feedbackSettings.soundEnabled}
-              data-feedback="none"
-            >
-              <span className="feedback-controls__icon" aria-hidden="true">
-                <SoundIcon active={feedbackSettings.soundEnabled} />
-              </span>
-              <span className="feedback-controls__label">{translations.sound}</span>
-              <span className="feedback-controls__state">{feedbackSettings.soundEnabled ? translations.on : translations.off}</span>
-            </button>
+          <div id="feedback-controls-panel" className="feedback-controls__panel">
+            <div className="feedback-controls__grid">
+              <button
+                type="button"
+                className={`feedback-controls__button feedback-controls__button--sound ${feedbackSettings.soundEnabled ? "is-active" : ""}`}
+                onClick={() => toggleSetting("soundEnabled")}
+                aria-pressed={feedbackSettings.soundEnabled}
+                data-feedback="none"
+              >
+                <span className="feedback-controls__icon" aria-hidden="true">
+                  <SoundIcon active={feedbackSettings.soundEnabled} />
+                </span>
+                <span className="feedback-controls__label">{translations.sound}</span>
+                <span className="feedback-controls__state">{feedbackSettings.soundEnabled ? translations.on : translations.off}</span>
+              </button>
 
-            <div className="feedback-controls__button feedback-controls__button--language" role="group" aria-label={translations.language}>
-              <span className="feedback-controls__icon" aria-hidden="true">
-                <LanguageIcon />
-              </span>
-              <span className="feedback-controls__label">{translations.language}</span>
-              <div className="feedback-controls__languageRow">
-                {languageOptions.map((language) => (
-                  <button
-                    key={language}
-                    type="button"
-                    className={`feedback-controls__languageButton ${feedbackSettings.language === language ? "is-active" : ""}`}
-                    onClick={() => setLanguage(language)}
-                    aria-pressed={feedbackSettings.language === language}
-                    data-feedback="none"
-                  >
-                    {language === "en" ? translations.english : language === "ru" ? translations.russian : translations.kazakh}
-                  </button>
-                ))}
+              <div className="feedback-controls__button feedback-controls__button--language" role="group" aria-label={translations.language}>
+                <span className="feedback-controls__icon" aria-hidden="true">
+                  <LanguageIcon />
+                </span>
+                <span className="feedback-controls__label">{translations.language}</span>
+                <div className="feedback-controls__languageRow">
+                  {languageOptions.map((language) => (
+                    <button
+                      key={language}
+                      type="button"
+                      className={`feedback-controls__languageButton ${feedbackSettings.language === language ? "is-active" : ""}`}
+                      onClick={() => setLanguage(language)}
+                      aria-pressed={feedbackSettings.language === language}
+                      data-feedback="none"
+                    >
+                      {language === "en" ? translations.english : language === "ru" ? translations.russian : translations.kazakh}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </aside>
+        </aside>
+      )}
     </LanguageProvider>
   );
 }

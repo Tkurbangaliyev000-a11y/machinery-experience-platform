@@ -17,6 +17,7 @@ let audioContext: AudioContext | null = null;
 let clickAudio: HTMLAudioElement | null = null;
 let primaryClickAudio: HTMLAudioElement | null = null;
 let hoverAudio: HTMLAudioElement | null = null;
+const INTERFACE_SOUNDS_ENABLED = false;
 
 const FEEDBACK_SETTINGS_KEY = "tm-feedback-settings";
 const BASE_URL = import.meta.env.BASE_URL;
@@ -76,6 +77,10 @@ function playTone(tone: UiTone) {
 }
 
 function isUiSoundEnabled() {
+  if (!INTERFACE_SOUNDS_ENABLED) {
+    return false;
+  }
+
   if (typeof window === "undefined") {
     return true;
   }
@@ -112,6 +117,13 @@ function getAudioElement(cache: HTMLAudioElement | null, config: ClipConfig) {
 }
 
 export function primeUiAudio() {
+  if (!INTERFACE_SOUNDS_ENABLED) {
+    clickAudio = null;
+    primaryClickAudio = null;
+    hoverAudio = null;
+    return;
+  }
+
   getAudioContext();
 
   clickAudio = getAudioElement(clickAudio, { src: toPublicAssetUrl("sounds/click.mp3"), volume: 0.32 }) ?? clickAudio;
@@ -158,6 +170,10 @@ function playClip(config: ClipConfig, fallback: () => void, audioRef: "click" | 
 }
 
 export function createLoaderStartAudio() {
+  if (!INTERFACE_SOUNDS_ENABLED) {
+    return null;
+  }
+
   if (typeof Audio === "undefined") {
     return null;
   }
@@ -171,6 +187,10 @@ export function createLoaderStartAudio() {
 }
 
 export function createLoaderIdleAudio() {
+  if (!INTERFACE_SOUNDS_ENABLED) {
+    return null;
+  }
+
   if (typeof Audio === "undefined") {
     return null;
   }
@@ -184,6 +204,10 @@ export function createLoaderIdleAudio() {
 }
 
 export function createLoader60sAudio() {
+  if (!INTERFACE_SOUNDS_ENABLED) {
+    return null;
+  }
+
   if (typeof Audio === "undefined") {
     return null;
   }
