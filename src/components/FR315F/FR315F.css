@@ -534,10 +534,39 @@
 }
 
 .fr315f-videoWrap {
+  position: relative;
   display: grid;
   gap: 0.6rem;
   padding: 1.2rem;
   height: 100%;
+}
+
+.fr315f-videoQuickActions {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  display: flex;
+}
+
+.fr315f-videoExpand {
+  appearance: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  background: rgba(5, 7, 10, 0.48);
+  color: rgba(255, 255, 255, 0.95);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.fr315f-videoExpand:hover {
+  transform: translateY(-1px);
+  background: rgba(20, 25, 33, 0.65);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .fr315f-videoActivator {
@@ -953,5 +982,10 @@
   .fr315f-fullscreenVideoPlayer {
     max-height: calc(100dvh - max(112px, env(safe-area-inset-top) + env(safe-area-inset-bottom) + 64px));
     border-radius: 10px;
+  }
+
+  .fr315f-videoQuickActions {
+    top: 0.78rem;
+    right: 0.78rem;
   }
 }

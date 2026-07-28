@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ComponentType } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { ArrowLeft, ChevronLeft, ChevronRight, Download, HandCoins, MessageCircle, Phone, PlayCircle } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Download, Expand, HandCoins, MessageCircle, Phone, PlayCircle } from "lucide-react";
 import { useAppLanguage, type AppLanguage } from "../../i18n";
 import LeasingApplicationModal from "../LeasingApplicationModal/LeasingApplicationModal";
 import "./FR315F.css";
@@ -288,6 +288,12 @@ export default function FR315F({ onBack }: Props) {
   const [isFullscreenVideo, setIsFullscreenVideo] = useState(false);
   const fullscreenDialogRef = useRef<HTMLDivElement | null>(null);
   const fullscreenVideoDialogRef = useRef<HTMLDivElement | null>(null);
+  const inlineVideoRef = useRef<HTMLVideoElement | null>(null);
+  const fullscreenVideoRef = useRef<HTMLVideoElement | null>(null);
+  const videoPlaybackSnapshot = useRef({
+    currentTime: 0,
+    shouldResume: false,
+  });
   const suppressFullscreenOpenUntil = useRef(0);
   const fullscreenScrollY = useRef(0);
   const previousBodyStyles = useRef({
@@ -373,10 +379,47 @@ export default function FR315F({ onBack }: Props) {
       return;
     }
 
+    const inlineVideo = inlineVideoRef.current;
+    if (inlineVideo) {
+      videoPlaybackSnapshot.current = {
+        currentTime: inlineVideo.currentTime || 0,
+        shouldResume: !inlineVideo.paused && !inlineVideo.ended,
+      };
+      inlineVideo.pause();
+    }
+
     setIsFullscreenVideo(true);
   };
 
   const handleCloseVideoFullscreen = () => {
+    const fullscreenVideo = fullscreenVideoRef.current;
+    const inlineVideo = inlineVideoRef.current;
+
+    if (fullscreenVideo && inlineVideo) {
+      const currentTime = fullscreenVideo.currentTime || 0;
+      const shouldResume = !fullscreenVideo.paused && !fullscreenVideo.ended;
+
+      videoPlaybackSnapshot.current = {
+        currentTime,
+        shouldResume,
+      };
+
+      const applySyncToInline = () => {
+        inlineVideo.currentTime = currentTime;
+        if (shouldResume) {
+          void inlineVideo.play().catch(() => {
+            // Ignore autoplay restrictions after closing fullscreen.
+          });
+        }
+      };
+
+      if (inlineVideo.readyState >= 1) {
+        applySyncToInline();
+      } else {
+        inlineVideo.addEventListener("loadedmetadata", applySyncToInline, { once: true });
+      }
+    }
+
     suppressFullscreenOpenUntil.current = Date.now() + 350;
     setIsFullscreenVideo(false);
   };
@@ -539,6 +582,33 @@ export default function FR315F({ onBack }: Props) {
   };
 
   const isAnyFullscreenOpen = isFullscreenGallery || isFullscreenVideo;
+
+  useEffect(() => {
+    if (!isFullscreenVideo) {
+      return;
+    }
+
+    const fullscreenVideo = fullscreenVideoRef.current;
+    if (!fullscreenVideo) {
+      return;
+    }
+
+    const { currentTime, shouldResume } = videoPlaybackSnapshot.current;
+    const applySyncToFullscreen = () => {
+      fullscreenVideo.currentTime = currentTime;
+      if (shouldResume) {
+        void fullscreenVideo.play().catch(() => {
+          // Ignore autoplay restrictions on some devices.
+        });
+      }
+    };
+
+    if (fullscreenVideo.readyState >= 1) {
+      applySyncToFullscreen();
+    } else {
+      fullscreenVideo.addEventListener("loadedmetadata", applySyncToFullscreen, { once: true });
+    }
+  }, [isFullscreenVideo]);
 
   useEffect(() => {
     if (!isAnyFullscreenOpen) {
@@ -768,7 +838,20 @@ export default function FR315F({ onBack }: Props) {
                 <article className="fr315f-mediaCard fr315f-mediaCard--video">
                   {isVideoAvailable ? (
                     <div className="fr315f-videoWrap">
+                      <div className="fr315f-videoQuickActions">
+                        <button
+                          type="button"
+                          className="fr315f-videoExpand"
+                          onClick={handleOpenVideoFullscreen}
+                          aria-label="Open video fullscreen"
+                          title="Fullscreen"
+                        >
+                          <Expand size={16} />
+                        </button>
+                      </div>
+
                       <video
+                        ref={inlineVideoRef}
                         className="fr315f-videoPlayer"
                         controls
                         preload="metadata"
@@ -776,7 +859,6 @@ export default function FR315F({ onBack }: Props) {
                         playsInline
                         muted={false}
                         onError={() => setIsVideoAvailable(false)}
-                        onClick={handleOpenVideoFullscreen}
                       >
                         <source src={FR315F_VIDEO_SRC} type="video/mp4" />
                         <source src={FR315F_VIDEO_FALLBACK_SRC} type="video/mp4" />
@@ -955,6 +1037,11 @@ export default function FR315F({ onBack }: Props) {
             aria-modal="true"
             tabIndex={0}
             ref={fullscreenVideoDialogRef}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                handleCloseVideoFullscreen();
+              }
+            }}
           >
             <div className="fr315f-fullscreenTopControls">
               <button
@@ -987,9 +1074,9 @@ export default function FR315F({ onBack }: Props) {
 
             <div className="fr315f-fullscreenVideoViewport">
               <video
+                ref={fullscreenVideoRef}
                 className="fr315f-fullscreenVideoPlayer"
                 controls
-                autoPlay
                 preload="metadata"
                 poster={FR315F_VIDEO_POSTER}
                 playsInline
