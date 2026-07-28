@@ -92,8 +92,30 @@ export default function LeasingApplicationModal({ isOpen, model, onClose }: Leas
       return;
     }
 
-    const previousOverflow = document.body.style.overflow;
+    const scrollY = window.scrollY;
+    const previousBodyStyles = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      left: document.body.style.left,
+      right: document.body.style.right,
+      width: document.body.style.width,
+      touchAction: document.body.style.touchAction,
+    };
+    const previousHtmlStyles = {
+      overflow: document.documentElement.style.overflow,
+      overscrollBehavior: document.documentElement.style.overscrollBehavior,
+    };
+
     document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+    document.body.style.touchAction = "none";
+    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.overscrollBehavior = "none";
 
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape" && submissionState !== "loading") {
@@ -104,10 +126,19 @@ export default function LeasingApplicationModal({ isOpen, model, onClose }: Leas
     document.addEventListener("keydown", handleEsc);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      document.body.style.overflow = previousBodyStyles.overflow;
+      document.body.style.position = previousBodyStyles.position;
+      document.body.style.top = previousBodyStyles.top;
+      document.body.style.left = previousBodyStyles.left;
+      document.body.style.right = previousBodyStyles.right;
+      document.body.style.width = previousBodyStyles.width;
+      document.body.style.touchAction = previousBodyStyles.touchAction;
+      document.documentElement.style.overflow = previousHtmlStyles.overflow;
+      document.documentElement.style.overscrollBehavior = previousHtmlStyles.overscrollBehavior;
+      window.scrollTo(0, scrollY);
       document.removeEventListener("keydown", handleEsc);
     };
-  }, [isOpen, model, onClose, submissionState]);
+  }, [isOpen, onClose, submissionState]);
 
   const isLoading = submissionState === "loading";
   const isSuccess = submissionState === "success";

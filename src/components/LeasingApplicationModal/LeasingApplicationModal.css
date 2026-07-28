@@ -1,12 +1,14 @@
 .leasing-modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 120;
+  z-index: 2147482600;
   padding: 18px;
   display: grid;
   place-items: center;
   background: rgba(3, 9, 14, 0.62);
   backdrop-filter: blur(12px) saturate(110%);
+  overflow: hidden;
+  touch-action: none;
 }
 
 .leasing-modal {
@@ -19,6 +21,9 @@
   width: min(780px, 100%);
   max-height: min(92vh, 960px);
   overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   border-radius: 20px;
   border: 1px solid var(--lease-border);
   background:
@@ -297,7 +302,10 @@
 
 @media (max-width: 760px) {
   .leasing-modal-overlay {
-    padding: 8px;
+    padding: 0;
+    place-items: stretch;
+    background: #02060c;
+    backdrop-filter: none;
   }
 
   .leasing-modal-head,
@@ -320,6 +328,15 @@
   }
 
   .leasing-modal {
-    max-height: calc(100vh - 16px);
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 }
