@@ -923,6 +923,26 @@
   z-index: 10000;
 }
 
+.fr315f-fullscreenVideoViewport {
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(16px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+}
+
+.fr315f-fullscreenVideoPlayer {
+  width: 100%;
+  max-width: min(1200px, 100vw);
+  max-height: calc(100dvh - max(120px, env(safe-area-inset-top) + env(safe-area-inset-bottom) + 72px));
+  object-fit: contain;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
 @media (max-width: 768px) {
   .fr315f-fullscreenTopControls {
     top: max(10px, env(safe-area-inset-top));
@@ -958,5 +978,10 @@
   .fr315f-videoDownload {
     padding: 0.36rem 0.56rem;
     font-size: 0.72rem;
+  }
+
+  .fr315f-fullscreenVideoPlayer {
+    max-height: calc(100dvh - max(112px, env(safe-area-inset-top) + env(safe-area-inset-bottom) + 64px));
+    border-radius: 10px;
   }
 }
