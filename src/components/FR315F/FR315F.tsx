@@ -283,9 +283,35 @@ export default function FR315F({ onBack }: Props) {
   const [gallerySwipeDirection, setGallerySwipeDirection] = useState<1 | -1>(1);
   const [galleryTouchStartX, setGalleryTouchStartX] = useState(0);
   const [galleryTouchStartY, setGalleryTouchStartY] = useState(0);
+  const [fullscreenDragY, setFullscreenDragY] = useState(0);
+  const [isFullscreenVerticalDragging, setIsFullscreenVerticalDragging] = useState(false);
   const [isFullscreenGallery, setIsFullscreenGallery] = useState(false);
   const fullscreenDialogRef = useRef<HTMLDivElement | null>(null);
-  const previousBodyOverflow = useRef("");
+  const suppressFullscreenOpenUntil = useRef(0);
+  const fullscreenScrollY = useRef(0);
+  const previousBodyStyles = useRef({
+    overflow: "",
+    position: "",
+    top: "",
+    left: "",
+    right: "",
+    width: "",
+    touchAction: "",
+  });
+  const previousHtmlStyles = useRef({
+    overflow: "",
+    overscrollBehavior: "",
+  });
+  const fullscreenGesture = useRef({
+    startX: 0,
+    startY: 0,
+    deltaX: 0,
+    deltaY: 0,
+    lastY: 0,
+    lastTs: 0,
+    velocityY: 0,
+    axis: "none" as "none" | "horizontal" | "vertical",
+  });
   const language = useAppLanguage();
   const copy = FR315F_COPY[language] ?? FR315F_COPY.ru;
   const [activeFeatureId, setActiveFeatureId] = useState(copy.features[0].id);
@@ -325,10 +351,19 @@ export default function FR315F({ onBack }: Props) {
   };
 
   const handleOpenFullscreen = () => {
+    if (Date.now() < suppressFullscreenOpenUntil.current) {
+      return;
+    }
+
+    setFullscreenDragY(0);
+    setIsFullscreenVerticalDragging(false);
     setIsFullscreenGallery(true);
   };
 
   const handleCloseFullscreen = () => {
+    suppressFullscreenOpenUntil.current = Date.now() + 350;
+    setFullscreenDragY(0);
+    setIsFullscreenVerticalDragging(false);
     setIsFullscreenGallery(false);
   };
 
@@ -341,9 +376,9 @@ export default function FR315F({ onBack }: Props) {
   };
 
   const triggerFileDownload = (url: string, fileName: string) => {
-    const shouldUseOpenFallback = isIosSafari() || !("download" in HTMLAnchorElement.prototype);
+    const hasDownloadSupport = "download" in HTMLAnchorElement.prototype;
 
-    if (shouldUseOpenFallback) {
+    if (!hasDownloadSupport && isIosSafari()) {
       window.open(url, "_blank", "noopener,noreferrer");
       return;
     }
@@ -357,14 +392,136 @@ export default function FR315F({ onBack }: Props) {
     anchor.remove();
   };
 
-  const handleDownloadCurrentPhoto = () => {
-    const currentPhoto = copy.galleryItems[galleryCurrentIndex];
-    const fileName = `FR315F-${String(galleryCurrentIndex + 1).padStart(2, "0")}.jpg`;
-    triggerFileDownload(currentPhoto.src, fileName);
+  const fetchMediaFile = async (url: string, fileName: string, fallbackMimeType: string) => {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Unable to fetch media: ${response.status}`);
+    }
+
+    const blob = await response.blob();
+    return new File([blob], fileName, {
+      type: blob.type || fallbackMimeType,
+      lastModified: Date.now(),
+    });
   };
 
-  const handleDownloadVideo = () => {
-    triggerFileDownload(FR315F_VIDEO_SRC, "FR315F-video.mp4");
+  const shareFileIfSupported = async (file: File, title: string) => {
+    if (!isIosSafari()) {
+      return false;
+    }
+
+    if (typeof navigator.share !== "function" || typeof navigator.canShare !== "function") {
+      return false;
+    }
+
+    if (!navigator.canShare({ files: [file] })) {
+      return false;
+    }
+
+    await navigator.share({
+      files: [file],
+      title,
+    });
+    return true;
+  };
+
+  const handleDownloadCurrentPhoto = async () => {
+    const currentPhoto = copy.galleryItems[galleryCurrentIndex];
+    const fileName = `FR315F-${String(galleryCurrentIndex + 1).padStart(2, "0")}.jpg`;
+
+    try {
+      const mediaFile = await fetchMediaFile(currentPhoto.src, fileName, "image/jpeg");
+      const shared = await shareFileIfSupported(mediaFile, fileName);
+      if (shared) {
+        return;
+      }
+
+      const blobUrl = URL.createObjectURL(mediaFile);
+      triggerFileDownload(blobUrl, fileName);
+      window.setTimeout(() => URL.revokeObjectURL(blobUrl), 1500);
+    } catch {
+      triggerFileDownload(currentPhoto.src, fileName);
+    }
+  };
+
+  const handleDownloadVideo = async () => {
+    const fileName = "FR315F-video.mp4";
+
+    try {
+      const mediaFile = await fetchMediaFile(FR315F_VIDEO_SRC, fileName, "video/mp4");
+      const shared = await shareFileIfSupported(mediaFile, fileName);
+      if (shared) {
+        return;
+      }
+
+      const blobUrl = URL.createObjectURL(mediaFile);
+      triggerFileDownload(blobUrl, fileName);
+      window.setTimeout(() => URL.revokeObjectURL(blobUrl), 1500);
+    } catch {
+      triggerFileDownload(FR315F_VIDEO_SRC, fileName);
+    }
+  };
+
+  const handleFullscreenTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const touch = e.touches[0];
+    fullscreenGesture.current.startX = touch.clientX;
+    fullscreenGesture.current.startY = touch.clientY;
+    fullscreenGesture.current.lastY = touch.clientY;
+    fullscreenGesture.current.lastTs = Date.now();
+    fullscreenGesture.current.deltaX = 0;
+    fullscreenGesture.current.deltaY = 0;
+    fullscreenGesture.current.velocityY = 0;
+    fullscreenGesture.current.axis = "none";
+    setIsFullscreenVerticalDragging(false);
+  };
+
+  const handleFullscreenTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    const touch = e.touches[0];
+    const gesture = fullscreenGesture.current;
+
+    gesture.deltaX = touch.clientX - gesture.startX;
+    gesture.deltaY = touch.clientY - gesture.startY;
+
+    if (gesture.axis === "none" && (Math.abs(gesture.deltaX) > 8 || Math.abs(gesture.deltaY) > 8)) {
+      gesture.axis = Math.abs(gesture.deltaY) > Math.abs(gesture.deltaX) ? "vertical" : "horizontal";
+    }
+
+    if (gesture.axis === "vertical") {
+      const now = Date.now();
+      const dt = Math.max(now - gesture.lastTs, 1);
+      gesture.velocityY = (touch.clientY - gesture.lastY) / dt;
+      gesture.lastY = touch.clientY;
+      gesture.lastTs = now;
+      setIsFullscreenVerticalDragging(true);
+      setFullscreenDragY(gesture.deltaY);
+    }
+
+    if (gesture.axis === "horizontal") {
+      return;
+    }
+  };
+
+  const handleFullscreenTouchEnd = () => {
+    const gesture = fullscreenGesture.current;
+
+    if (gesture.axis === "horizontal") {
+      if (gesture.deltaX < -50) goToGalleryNext();
+      if (gesture.deltaX > 50) goToGalleryPrev();
+      return;
+    }
+
+    if (gesture.axis === "vertical") {
+      const shouldCloseByDistance = Math.abs(gesture.deltaY) > 100;
+      const shouldCloseByVelocity = Math.abs(gesture.deltaY) > 48 && Math.abs(gesture.velocityY) > 0.8;
+
+      if (shouldCloseByDistance || shouldCloseByVelocity) {
+        handleCloseFullscreen();
+        return;
+      }
+    }
+
+    setIsFullscreenVerticalDragging(false);
+    setFullscreenDragY(0);
   };
 
   useEffect(() => {
@@ -372,12 +529,46 @@ export default function FR315F({ onBack }: Props) {
       return;
     }
 
-    previousBodyOverflow.current = document.body.style.overflow;
+    fullscreenScrollY.current = window.scrollY;
+    previousBodyStyles.current = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      left: document.body.style.left,
+      right: document.body.style.right,
+      width: document.body.style.width,
+      touchAction: document.body.style.touchAction,
+    };
+    previousHtmlStyles.current = {
+      overflow: document.documentElement.style.overflow,
+      overscrollBehavior: document.documentElement.style.overscrollBehavior,
+    };
+
     document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${fullscreenScrollY.current}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+    document.body.style.touchAction = "none";
+    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.overscrollBehavior = "none";
     fullscreenDialogRef.current?.focus();
 
     return () => {
-      document.body.style.overflow = previousBodyOverflow.current;
+      const previousBody = previousBodyStyles.current;
+      document.body.style.overflow = previousBody.overflow;
+      document.body.style.position = previousBody.position;
+      document.body.style.top = previousBody.top;
+      document.body.style.left = previousBody.left;
+      document.body.style.right = previousBody.right;
+      document.body.style.width = previousBody.width;
+      document.body.style.touchAction = previousBody.touchAction;
+
+      const previousHtml = previousHtmlStyles.current;
+      document.documentElement.style.overflow = previousHtml.overflow;
+      document.documentElement.style.overscrollBehavior = previousHtml.overscrollBehavior;
+      window.scrollTo(0, fullscreenScrollY.current);
     };
   }, [isFullscreenGallery]);
 
@@ -652,7 +843,10 @@ export default function FR315F({ onBack }: Props) {
             <div className="fr315f-fullscreenTopControls">
               <button
                 className="fr315f-fullscreenDownload"
-                onClick={handleDownloadCurrentPhoto}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  void handleDownloadCurrentPhoto();
+                }}
                 aria-label="Download current photo"
                 title="Download"
               >
@@ -661,7 +855,10 @@ export default function FR315F({ onBack }: Props) {
 
               <button
                 className="fr315f-fullscreenClose"
-                onClick={handleCloseFullscreen}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCloseFullscreen();
+                }}
                 aria-label="Close fullscreen"
                 title="Close"
               >
@@ -674,27 +871,41 @@ export default function FR315F({ onBack }: Props) {
 
             <div
               className="fr315f-fullscreenContainer"
-              onTouchStart={handleGalleryTouchStart}
-              onTouchEnd={handleGalleryTouchEnd}
+              onTouchStart={handleFullscreenTouchStart}
+              onTouchMove={handleFullscreenTouchMove}
+              onTouchEnd={handleFullscreenTouchEnd}
             >
-              <AnimatePresence initial={false} custom={gallerySwipeDirection} mode="wait">
-                <motion.img
-                  key={`fullscreen-${galleryCurrentIndex}`}
-                  src={copy.galleryItems[galleryCurrentIndex].src}
-                  alt={copy.galleryItems[galleryCurrentIndex].alt}
-                  className="fr315f-fullscreenImage"
-                  custom={gallerySwipeDirection}
-                  variants={fullscreenImageVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.24, ease: "easeOut" }}
-                />
-              </AnimatePresence>
+              <motion.div
+                className="fr315f-fullscreenImageViewport"
+                animate={{
+                  y: fullscreenDragY,
+                  scale: isFullscreenVerticalDragging ? Math.max(0.92, 1 - Math.abs(fullscreenDragY) / 1200) : 1,
+                  opacity: isFullscreenVerticalDragging ? Math.max(0.75, 1 - Math.abs(fullscreenDragY) / 900) : 1,
+                }}
+                transition={isFullscreenVerticalDragging ? { duration: 0 } : { type: "spring", stiffness: 320, damping: 30 }}
+              >
+                <AnimatePresence initial={false} custom={gallerySwipeDirection} mode="wait">
+                  <motion.img
+                    key={`fullscreen-${galleryCurrentIndex}`}
+                    src={copy.galleryItems[galleryCurrentIndex].src}
+                    alt={copy.galleryItems[galleryCurrentIndex].alt}
+                    className="fr315f-fullscreenImage"
+                    custom={gallerySwipeDirection}
+                    variants={fullscreenImageVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.24, ease: "easeOut" }}
+                  />
+                </AnimatePresence>
+              </motion.div>
 
               <button
                 className="fr315f-fullscreenNav fr315f-fullscreenNav--prev"
-                onClick={goToGalleryPrev}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToGalleryPrev();
+                }}
                 aria-label="Previous photo"
               >
                 <ChevronLeft size={32} />
@@ -702,7 +913,10 @@ export default function FR315F({ onBack }: Props) {
 
               <button
                 className="fr315f-fullscreenNav fr315f-fullscreenNav--next"
-                onClick={goToGalleryNext}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToGalleryNext();
+                }}
                 aria-label="Next photo"
               >
                 <ChevronRight size={32} />

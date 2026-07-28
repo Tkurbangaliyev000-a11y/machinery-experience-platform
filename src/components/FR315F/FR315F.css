@@ -815,7 +815,17 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  touch-action: pan-y;
+  touch-action: none;
+}
+
+.fr315f-fullscreenImageViewport {
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity;
 }
 
 .fr315f-fullscreenImage {
