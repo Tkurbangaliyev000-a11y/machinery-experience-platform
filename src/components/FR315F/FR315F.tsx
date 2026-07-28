@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ComponentType } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { ArrowLeft, ChevronLeft, ChevronRight, Download, Expand, HandCoins, MessageCircle, Phone, PlayCircle } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Download, HandCoins, MessageCircle, Phone, PlayCircle } from "lucide-react";
 import { useAppLanguage, type AppLanguage } from "../../i18n";
 import LeasingApplicationModal from "../LeasingApplicationModal/LeasingApplicationModal";
 import "./FR315F.css";
@@ -838,18 +838,6 @@ export default function FR315F({ onBack }: Props) {
                 <article className="fr315f-mediaCard fr315f-mediaCard--video">
                   {isVideoAvailable ? (
                     <div className="fr315f-videoWrap">
-                      <div className="fr315f-videoQuickActions">
-                        <button
-                          type="button"
-                          className="fr315f-videoExpand"
-                          onClick={handleOpenVideoFullscreen}
-                          aria-label="Open video fullscreen"
-                          title="Fullscreen"
-                        >
-                          <Expand size={16} />
-                        </button>
-                      </div>
-
                       <video
                         ref={inlineVideoRef}
                         className="fr315f-videoPlayer"
@@ -859,6 +847,7 @@ export default function FR315F({ onBack }: Props) {
                         playsInline
                         muted={false}
                         onError={() => setIsVideoAvailable(false)}
+                        onDoubleClick={handleOpenVideoFullscreen}
                       >
                         <source src={FR315F_VIDEO_SRC} type="video/mp4" />
                         <source src={FR315F_VIDEO_FALLBACK_SRC} type="video/mp4" />
