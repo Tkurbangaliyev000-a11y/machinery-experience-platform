@@ -540,6 +540,34 @@
   height: 100%;
 }
 
+.fr315f-videoControls {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fr315f-videoDownload {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.38rem 0.62rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.fr315f-videoDownload:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.38);
+  transform: translateY(-1px);
+}
+
 .fr315f-videoActivator {
   width: 100%;
   min-height: 160px;
@@ -767,38 +795,49 @@
 .fr315f-fullscreenGallery {
   position: fixed;
   inset: 0;
-  z-index: 9999;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(8px);
+  width: 100vw;
+  height: 100dvh;
+  z-index: 2147483000;
+  background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 0;
+  overflow: hidden;
+  overscroll-behavior: contain;
 }
 
 .fr315f-fullscreenContainer {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 95vw;
-  max-height: 95vh;
+  overflow: hidden;
+  touch-action: pan-y;
 }
 
 .fr315f-fullscreenImage {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
   object-fit: contain;
-  border-radius: 12px;
+  border-radius: 0;
 }
 
-.fr315f-fullscreenClose {
+.fr315f-fullscreenTopControls {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: max(14px, env(safe-area-inset-top));
+  right: max(14px, env(safe-area-inset-right));
   z-index: 10000;
+  display: flex;
+  gap: 0.55rem;
+}
+
+.fr315f-fullscreenDownload,
+.fr315f-fullscreenClose {
   display: grid;
   place-items: center;
   width: 48px;
@@ -812,9 +851,18 @@
   padding: 0;
 }
 
+.fr315f-fullscreenDownload:hover,
 .fr315f-fullscreenClose:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+}
+
+.fr315f-fullscreenClose {
+  position: static;
+}
+
+.fr315f-fullscreenClose:hover {
   transform: scale(1.05);
 }
 
@@ -843,16 +891,16 @@
 }
 
 .fr315f-fullscreenNav--prev {
-  left: 20px;
+  left: max(10px, env(safe-area-inset-left));
 }
 
 .fr315f-fullscreenNav--next {
-  right: 20px;
+  right: max(10px, env(safe-area-inset-right));
 }
 
 .fr315f-fullscreenCounter {
   position: absolute;
-  bottom: 20px;
+  bottom: max(14px, env(safe-area-inset-bottom));
   left: 50%;
   transform: translateX(-50%);
   padding: 8px 16px;
@@ -866,11 +914,16 @@
 }
 
 @media (max-width: 768px) {
+  .fr315f-fullscreenTopControls {
+    top: max(10px, env(safe-area-inset-top));
+    right: max(10px, env(safe-area-inset-right));
+    gap: 0.45rem;
+  }
+
+  .fr315f-fullscreenDownload,
   .fr315f-fullscreenClose {
     width: 40px;
     height: 40px;
-    top: 16px;
-    right: 16px;
   }
 
   .fr315f-fullscreenNav {
@@ -879,16 +932,21 @@
   }
 
   .fr315f-fullscreenNav--prev {
-    left: 16px;
+    left: max(6px, env(safe-area-inset-left));
   }
 
   .fr315f-fullscreenNav--next {
-    right: 16px;
+    right: max(6px, env(safe-area-inset-right));
   }
 
   .fr315f-fullscreenCounter {
-    bottom: 16px;
+    bottom: max(10px, env(safe-area-inset-bottom));
     font-size: 0.8rem;
     padding: 6px 12px;
+  }
+
+  .fr315f-videoDownload {
+    padding: 0.36rem 0.56rem;
+    font-size: 0.72rem;
   }
 }
