@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ComponentType } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { ArrowLeft, ChevronLeft, ChevronRight, Download, HandCoins, MessageCircle, Phone, PlayCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download, HandCoins, MessageCircle, Phone, PlayCircle } from "lucide-react";
 import { useAppLanguage, type AppLanguage } from "../../i18n";
 import LeasingApplicationModal from "../LeasingApplicationModal/LeasingApplicationModal";
 import "./FR315F.css";
@@ -713,9 +713,8 @@ export default function FR315F({ onBack }: Props) {
     <div className="fr315f-shell">
       <div className="fr315f-backdrop" />
 
-      <button className="fr315f-back" onClick={onBack} aria-label={copy.back}>
-        <ArrowLeft size={16} />
-        <span>{copy.back}</span>
+      <button className="fr315f-back" onClick={onBack} aria-label={copy.back} data-feedback="none">
+        <ChevronLeft size={20} strokeWidth={2.5} />
       </button>
 
       <AnimatePresence>
