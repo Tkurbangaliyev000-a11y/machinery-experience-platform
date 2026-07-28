@@ -278,7 +278,6 @@ export default function FR315F({ onBack }: Props) {
   const [isLeasingModalOpen, setIsLeasingModalOpen] = useState(false);
   const [leasingModalKey, setLeasingModalKey] = useState(0);
   const [isVideoAvailable, setIsVideoAvailable] = useState(true);
-  const [isVideoActivated, setIsVideoActivated] = useState(false);
   const [galleryCurrentIndex, setGalleryCurrentIndex] = useState(0);
   const [gallerySwipeDirection, setGallerySwipeDirection] = useState<1 | -1>(1);
   const [galleryTouchStartX, setGalleryTouchStartX] = useState(0);
@@ -286,9 +285,7 @@ export default function FR315F({ onBack }: Props) {
   const [fullscreenDragY, setFullscreenDragY] = useState(0);
   const [isFullscreenVerticalDragging, setIsFullscreenVerticalDragging] = useState(false);
   const [isFullscreenGallery, setIsFullscreenGallery] = useState(false);
-  const [isFullscreenVideo, setIsFullscreenVideo] = useState(false);
   const fullscreenDialogRef = useRef<HTMLDivElement | null>(null);
-  const fullscreenVideoDialogRef = useRef<HTMLDivElement | null>(null);
   const suppressFullscreenOpenUntil = useRef(0);
   const fullscreenScrollY = useRef(0);
   const previousBodyStyles = useRef({
@@ -367,19 +364,6 @@ export default function FR315F({ onBack }: Props) {
     setFullscreenDragY(0);
     setIsFullscreenVerticalDragging(false);
     setIsFullscreenGallery(false);
-  };
-
-  const handleOpenVideoFullscreen = () => {
-    if (Date.now() < suppressFullscreenOpenUntil.current) {
-      return;
-    }
-
-    setIsFullscreenVideo(true);
-  };
-
-  const handleCloseVideoFullscreen = () => {
-    suppressFullscreenOpenUntil.current = Date.now() + 350;
-    setIsFullscreenVideo(false);
   };
 
   const isIosSafari = () => {
@@ -539,10 +523,8 @@ export default function FR315F({ onBack }: Props) {
     setFullscreenDragY(0);
   };
 
-  const isAnyFullscreenOpen = isFullscreenGallery || isFullscreenVideo;
-
   useEffect(() => {
-    if (!isAnyFullscreenOpen) {
+    if (!isFullscreenGallery) {
       return;
     }
 
@@ -570,13 +552,7 @@ export default function FR315F({ onBack }: Props) {
     document.body.style.touchAction = "none";
     document.documentElement.style.overflow = "hidden";
     document.documentElement.style.overscrollBehavior = "none";
-    if (isFullscreenGallery) {
-      fullscreenDialogRef.current?.focus();
-    }
-
-    if (isFullscreenVideo) {
-      fullscreenVideoDialogRef.current?.focus();
-    }
+    fullscreenDialogRef.current?.focus();
 
     return () => {
       const previousBody = previousBodyStyles.current;
@@ -593,7 +569,7 @@ export default function FR315F({ onBack }: Props) {
       document.documentElement.style.overscrollBehavior = previousHtml.overscrollBehavior;
       window.scrollTo(0, fullscreenScrollY.current);
     };
-  }, [isAnyFullscreenOpen, isFullscreenGallery, isFullscreenVideo]);
+  }, [isFullscreenGallery]);
 
   const fullscreenImageVariants: Variants = {
     enter: (direction: 1 | -1) => ({
@@ -612,21 +588,11 @@ export default function FR315F({ onBack }: Props) {
 
   const handleFullscreenKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Escape") {
-      if (isFullscreenGallery) {
-        handleCloseFullscreen();
-      }
-
-      if (isFullscreenVideo) {
-        handleCloseVideoFullscreen();
-      }
+      handleCloseFullscreen();
     } else if (e.key === "ArrowRight") {
-      if (isFullscreenGallery) {
-        goToGalleryNext();
-      }
+      goToGalleryNext();
     } else if (e.key === "ArrowLeft") {
-      if (isFullscreenGallery) {
-        goToGalleryPrev();
-      }
+      goToGalleryPrev();
     }
   };
 
@@ -769,48 +735,30 @@ export default function FR315F({ onBack }: Props) {
                 <article className="fr315f-mediaCard fr315f-mediaCard--video">
                   {isVideoAvailable ? (
                     <div className="fr315f-videoWrap">
-                      <div className="fr315f-videoControls" aria-label="Video controls">
-                        <button
-                          type="button"
-                          className="fr315f-videoDownload"
-                          onClick={handleDownloadVideo}
-                          aria-label="Download video"
-                          title="Download video"
-                        >
-                          <Download size={16} />
-                          <span>Download</span>
-                        </button>
-                      </div>
+                      <button
+                        type="button"
+                        className="fr315f-videoSaveIcon"
+                        onClick={() => {
+                          void handleDownloadVideo();
+                        }}
+                        aria-label="Save video"
+                        title="Save video"
+                      >
+                        <Download size={18} />
+                      </button>
 
-                      {isVideoActivated ? (
-                        <video
-                          className="fr315f-videoPlayer"
-                          controls
-                          preload="none"
-                          poster={FR315F_VIDEO_POSTER}
-                          playsInline
-                          muted={false}
-                          onError={() => setIsVideoAvailable(false)}
-                          onClick={handleOpenVideoFullscreen}
-                        >
-                          <source src={FR315F_VIDEO_SRC} type="video/mp4" />
-                          <source src={FR315F_VIDEO_FALLBACK_SRC} type="video/mp4" />
-                        </video>
-                      ) : (
-                        <button
-                          type="button"
-                          className="fr315f-videoActivator"
-                          onClick={() => {
-                            setIsVideoActivated(true);
-                            handleOpenVideoFullscreen();
-                          }}
-                          aria-label={copy.videoStartAria}
-                        >
-                          <PlayCircle size={40} />
-                          <span>{copy.videoStartTitle}</span>
-                          <small>{copy.videoStartLead}</small>
-                        </button>
-                      )}
+                      <video
+                        className="fr315f-videoPlayer"
+                        controls
+                        preload="metadata"
+                        poster={FR315F_VIDEO_POSTER}
+                        playsInline
+                        muted={false}
+                        onError={() => setIsVideoAvailable(false)}
+                      >
+                        <source src={FR315F_VIDEO_SRC} type="video/mp4" />
+                        <source src={FR315F_VIDEO_FALLBACK_SRC} type="video/mp4" />
+                      </video>
                       <span className="fr315f-videoHint">{copy.videoHint}</span>
                     </div>
                   ) : (
@@ -967,68 +915,6 @@ export default function FR315F({ onBack }: Props) {
               <div className="fr315f-fullscreenCounter">
                 {galleryCurrentIndex + 1}/{copy.galleryItems.length}
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {isFullscreenVideo && (
-          <motion.div
-            className="fr315f-fullscreenGallery"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.16 }}
-            onKeyDown={handleFullscreenKeyDown}
-            role="dialog"
-            aria-modal="true"
-            tabIndex={0}
-            ref={fullscreenVideoDialogRef}
-          >
-            <div className="fr315f-fullscreenTopControls">
-              <button
-                className="fr315f-fullscreenDownload"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  void handleDownloadVideo();
-                }}
-                aria-label="Download video"
-                title="Download"
-              >
-                <Download size={20} />
-              </button>
-
-              <button
-                className="fr315f-fullscreenClose"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleCloseVideoFullscreen();
-                }}
-                aria-label="Close fullscreen video"
-                title="Close"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
-            </div>
-
-            <div className="fr315f-fullscreenVideoViewport">
-              <video
-                className="fr315f-fullscreenVideoPlayer"
-                controls
-                autoPlay
-                preload="metadata"
-                poster={FR315F_VIDEO_POSTER}
-                playsInline
-                muted={false}
-                onError={() => setIsVideoAvailable(false)}
-              >
-                <source src={FR315F_VIDEO_SRC} type="video/mp4" />
-                <source src={FR315F_VIDEO_FALLBACK_SRC} type="video/mp4" />
-              </video>
             </div>
           </motion.div>
         )}

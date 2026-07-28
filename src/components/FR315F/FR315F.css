@@ -534,35 +534,36 @@
 }
 
 .fr315f-videoWrap {
+  position: relative;
   display: grid;
   gap: 0.6rem;
   padding: 1.2rem;
   height: 100%;
 }
 
-.fr315f-videoControls {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.fr315f-videoDownload {
+.fr315f-videoSaveIcon {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  z-index: 3;
   appearance: none;
   border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 12px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.38rem;
-  padding: 0.38rem 0.62rem;
-  font-size: 0.76rem;
-  font-weight: 700;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
   line-height: 1;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  backdrop-filter: blur(8px);
+  opacity: 0.96;
 }
 
-.fr315f-videoDownload:hover {
+.fr315f-videoSaveIcon:hover {
   background: rgba(255, 255, 255, 0.16);
   border-color: rgba(255, 255, 255, 0.38);
   transform: translateY(-1px);
@@ -604,8 +605,11 @@
 }
 
 .fr315f-videoPlayer {
+  display: block;
   width: 100%;
-  min-height: 160px;
+  height: auto;
+  max-height: min(78dvh, 900px);
+  object-fit: contain;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 18px;
   background: #080a0d;
@@ -923,26 +927,6 @@
   z-index: 10000;
 }
 
-.fr315f-fullscreenVideoViewport {
-  position: relative;
-  width: 100vw;
-  height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: max(16px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
-}
-
-.fr315f-fullscreenVideoPlayer {
-  width: 100%;
-  max-width: min(1200px, 100vw);
-  max-height: calc(100dvh - max(120px, env(safe-area-inset-top) + env(safe-area-inset-bottom) + 72px));
-  object-fit: contain;
-  background: #000;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-}
-
 @media (max-width: 768px) {
   .fr315f-fullscreenTopControls {
     top: max(10px, env(safe-area-inset-top));
@@ -975,13 +959,10 @@
     padding: 6px 12px;
   }
 
-  .fr315f-videoDownload {
-    padding: 0.36rem 0.56rem;
-    font-size: 0.72rem;
-  }
-
-  .fr315f-fullscreenVideoPlayer {
-    max-height: calc(100dvh - max(112px, env(safe-area-inset-top) + env(safe-area-inset-bottom) + 64px));
-    border-radius: 10px;
+  .fr315f-videoSaveIcon {
+    top: 0.6rem;
+    right: 0.6rem;
+    width: 34px;
+    height: 34px;
   }
 }
