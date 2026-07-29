@@ -282,6 +282,11 @@
 
 @media(max-width:768px){
 
+    .hero-loader-wrap{
+        width:132vw;
+        bottom:-4%;
+    }
+
     .hero-content{
         padding:50px clamp(20px,4vw,40px);
     }
