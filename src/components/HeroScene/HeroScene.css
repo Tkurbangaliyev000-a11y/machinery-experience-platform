@@ -29,16 +29,33 @@
     opacity:1;
     filter:saturate(1.45) contrast(1.18) brightness(1.08);
 }
-.hero-loader-layer{
+.hero-loader-wrap{
     position:absolute;
     left:50%;
     bottom:-5%;
     transform:translateX(-50%) scale(1.18);
+    z-index:2;
+    pointer-events:none;
+}
+
+.hero-loader-layer{
+    position:relative;
+    display:block;
     width:auto;
     height:105vh;
     object-fit:contain;
-    z-index:2;
-    pointer-events:none;
+}
+
+.hero-loader-layer-blur{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    filter:blur(5px);
+    opacity:.5;
+    mask-image:linear-gradient(to bottom, rgba(0,0,0,.95) 0%, rgba(0,0,0,.92) 46%, rgba(0,0,0,0) 64%);
+    -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,.95) 0%, rgba(0,0,0,.92) 46%, rgba(0,0,0,0) 64%);
 }
 .loader-ground-shadow{
     position:absolute;
@@ -64,6 +81,18 @@
 .hero-shader-bg .hero-shader-instance{
     width:100%;
     height:100%;
+    position:relative;
+}
+
+.hero-shader-bg .hero-shader-instance::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background:
+        radial-gradient(85% 65% at 50% 42%, rgba(8,8,10,.22), rgba(0,0,0,.58) 78%),
+        linear-gradient(180deg, rgba(0,0,0,.26), rgba(0,0,0,.62));
 }
 
 .hero-shader-bg .hero-shader-instance > div.absolute.inset-0.z-10{
@@ -72,6 +101,8 @@
 
 .hero-shader-bg .hero-shader-instance canvas{
     object-fit:cover !important;
+    position:relative;
+    z-index:1;
 }
 
 .overlay{
@@ -234,7 +265,7 @@
     display: block !important;
 }
 
-.hero-loader-layer {
+.hero-loader-wrap {
     z-index: 6;
 }
 
