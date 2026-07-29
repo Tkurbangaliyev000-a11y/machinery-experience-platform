@@ -241,6 +241,7 @@ export default function HeroScene({ onEnter }: Props) {
           className="hero-shader-instance"
         />
       </div>
+     <img className="hero-loader-layer" src="/Loader.png" alt="" aria-hidden="true" />
 
       <div className="overlay" />
 
@@ -254,15 +255,15 @@ export default function HeroScene({ onEnter }: Props) {
         <img className="hero-top-logo" src={logoSrc} alt="Turkuaz Machinery CA" />
 
         <button
-          data-feedback="primary"
-          className="hero-enter premium-button"
-          onMouseEnter={() => {
-            playHoverSound();
-          }}
-          onClick={handleEnter}
-        >
-          {translations.heroEnter}
-        </button>
+  data-feedback="primary"
+  className="hero-enter px-8 py-4 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-black rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/25"
+  onMouseEnter={() => {
+    playHoverSound();
+  }}
+  onClick={handleEnter}
+>
+  {translations.heroEnter}
+</button>
       </div>
     </section>
   );

@@ -18,7 +18,7 @@
     background:
         radial-gradient(70% 60% at 50% 30%, rgba(255,255,255,.08), transparent 60%),
         linear-gradient(180deg, rgba(6,10,15,.08), rgba(4,7,10,.62)),
-        url('/Avatar.png') center/cover no-repeat;
+        
 }
 
 .hero-shader-bg{
@@ -27,6 +27,17 @@
     z-index:0;
     pointer-events:none;
     opacity:.55;
+}
+.hero-loader-layer{
+    position:absolute;
+    left:50%;
+    bottom:-5%;
+    transform:translateX(-50%);
+    width:auto;
+    height:105vh;
+    object-fit:contain;
+    z-index:2;
+    pointer-events:none;
 }
 
 .hero-shader-bg .hero-shader-instance{
@@ -125,21 +136,27 @@
     padding:18px 48px;
     border:none;
     border-radius:999px;
-    background:#12c7dc;
+
+    background:linear-gradient(to right, #f97316, #eab308);
+
     color:#000;
     font-size:18px;
-    font-weight:700;
+    font-weight:600;
     cursor:pointer;
-    transition:all .35s ease;
-    box-shadow:0 0 35px rgba(123,230,255,.45);
+
+    transition:all .3s ease;
+
     margin-top:auto;
     margin-bottom:120px;
 }
 
 .hero-content button:hover{
-    transform:translateY(-4px) scale(1.05);
-    background:#24d5e8;
-    box-shadow:0 0 60px rgba(18,199,220,.6);
+    transform:scale(1.05);
+
+    background:linear-gradient(to right, #ea580c, #ca8a04);
+
+    box-shadow:0 20px 25px -5px rgba(249,115,22,.25),
+               0 8px 10px -6px rgba(249,115,22,.25);
 }
 
 @keyframes fadeUp{
