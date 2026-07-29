@@ -2,6 +2,7 @@ import "./HeroScene.css";
 import { useEffect, useRef } from "react";
 import { createLoader60sAudio, playHoverSound } from "../../hooks/uiAudio.ts";
 import { useTranslations } from "../../i18n";
+import AnimatedShaderHero from "../AnimatedShaderHero";
 
 type Props = {
   onEnter: () => void;
@@ -233,6 +234,14 @@ export default function HeroScene({ onEnter }: Props) {
 
   return (
     <section ref={sceneRef} className="hero-scene">
+      <div className="hero-shader-bg" aria-hidden="true">
+        <AnimatedShaderHero
+          headline={{ line1: "", line2: "" }}
+          subtitle=""
+          className="hero-shader-instance"
+        />
+      </div>
+
       <div className="overlay" />
 
       <div className="grid" />
