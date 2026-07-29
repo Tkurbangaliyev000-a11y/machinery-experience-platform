@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 // Types for component props
 interface HeroProps {
@@ -27,7 +27,7 @@ interface HeroProps {
 // Reusable Shader Background Hook
 const useShaderBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | null>(null);
   const rendererRef = useRef<WebGLRenderer | null>(null);
   const pointersRef = useRef<PointerHandler | null>(null);
 
@@ -39,10 +39,9 @@ const useShaderBackground = () => {
     private vs: WebGLShader | null = null;
     private fs: WebGLShader | null = null;
     private buffer: WebGLBuffer | null = null;
-    private scale: number;
     private shaderSource: string;
-    private mouseMove = [0, 0];
-    private mouseCoords = [0, 0];
+    private mouseMove: [number, number] = [0, 0];
+    private mouseCoords: [number, number] = [0, 0];
     private pointerCoords = [0, 0];
     private nbrOfPointers = 0;
 
@@ -55,7 +54,6 @@ void main(){gl_Position=position;}`;
 
     constructor(canvas: HTMLCanvasElement, scale: number) {
       this.canvas = canvas;
-      this.scale = scale;
       this.gl = canvas.getContext('webgl2')!;
       this.gl.viewport(0, 0, canvas.width * scale, canvas.height * scale);
       this.shaderSource = defaultShaderSource;
@@ -68,11 +66,11 @@ void main(){gl_Position=position;}`;
       this.init();
     }
 
-    updateMove(deltas: number[]) {
+    updateMove(deltas: [number, number]) {
       this.mouseMove = deltas;
     }
 
-    updateMouse(coords: number[]) {
+    updateMouse(coords: [number, number]) {
       this.mouseCoords = coords;
     }
 
@@ -85,7 +83,6 @@ void main(){gl_Position=position;}`;
     }
 
     updateScale(scale: number) {
-      this.scale = scale;
       this.gl.viewport(0, 0, this.canvas.width * scale, this.canvas.height * scale);
     }
 
@@ -190,14 +187,14 @@ void main(){gl_Position=position;}`;
   class PointerHandler {
     private scale: number;
     private active = false;
-    private pointers = new Map<number, number[]>();
-    private lastCoords = [0, 0];
-    private moves = [0, 0];
+    private pointers = new Map<number, [number, number]>();
+    private lastCoords: [number, number] = [0, 0];
+    private moves: [number, number] = [0, 0];
 
     constructor(element: HTMLCanvasElement, scale: number) {
       this.scale = scale;
       
-      const map = (element: HTMLCanvasElement, scale: number, x: number, y: number) => 
+      const map = (element: HTMLCanvasElement, scale: number, x: number, y: number): [number, number] => 
         [x * scale, element.height - y * scale];
 
       element.addEventListener('pointerdown', (e) => {
@@ -251,7 +248,7 @@ void main(){gl_Position=position;}`;
         : [0, 0];
     }
 
-    get first() {
+    get first(): [number, number] {
       return this.pointers.values().next().value || this.lastCoords;
     }
   }
@@ -329,7 +326,7 @@ const Hero: React.FC<HeroProps> = ({
 
   return (
     <div className={`relative w-full h-screen overflow-hidden bg-black ${className}`}>
-      <style jsx>{`
+      <style>{`
         @keyframes fade-in-down {
           from {
             opacity: 0;
