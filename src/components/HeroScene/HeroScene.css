@@ -34,7 +34,7 @@
     bottom:-5%;
     transform:translateX(-50%);
     width:auto;
-    height:105vh;
+    height:125vh;
     object-fit:contain;
     z-index:2;
     pointer-events:none;
