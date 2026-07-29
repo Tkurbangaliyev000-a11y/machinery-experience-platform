@@ -32,9 +32,9 @@
     position:absolute;
     left:50%;
     bottom:-5%;
-    transform:translateX(-50%);
+    transform:translateX(-50%) scale(1.18);
     width:auto;
-    height:125vh;
+    height:105vh;
     object-fit:contain;
     z-index:2;
     pointer-events:none;
