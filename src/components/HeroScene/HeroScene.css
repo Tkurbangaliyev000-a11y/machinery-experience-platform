@@ -16,17 +16,18 @@
     align-items:center;
 
     background:
-        radial-gradient(70% 60% at 50% 30%, rgba(255,255,255,.08), transparent 60%),
-        linear-gradient(180deg, rgba(6,10,15,.08), rgba(4,7,10,.62)),
+       #000;
         
 }
+
 
 .hero-shader-bg{
     position:absolute;
     inset:0;
     z-index:0;
     pointer-events:none;
-    opacity:.55;
+    opacity:1;
+    filter:saturate(1.45) contrast(1.18) brightness(1.08);
 }
 .hero-loader-layer{
     position:absolute;
@@ -39,6 +40,26 @@
     z-index:2;
     pointer-events:none;
 }
+.loader-ground-shadow{
+    position:absolute;
+    left:50%;
+    bottom:6%;
+    transform:translateX(-50%);
+    width:min(520px,58vw);
+    height:55px;
+   background: radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,.95) 0%,
+    rgba(0,0,0,.75) 35%,
+    rgba(0,0,0,.25) 60%,
+    transparent 75%
+);
+    ;
+    filter:blur(14px);
+    z-index:5;
+    pointer-events:none;
+}
+    
 
 .hero-shader-bg .hero-shader-instance{
     width:100%;
@@ -196,3 +217,49 @@
     }
 
 }
+/* ===== BLACK STUDIO FLOOR ===== */
+
+.hero-scene {
+    background: #000;
+}
+
+.hero-shader-bg {
+    display: block !important;
+    opacity: 1;
+    filter: saturate(1.45) contrast(1.18) brightness(1.08);
+}
+
+.grid,
+.glow {
+    display: block !important;
+}
+
+.hero-loader-layer {
+    z-index: 6;
+}
+
+/* Серый студийный пол + контактная тень */
+.hero-scene::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 34%;
+    z-index: 3;
+    pointer-events: none;
+
+    background:
+      
+
+   
+
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(24,25,27,.30) 15%,
+            rgba(49,51,54,.68) 58%,
+            rgba(25,26,28,.92) 100%
+        );
+}
+

@@ -241,6 +241,7 @@ export default function HeroScene({ onEnter }: Props) {
           className="hero-shader-instance"
         />
       </div>
+      <div className="loader-ground-shadow" aria-hidden="true" />
      <img className="hero-loader-layer" src={`${import.meta.env.BASE_URL}Loader.png`} alt="" aria-hidden="true" />
 
       <div className="overlay" />
