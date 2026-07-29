@@ -38,11 +38,26 @@
     pointer-events:none;
 }
 
+.hero-loader-wrap::after{
+    content:"";
+    position:absolute;
+    inset:22% -10% 18% -10%;
+    z-index:3;
+    pointer-events:none;
+    opacity:.2;
+    filter:blur(10px);
+    background:
+        radial-gradient(58% 34% at 20% 68%, rgba(231,188,120,.34), rgba(231,188,120,0) 72%),
+        radial-gradient(52% 30% at 78% 62%, rgba(214,170,102,.28), rgba(214,170,102,0) 72%),
+        radial-gradient(46% 26% at 50% 82%, rgba(189,146,88,.22), rgba(189,146,88,0) 74%);
+    animation:sandFrontDrift 9s ease-in-out infinite alternate;
+}
+
 .hero-loader-layer{
     position:relative;
     display:block;
     width:auto;
-    height:105vh;
+    height:112vh;
     object-fit:contain;
 }
 
@@ -108,10 +123,23 @@
 .overlay{
     position:absolute;
     inset:0;
+    overflow:hidden;
     pointer-events:none;
     background:
         radial-gradient(45% 35% at 50% 14%, rgba(255,255,255,.1), transparent 70%),
         linear-gradient(180deg, rgba(3, 6, 10, .18), rgba(3, 6, 10, .62));
+}
+
+.overlay::before{
+    content:"";
+    position:absolute;
+    inset:-12% -8%;
+    pointer-events:none;
+    opacity:.14;
+    background:
+        radial-gradient(42% 28% at 24% 22%, rgba(255,255,255,.24), rgba(255,255,255,0) 72%),
+        radial-gradient(36% 24% at 78% 58%, rgba(255,214,138,.18), rgba(255,214,138,0) 72%);
+    animation:foregroundDrift 18s ease-in-out infinite alternate;
 }
 
 .grid{
@@ -231,6 +259,26 @@
     }
 }
 
+@keyframes foregroundDrift{
+    from{
+        transform:translate3d(-1.2%, -0.8%, 0) scale(1);
+    }
+    to{
+        transform:translate3d(1.2%, 1%, 0) scale(1.03);
+    }
+}
+
+@keyframes sandFrontDrift{
+    from{
+        transform:translate3d(-1.6%, .4%, 0) scale(1);
+        opacity:.16;
+    }
+    to{
+        transform:translate3d(1.6%, -0.4%, 0) scale(1.03);
+        opacity:.24;
+    }
+}
+
 @media(max-width:768px){
 
     .hero-content{
@@ -269,7 +317,7 @@
     z-index: 6;
 }
 
-/* Серый студийный пол + контактная тень */
+/* Влажный темный карьерный пол + контактная тень */
 .hero-scene::after {
     content: "";
     position: absolute;
@@ -281,16 +329,39 @@
     pointer-events: none;
 
     background:
-      
-
-   
-
+        radial-gradient(
+            120% 58% at 50% 106%,
+            rgba(206,162,96,.22) 0%,
+            rgba(140,106,65,.12) 36%,
+            rgba(0,0,0,0) 72%
+        ),
+        radial-gradient(
+            86% 16% at 50% 82%,
+            rgba(238,208,154,.10) 0%,
+            rgba(238,208,154,.04) 38%,
+            rgba(0,0,0,0) 72%
+        ),
+        radial-gradient(
+            140% 92% at 50% 100%,
+            rgba(121,94,58,.36) 0%,
+            rgba(78,59,36,.30) 34%,
+            rgba(23,18,12,0) 78%
+        ),
+        repeating-linear-gradient(
+            -10deg,
+            rgba(108,80,49,.14) 0px,
+            rgba(108,80,49,.14) 2px,
+            rgba(72,55,35,.12) 2px,
+            rgba(72,55,35,.12) 4px,
+            rgba(48,37,24,.10) 4px,
+            rgba(48,37,24,.10) 7px
+        ),
         linear-gradient(
             to bottom,
             transparent 0%,
-            rgba(24,25,27,.30) 15%,
-            rgba(49,51,54,.68) 58%,
-            rgba(25,26,28,.92) 100%
+            rgba(56,44,31,.34) 16%,
+            rgba(68,52,35,.74) 58%,
+            rgba(34,26,18,.94) 100%
         );
 }
 
