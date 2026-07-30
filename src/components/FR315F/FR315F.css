@@ -99,6 +99,12 @@
   text-shadow: 0 0 3px rgba(123, 232, 255, 0.28);
 }
 
+.fr315f-brandLogo {
+  display: block;
+  width: min(320px, 72vw);
+  height: auto;
+}
+
 .fr315f-series {
   margin-top: -2px;
   color: rgba(159, 220, 255, 0.92);

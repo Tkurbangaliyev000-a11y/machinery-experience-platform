@@ -632,6 +632,7 @@ const FR215F_VIDEO_SRC = `${import.meta.env.BASE_URL}videos/FR215F-overview.mp4`
 const FR215F_VIDEO_POSTER = `${import.meta.env.BASE_URL}videos/FR215F-poster.jpg`;
 const FR215F_CP_URL = `${import.meta.env.BASE_URL}docs/FR215F-commercial-offer.pdf`;
 const FR215F_HERO_IMAGE = `${import.meta.env.BASE_URL}FR215F.png`;
+const TURKUAZ_LOGO_SRC = `${import.meta.env.BASE_URL}TMlogo.png`;
 
 export default function FR215F({ onBack }: Props) {
   const language = useAppLanguage();
@@ -681,7 +682,9 @@ export default function FR215F({ onBack }: Props) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span>Turkuaz Machinery CA</span>
+          <span>
+            <img className="fr215f-loaderBrandLogo" src={TURKUAZ_LOGO_SRC} alt="Turkuaz Machinery CA" />
+          </span>
           <strong>{copy.loaderTitle}</strong>
           <motion.em
             className="fr215f-loaderBar"
@@ -702,7 +705,9 @@ export default function FR215F({ onBack }: Props) {
           <div className="fr215f-heroGrid">
             <div className="fr215f-heroPrimary">
               <span className="fr215f-kicker">
-                <span className="fr215f-brandLine">Turkuaz Machinery CA</span>
+                <span className="fr215f-brandLogoWrap">
+                  <img className="fr215f-brandLogo" src={TURKUAZ_LOGO_SRC} alt="Turkuaz Machinery CA" />
+                </span>
                 <span className="fr215f-brandLine">{copy.brandSeries}</span>
               </span>
               <h1 className="fr215f-modelTitle">

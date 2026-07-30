@@ -23,6 +23,7 @@ export default function Catalog({
   const navigate = useNavigate();
   const translations = useTranslations();
   const lovolLogoSrc = `${import.meta.env.BASE_URL}LOVOL.png`;
+  const turkuazLogoSrc = `${import.meta.env.BASE_URL}TMlogo.png`;
 
   return (
     <div className="catalog-page catalog-page--categories">
@@ -38,7 +39,7 @@ export default function Catalog({
         <ChevronLeft size={20} strokeWidth={2.5} />
       </button>
 
-      <p className="catalog-subtitle">Turkuaz Machinery CA</p>
+      <img className="catalog-subtitleLogo" src={turkuazLogoSrc} alt="Turkuaz Machinery CA" />
 
       <h1 className="catalog-title-headline">
         <img className="catalog-title-logo" src={lovolLogoSrc} alt="LOVOL" />

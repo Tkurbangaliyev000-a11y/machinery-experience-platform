@@ -416,6 +416,7 @@ const FW215F_VIDEO_SRC = `${import.meta.env.BASE_URL}videos/FW215F-mobile.mp4`;
 const FW215F_VIDEO_FALLBACK_SRC = `${import.meta.env.BASE_URL}videos/FW215F.MP4`;
 const FW215F_VIDEO_POSTER = `${import.meta.env.BASE_URL}videos/FW215F-poster.jpg`;
 const FW215F_CP_URL = `${import.meta.env.BASE_URL}docs/FW215F-commercial-offer.pdf`;
+const TURKUAZ_LOGO_SRC = `${import.meta.env.BASE_URL}TMlogo.png`;
 
 export default function FW215F({ onBack }: Props) {
   const language = useAppLanguage();
@@ -438,7 +439,7 @@ export default function FW215F({ onBack }: Props) {
 
       <main className="fw215f-layout">
         <motion.section className="fw215f-hero" variants={revealVariants} initial="hidden" animate="show">
-          <span className="fw215f-brand">Turkuaz Machinery CA</span>
+          <img className="fw215f-brandLogo" src={TURKUAZ_LOGO_SRC} alt="Turkuaz Machinery CA" />
           <h1 className="fw215f-modelTitle">LOVOL FW215F</h1>
           <p className="fw215f-heroCopy">{copy.heroLead}</p>
 

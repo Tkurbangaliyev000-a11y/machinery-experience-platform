@@ -50,6 +50,7 @@ const buttonVariants: Variants = {
 };
 
 const LOVOL_LOGO_SRC = `${import.meta.env.BASE_URL}LOVOL-original.png`;
+const TURKUAZ_LOGO_SRC = `${import.meta.env.BASE_URL}TMlogo.png`;
 const FR315F_VIDEO_SRC = `${import.meta.env.BASE_URL}videos/FR315F-mobile.mp4`;
 const FR315F_VIDEO_FALLBACK_SRC = `${import.meta.env.BASE_URL}videos/FR315F.MP4`;
 const FR315F_VIDEO_POSTER = `${import.meta.env.BASE_URL}videos/FR315F-poster.jpg`;
@@ -721,7 +722,7 @@ export default function FR315F({ onBack }: Props) {
         {showUI && (
           <motion.div className="fr315f-ui" variants={overlayVariants} initial="hidden" animate="show" exit="hidden">
             <motion.header className="fr315f-header" variants={rowVariants}>
-              <span className="fr315f-label">{copy.brand}</span>
+              <img className="fr315f-brandLogo" src={TURKUAZ_LOGO_SRC} alt="Turkuaz Machinery CA" />
               <h1 className="fr315f-title fr315f-title--logo" aria-label="LOVOL FR315F">
                 <span className="fr315f-titleLovol">
                   <img className="fr315f-titleLovolImage" src={LOVOL_LOGO_SRC} alt="LOVOL" loading="eager" decoding="async" />

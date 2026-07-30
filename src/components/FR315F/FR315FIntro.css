@@ -60,6 +60,12 @@ text-shadow:
 
 }
 
+.intro-logoImage {
+width:min(360px,72vw);
+height:auto;
+display:block;
+}
+
 .intro-machine{
 
 width:72%;
@@ -123,6 +129,10 @@ font-size:17px;
 
 letter-spacing:7px;
 
+}
+
+.intro-logoImage {
+width:min(280px,74vw);
 }
 
 }

@@ -84,6 +84,12 @@
   font-family: var(--brand-display);
 }
 
+.fr215f-loaderBrandLogo {
+  display: block;
+  width: min(230px, 58vw);
+  height: auto;
+}
+
 .fr215f-loaderCard strong {
   font-size: clamp(1.05rem, 3vw, 1.28rem);
   font-weight: 620;
@@ -193,6 +199,16 @@
   font-size: 0.71rem;
   font-weight: 700;
   font-family: var(--brand-display);
+}
+
+.fr215f-brandLogoWrap {
+  display: inline-flex;
+}
+
+.fr215f-brandLogo {
+  display: block;
+  width: min(210px, 50vw);
+  height: auto;
 }
 
 .fr215f-modelTitle {

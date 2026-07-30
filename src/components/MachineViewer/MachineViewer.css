@@ -88,6 +88,13 @@
   text-transform: uppercase;
 }
 
+.catalog-subtitleLogo {
+  display: block;
+  width: min(360px, 76vw);
+  height: auto;
+  margin: 0 auto 16px;
+}
+
 .catalog-back-button {
   position: fixed;
   top: 18px;
@@ -354,6 +361,11 @@
   .catalog-subtitle {
     font-size: 0.7rem;
     letter-spacing: 0.16em;
+    margin-bottom: 12px;
+  }
+
+  .catalog-subtitleLogo {
+    width: min(280px, 70vw);
     margin-bottom: 12px;
   }
 

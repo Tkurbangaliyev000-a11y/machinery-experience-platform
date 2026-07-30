@@ -22,6 +22,8 @@ const INTRO_COPY: Record<AppLanguage, { brand: string; lead: string }> = {
   },
 };
 
+const TURKUAZ_LOGO_SRC = `${import.meta.env.BASE_URL}TMlogo.png`;
+
 export default function FR315FIntro({ onFinish }: Props) {
   const language = useAppLanguage();
   const copy = INTRO_COPY[language] ?? INTRO_COPY.ru;
@@ -78,7 +80,7 @@ export default function FR315FIntro({ onFinish }: Props) {
           duration: 1,
         }}
       >
-        {copy.brand}
+        <img className="intro-logoImage" src={TURKUAZ_LOGO_SRC} alt="Turkuaz Machinery CA" />
       </motion.div>
 
       {/* Экскаватор */}

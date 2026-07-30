@@ -1,11 +1,13 @@
 import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
 import "./MachineViewer.css";
 import FR315F from "../FR315F/FR315F";
 import FR215F from "../FR215F/FR215F.tsx";
 import FW215F from "../FW215F/FW215F";
 import Catalog from "./Catalog";
 import { useTranslations } from "../../i18n";
+import { playHoverSound } from "../../hooks/uiAudio.ts";
 
 type ViewerPage =
   | "catalog"
@@ -49,6 +51,7 @@ export default function MachineViewer() {
   const navigate = useNavigate();
   const { page: routePage } = useParams();
   const translations = useTranslations();
+  const turkuazLogoSrc = `${import.meta.env.BASE_URL}TMlogo.png`;
 
   const page = useMemo<ViewerPage>(() => {
     if (!routePage) {
@@ -95,8 +98,19 @@ export default function MachineViewer() {
   if (page === "excavators") {
     return (
       <div className="catalog-page catalog-page--models catalog-page--excavators">
+        <button
+          className="catalog-back-button"
+          onClick={() => navigate("/catalog")}
+          aria-label="Go back"
+          data-feedback="none"
+          onMouseEnter={() => {
+            playHoverSound();
+          }}
+        >
+          <ChevronLeft size={20} strokeWidth={2.5} />
+        </button>
 
-        <p className="catalog-subtitle">Turkuaz Machinery CA</p>
+        <img className="catalog-subtitleLogo" src={turkuazLogoSrc} alt="Turkuaz Machinery CA" />
 
         <h1>{translations.excavatorsTitle}</h1>
 
@@ -134,15 +148,6 @@ export default function MachineViewer() {
 
         </div>
 
-        <div className="catalog-backWrap">
-          <button
-            className="back-btn"
-            onClick={() => goToPage("catalog")}
-          >
-            {translations.backToCatalog}
-          </button>
-        </div>
-
       </div>
     );
   }
@@ -151,7 +156,7 @@ export default function MachineViewer() {
     return (
       <div className="catalog-page catalog-page--models catalog-page--loaders">
 
-        <p className="catalog-subtitle">Turkuaz Machinery CA</p>
+        <img className="catalog-subtitleLogo" src={turkuazLogoSrc} alt="Turkuaz Machinery CA" />
 
         <h1>{translations.loadersTitle}</h1>
 
@@ -188,7 +193,7 @@ export default function MachineViewer() {
     return (
       <div className="catalog-page catalog-page--models catalog-page--backhoes">
 
-        <p className="catalog-subtitle">Turkuaz Machinery CA</p>
+        <img className="catalog-subtitleLogo" src={turkuazLogoSrc} alt="Turkuaz Machinery CA" />
 
         <h1>{translations.backhoesTitle}</h1>
 
@@ -217,7 +222,7 @@ export default function MachineViewer() {
     return (
       <div className="catalog-page catalog-page--models catalog-page--wheeled-excavators">
 
-        <p className="catalog-subtitle">Turkuaz Machinery CA</p>
+        <img className="catalog-subtitleLogo" src={turkuazLogoSrc} alt="Turkuaz Machinery CA" />
 
         <h1>{translations.wheeledExcavatorsTitle}</h1>
 
@@ -257,7 +262,7 @@ export default function MachineViewer() {
     return (
       <div className="catalog-page catalog-page--models catalog-page--mining">
 
-        <p className="catalog-subtitle">Turkuaz Machinery CA</p>
+        <img className="catalog-subtitleLogo" src={turkuazLogoSrc} alt="Turkuaz Machinery CA" />
 
         <h1>{translations.miningTitle}</h1>
 
@@ -310,7 +315,7 @@ export default function MachineViewer() {
     return (
       <div className="catalog-page catalog-page--models catalog-page--dumptrucks">
 
-        <p className="catalog-subtitle">Turkuaz Machinery CA</p>
+        <img className="catalog-subtitleLogo" src={turkuazLogoSrc} alt="Turkuaz Machinery CA" />
 
         <h1>{translations.dumptrucksTitle}</h1>
 
