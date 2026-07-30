@@ -283,9 +283,9 @@
 @media(max-width:768px){
 
     .hero-loader-wrap{
-        width:96vw;
+        width:103vw;
         bottom:4%;
-        transform:translate(-50%, -150px);
+        transform:translate(-50%, -100px);
     }
 
     .hero-content{
