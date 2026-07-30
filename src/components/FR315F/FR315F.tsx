@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ComponentType } from "react";
+import { useEffect, useRef, useState, type ComponentType, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight, Download, HandCoins, MessageCircle, Phone, PlayCircle } from "lucide-react";
@@ -55,6 +55,7 @@ const TURKUAZ_LOGO_SRC = `${import.meta.env.BASE_URL}TMlogo.png`;
 const FR315F_VIDEO_SRC = `${import.meta.env.BASE_URL}videos/FR315F-mobile.mp4`;
 const FR315F_VIDEO_FALLBACK_SRC = `${import.meta.env.BASE_URL}videos/FR315F.MP4`;
 const FR315F_VIDEO_POSTER = `${import.meta.env.BASE_URL}videos/FR315F-poster.jpg`;
+const FR315F_HERO_IMAGE_SRC = `${import.meta.env.BASE_URL}FR315F.png`;
 
 const FR315F_COPY: Record<AppLanguage, {
   back: string;
@@ -711,6 +712,47 @@ export default function FR315F({ onBack }: Props) {
   const selectedFeatureId = copy.features.some((feature) => feature.id === activeFeatureId) ? activeFeatureId : copy.features[0].id;
   const activeFeature = copy.features.find((feature) => feature.id === selectedFeatureId) ?? copy.features[0];
 
+  const getSpecIcon = (index: number): ReactNode => {
+    switch (index) {
+      case 0:
+        return (
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 4h10l3 15H4L7 4z" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinejoin="round" />
+            <path d="M12 8v7" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
+            <path d="M9.5 11.5h5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
+          </svg>
+        );
+      case 1:
+        return (
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="5" y="7" width="12" height="10" rx="2" fill="none" stroke="currentColor" strokeWidth="1.9" />
+            <path d="M17 10h2l2 2v2h-2" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M3 10v4" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
+          </svg>
+        );
+      case 2:
+        return (
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M13 2 6 13h5l-1 9 8-12h-5l0-8Z" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        );
+      case 3:
+        return (
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 15a6 6 0 1 0 12 0" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
+            <path d="M18.5 15.2c1.3-1.4 1.8-3.8.2-5.6-2.3.4-3.9 1.2-5 3.2" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        );
+      default:
+        return (
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" strokeWidth="1.9" />
+            <path d="M12 12 16 9" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
+          </svg>
+        );
+    }
+  };
+
   return (
     <div className="fr315f-shell">
       <div className="fr315f-backdrop" />
@@ -730,15 +772,24 @@ export default function FR315F({ onBack }: Props) {
                 </span>
                 <ModelBadge model="FR315F" />
               </h1>
+              <div className="fr315f-heroMachine">
+                <div className="fr315f-heroMachineHalo" aria-hidden="true" />
+                <img className="fr315f-heroMachineImage" src={FR315F_HERO_IMAGE_SRC} alt="LOVOL FR315F" loading="eager" decoding="async" />
+              </div>
               <p className="fr315f-subtitle">{copy.subtitle}</p>
               <p className="fr315f-copy">{copy.lead}</p>
             </motion.header>
 
             <motion.section className="fr315f-specs" variants={rowVariants}>
-              {copy.specCards.map((spec) => (
+              {copy.specCards.map((spec, index) => (
                 <motion.article key={spec.label} className="fr315f-spec" whileHover={{ y: -3, scale: 1.01 }} transition={{ duration: 0.2 }}>
-                  <span className="fr315f-specValue">{spec.value}</span>
-                  <span className="fr315f-specLabel">{spec.label}</span>
+                  <div className="fr315f-specHead">
+                    <span className="fr315f-specIcon">{getSpecIcon(index)}</span>
+                    <span className="fr315f-specText">
+                      <span className="fr315f-specValue">{spec.value}</span>
+                      <span className="fr315f-specLabel">{spec.label}</span>
+                    </span>
+                  </div>
                 </motion.article>
               ))}
             </motion.section>

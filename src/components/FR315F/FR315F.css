@@ -963,3 +963,207 @@
   }
 
 }
+
+/* FR315F approved variant 4: premium industrial header + graphite specs */
+.fr315f-shell {
+  background:
+    linear-gradient(145deg, #04070c 0%, #060b12 48%, #03060a 100%);
+}
+
+.fr315f-shell::before,
+.fr315f-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.fr315f-shell::before {
+  background-image:
+    radial-gradient(circle at 18% 24%, rgba(18, 200, 230, 0.12), transparent 22%),
+    radial-gradient(circle at 82% 29%, rgba(17, 177, 206, 0.11), transparent 24%),
+    linear-gradient(122deg, rgba(255, 255, 255, 0.025) 0%, rgba(255, 255, 255, 0.025) 30%, transparent 31%),
+    linear-gradient(298deg, transparent 0%, transparent 42%, rgba(255, 255, 255, 0.02) 43%, rgba(255, 255, 255, 0.02) 60%, transparent 61%);
+  background-size: 100% 100%, 100% 100%, 1280px 840px, 1080px 760px;
+  opacity: 0.95;
+  z-index: 0;
+}
+
+.fr315f-shell::after {
+  background-image:
+    radial-gradient(circle at center, rgba(20, 33, 44, 0) 0, rgba(3, 6, 10, 0.82) 82%),
+    linear-gradient(30deg, rgba(120, 142, 160, 0.08) 1px, transparent 1px),
+    linear-gradient(-30deg, rgba(120, 142, 160, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(35, 204, 236, 0.18) 0 1px, transparent 1px);
+  background-size: auto, 20px 36px, 20px 36px, 100% 100%;
+  background-position: center, 0 0, 0 0, left 30% top 0;
+  opacity: 0.26;
+  z-index: 0;
+}
+
+.fr315f-backdrop {
+  background:
+    linear-gradient(180deg, rgba(2, 5, 8, 0.08), rgba(2, 5, 8, 0.45));
+}
+
+.fr315f-ui {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+  padding: clamp(5.9rem, 8vw, 7rem) clamp(0.9rem, 3.4vw, 2rem) 2.5rem;
+  gap: 1.7rem;
+}
+
+.fr315f-header {
+  width: min(100%, 940px);
+  margin-inline: auto;
+  gap: 0.95rem;
+}
+
+.fr315f-title--logo {
+  gap: 0.45rem;
+}
+
+.fr315f-titleLovolImage {
+  width: min(86vw, 420px);
+}
+
+.fr315f-heroMachine {
+  position: relative;
+  width: min(100%, 980px);
+  margin: 0.2rem auto 0.1rem;
+  overflow: visible;
+}
+
+.fr315f-heroMachineHalo {
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  width: min(88%, 780px);
+  height: clamp(40px, 10vw, 92px);
+  transform: translateX(-50%);
+  border-radius: 100%;
+  background:
+    radial-gradient(ellipse at center, rgba(62, 104, 126, 0.33) 0%, rgba(42, 74, 93, 0.2) 38%, rgba(4, 8, 12, 0) 72%);
+  filter: blur(10px);
+}
+
+.fr315f-heroMachineImage {
+  position: relative;
+  display: block;
+  width: min(100%, 940px);
+  height: auto;
+  margin-inline: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.42));
+}
+
+.fr315f-subtitle {
+  margin-top: 0.18rem;
+  color: rgba(248, 250, 252, 0.9);
+}
+
+.fr315f-copy {
+  max-width: 34ch;
+  color: rgba(231, 237, 242, 0.8);
+}
+
+.fr315f-specs {
+  width: min(980px, 100%);
+  margin-inline: auto;
+  grid-template-columns: 1fr;
+  gap: 0.82rem;
+}
+
+.fr315f-spec {
+  padding: 1rem 1.05rem;
+  border-radius: 22px;
+  border: 1px solid rgba(141, 157, 171, 0.2);
+  background: linear-gradient(154deg, rgba(21, 29, 38, 0.94), rgba(14, 20, 28, 0.97));
+  backdrop-filter: none;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.fr315f-specHead {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  align-items: center;
+  column-gap: 0.85rem;
+}
+
+.fr315f-specIcon {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  color: #1bd2ef;
+  background: linear-gradient(160deg, rgba(8, 20, 28, 0.84), rgba(5, 14, 21, 0.92));
+  border: 1px solid rgba(57, 207, 236, 0.24);
+  box-shadow: inset 0 1px 0 rgba(120, 236, 255, 0.12);
+}
+
+.fr315f-specIcon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.fr315f-specText {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.fr315f-specValue {
+  font-size: clamp(1.55rem, 6.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  word-break: break-word;
+}
+
+.fr315f-specLabel {
+  color: rgba(216, 224, 232, 0.78);
+  font-size: clamp(0.95rem, 3.8vw, 1.06rem);
+  line-height: 1.35;
+}
+
+@media (min-width: 860px) {
+  .fr315f-specs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 430px) {
+  .fr315f-ui {
+    padding: 4.15rem 0.8rem 1.45rem;
+    gap: 1.35rem;
+  }
+
+  .fr315f-titleLovolImage {
+    width: min(88vw, 370px);
+  }
+
+  .fr315f-heroMachine {
+    margin-top: 0.16rem;
+  }
+
+  .fr315f-spec {
+    padding: 0.92rem 0.92rem;
+  }
+
+  .fr315f-specHead {
+    grid-template-columns: 50px 1fr;
+    column-gap: 0.68rem;
+  }
+
+  .fr315f-specIcon {
+    width: 46px;
+    height: 46px;
+    border-radius: 15px;
+  }
+
+  .fr315f-specIcon svg {
+    width: 24px;
+    height: 24px;
+  }
+}

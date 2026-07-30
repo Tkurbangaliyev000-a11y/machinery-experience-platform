@@ -322,15 +322,15 @@ export default function MachineViewer() {
         <div className="catalog-grid">
 
           <button className="catalog-card catalog-card--model catalog-card--dumptruck-1">
-            <h2>FT 60</h2>
+            <h2>LT 90</h2>
           </button>
 
           <button className="catalog-card catalog-card--model catalog-card--dumptruck-2">
-            <h2>FT 90</h2>
+            <h2>LT 110</h2>
           </button>
 
           <button className="catalog-card catalog-card--model catalog-card--dumptruck-3">
-            <h2>FT 130</h2>
+            <h2>LT 130</h2>
           </button>
 
         </div>
