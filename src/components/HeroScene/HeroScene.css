@@ -283,9 +283,9 @@
 @media(max-width:768px){
 
     .hero-loader-wrap{
-        width:103vw;
+        width:108vw;
         bottom:4%;
-        transform:translate(-50%, -100px);
+        transform:translate(-50%, -20px);
     }
 
     .hero-content{
@@ -299,7 +299,7 @@
     .hero-content button{
         padding:16px 40px;
         font-size:16px;
-        margin-bottom:64px;
+        margin-bottom:18px;
     }
 
 }
