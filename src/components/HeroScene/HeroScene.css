@@ -283,7 +283,7 @@
 @media(max-width:768px){
 
     .hero-loader-wrap{
-        width:120vw;
+        width:80vw;
         bottom:-4%;
     }
 
@@ -369,5 +369,34 @@
             rgba(68,52,35,.74) 58%,
             rgba(34,26,18,.94) 100%
         );
+}
+
+@media (min-width: 1024px) {
+    .hero-loader-wrap {
+        left: 50%;
+        transform: translateX(-50%);
+        width: fit-content;
+        height: 92vh;
+        max-height: 92vh;
+        bottom: 4vh;
+    }
+
+    .hero-loader-layer {
+        width: auto;
+        height: 100%;
+        max-height: 100%;
+        max-width: min(95vw, 1900px);
+        object-fit: contain;
+        object-position: center bottom;
+    }
+
+    .hero-loader-layer-blur {
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto;
+        height: 100%;
+        max-height: 100%;
+        max-width: min(95vw, 1900px);
+    }
 }
 
