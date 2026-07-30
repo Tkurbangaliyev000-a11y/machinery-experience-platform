@@ -2,6 +2,7 @@ import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { playHoverSound } from "../../hooks/uiAudio.ts";
 import { useTranslations } from "../../i18n";
+import lovolLogoSrc from "../../assets/branding/lovol-logo.png";
 
 type Props = {
   onExcavators: () => void;
@@ -22,7 +23,6 @@ export default function Catalog({
 }: Props) {
   const navigate = useNavigate();
   const translations = useTranslations();
-  const lovolLogoSrc = `${import.meta.env.BASE_URL}LOVOL.png`;
   const turkuazLogoSrc = `${import.meta.env.BASE_URL}TMlogo.png`;
 
   return (

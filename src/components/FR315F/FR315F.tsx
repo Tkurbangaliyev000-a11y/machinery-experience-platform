@@ -18,6 +18,8 @@ import galleryImage4 from "../../assets/images/FR315F/gallery/4.jpg";
 import galleryImage5 from "../../assets/images/FR315F/gallery/5.jpg";
 import galleryImage6 from "../../assets/images/FR315F/gallery/6.jpg";
 import galleryImage7 from "../../assets/images/FR315F/gallery/7.jpg";
+import lovolLogoSrc from "../../assets/branding/lovol-logo.png";
+import ModelBadge from "../ModelBadge/ModelBadge";
 
 type Props = { onBack: () => void };
 
@@ -49,7 +51,6 @@ const buttonVariants: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
-const LOVOL_LOGO_SRC = `${import.meta.env.BASE_URL}LOVOL-original.png`;
 const TURKUAZ_LOGO_SRC = `${import.meta.env.BASE_URL}TMlogo.png`;
 const FR315F_VIDEO_SRC = `${import.meta.env.BASE_URL}videos/FR315F-mobile.mp4`;
 const FR315F_VIDEO_FALLBACK_SRC = `${import.meta.env.BASE_URL}videos/FR315F.MP4`;
@@ -725,15 +726,9 @@ export default function FR315F({ onBack }: Props) {
               <img className="fr315f-brandLogo" src={TURKUAZ_LOGO_SRC} alt="Turkuaz Machinery CA" />
               <h1 className="fr315f-title fr315f-title--logo" aria-label="LOVOL FR315F">
                 <span className="fr315f-titleLovol">
-                  <img className="fr315f-titleLovolImage" src={LOVOL_LOGO_SRC} alt="LOVOL" loading="eager" decoding="async" />
+                  <img className="fr315f-titleLovolImage" src={lovolLogoSrc} alt="LOVOL" loading="eager" decoding="async" />
                 </span>
-                <span className="fr315f-titleBadge" aria-hidden="true">
-                  <span className="fr315f-titleBadgeMain">FR315F</span>
-                  <span className="fr315f-titleBadgeSub">
-                    <span className="fr315f-titleBadgeSubAccent">W</span>
-                    <span className="fr315f-titleBadgeSubText">Phi</span>
-                  </span>
-                </span>
+                <ModelBadge model="FR315F" />
               </h1>
               <p className="fr315f-subtitle">{copy.subtitle}</p>
               <p className="fr315f-copy">{copy.lead}</p>

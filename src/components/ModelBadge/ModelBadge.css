@@ -1,0 +1,110 @@
+.model-badge {
+  --model-font-size: clamp(2.28rem, 5.9vw, 3.18rem);
+  --badge-line-width: clamp(176px, calc(var(--model-font-size) * var(--model-char-count) * 0.95), 286px);
+  --badge-thin-height: clamp(4px, 0.88vw, 6px);
+  --badge-thick-height: clamp(13px, 2.3vw, 18px);
+  --badge-thin-start: 38%;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.18rem;
+  width: var(--badge-line-width);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.model-badge__model {
+  position: relative;
+  z-index: 1;
+  font-family: "Rajdhani", var(--brand-display);
+  font-size: var(--model-font-size);
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  line-height: 0.88;
+  color: #f2f6fa;
+  text-transform: uppercase;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.28);
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.model-badge__line {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: var(--badge-thick-height);
+  margin-top: 0;
+  background: linear-gradient(90deg, rgba(240, 35, 49, 0.96), rgba(196, 16, 36, 0.95));
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% var(--badge-thin-height),
+    var(--badge-thin-start) var(--badge-thin-height),
+    calc(var(--badge-thin-start) - 8%) 100%,
+    0 100%
+  );
+  border-radius: 1px;
+}
+
+.model-badge__line::after {
+  content: none;
+}
+
+.model-badge__line::before {
+  content: none;
+}
+
+.model-badge__wphi {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 0.01em;
+  margin-top: -2px;
+  margin-left: 0;
+  justify-content: center;
+  font-family: "Rajdhani", var(--brand-display);
+  line-height: 1;
+}
+
+.model-badge__wphiW {
+  color: #f02331;
+  font-size: clamp(1.24rem, 2.7vw, 1.54rem);
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+}
+
+.model-badge__wphiPH {
+  color: rgba(246, 249, 252, 0.92);
+  font-size: clamp(0.98rem, 2.2vw, 1.2rem);
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.model-badge__wphiI {
+  position: relative;
+  color: rgba(246, 249, 252, 0.94);
+  font-size: clamp(0.64rem, 1.16vw, 0.74rem);
+  font-style: italic;
+  font-weight: 800;
+  transform: translateY(-0.36em);
+}
+
+.model-badge__wphiI::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -0.32em;
+  width: 0.26em;
+  height: 0.26em;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #f02331;
+}
