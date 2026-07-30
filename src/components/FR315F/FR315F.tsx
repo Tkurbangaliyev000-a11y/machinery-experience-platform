@@ -227,8 +227,7 @@ export default function FR315F({ onBack }: Props) {
       specifications={copy.specCards}
       brandLogoSrc={TURKUAZ_LOGO_SRC}
       lovolLogoSrc={lovolLogoSrc}
-      videoSrc={FR315F_VIDEO_SRC}
-      videoFallbackSrc={FR315F_VIDEO_FALLBACK_SRC}
+      videoSources={[FR315F_VIDEO_SRC, FR315F_VIDEO_FALLBACK_SRC]}
       videoPoster={FR315F_VIDEO_POSTER}
       content={{
         back: copy.back,

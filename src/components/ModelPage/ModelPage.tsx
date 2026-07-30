@@ -33,8 +33,7 @@ type ModelPageProps = {
   specifications: ModelPageSpec[];
   brandLogoSrc: string;
   lovolLogoSrc: string;
-  videoSrc: string;
-  videoFallbackSrc: string;
+  videoSources: string[];
   videoPoster: string;
   content: ModelPageContent;
 };
@@ -114,8 +113,7 @@ export default function ModelPage({
   specifications,
   brandLogoSrc,
   lovolLogoSrc,
-  videoSrc,
-  videoFallbackSrc,
+  videoSources,
   videoPoster,
   content,
 }: ModelPageProps) {
@@ -123,6 +121,7 @@ export default function ModelPage({
   const [isLeasingModalOpen, setIsLeasingModalOpen] = useState(false);
   const [leasingModalKey, setLeasingModalKey] = useState(0);
   const [isVideoAvailable, setIsVideoAvailable] = useState(true);
+  const [activeVideoSourceIndex, setActiveVideoSourceIndex] = useState(0);
   const [galleryCurrentIndex, setGalleryCurrentIndex] = useState(0);
   const [gallerySwipeDirection, setGallerySwipeDirection] = useState<1 | -1>(1);
   const [galleryTouchStartX, setGalleryTouchStartX] = useState(0);
@@ -346,9 +345,14 @@ export default function ModelPage({
 
   const handleDownloadVideo = async () => {
     const fileName = `${model}-video.mp4`;
+    const downloadSource = videoSources[0];
+
+    if (!downloadSource) {
+      return;
+    }
 
     try {
-      const mediaFile = await fetchMediaFile(videoSrc, fileName, "video/mp4");
+      const mediaFile = await fetchMediaFile(downloadSource, fileName, "video/mp4");
       const shared = await shareFileIfSupported(mediaFile, fileName);
       if (shared) {
         return;
@@ -358,8 +362,17 @@ export default function ModelPage({
       triggerFileDownload(blobUrl, fileName);
       window.setTimeout(() => URL.revokeObjectURL(blobUrl), 1500);
     } catch {
-      triggerFileDownload(videoSrc, fileName);
+      triggerFileDownload(downloadSource, fileName);
     }
+  };
+
+  const handleVideoError = () => {
+    if (activeVideoSourceIndex < videoSources.length - 1) {
+      setActiveVideoSourceIndex((prev) => prev + 1);
+      return;
+    }
+
+    setIsVideoAvailable(false);
   };
 
   const handleFullscreenTouchStart = (e: TouchEvent<HTMLDivElement>) => {
@@ -551,6 +564,7 @@ export default function ModelPage({
 
   const selectedFeatureId = content.features.some((feature) => feature.id === activeFeatureId) ? activeFeatureId : content.features[0].id;
   const activeFeature = content.features.find((feature) => feature.id === selectedFeatureId) ?? content.features[0];
+  const activeVideoSrc = videoSources[activeVideoSourceIndex];
 
   return (
     <div className="fr315f-shell">
@@ -680,22 +694,21 @@ export default function ModelPage({
                 </article>
 
                 <article className="fr315f-mediaCard fr315f-mediaCard--video">
-                  {isVideoAvailable ? (
+                  {isVideoAvailable && activeVideoSrc ? (
                     <div className="fr315f-videoWrap">
                       <video
                         ref={inlineVideoRef}
+                        key={`inline-video-${activeVideoSourceIndex}`}
                         className="fr315f-videoPlayer"
+                        src={activeVideoSrc}
                         controls
                         preload="metadata"
                         poster={videoPoster}
                         playsInline
                         muted={false}
-                        onError={() => setIsVideoAvailable(false)}
+                        onError={handleVideoError}
                         onDoubleClick={handleOpenVideoFullscreen}
-                      >
-                        <source src={videoSrc} type="video/mp4" />
-                        <source src={videoFallbackSrc} type="video/mp4" />
-                      </video>
+                      />
                       <span className="fr315f-videoHint">{content.videoHint}</span>
                     </div>
                   ) : (
@@ -908,17 +921,16 @@ export default function ModelPage({
             <div className="fr315f-fullscreenVideoViewport">
               <video
                 ref={fullscreenVideoRef}
+                key={`fullscreen-video-${activeVideoSourceIndex}`}
                 className="fr315f-fullscreenVideoPlayer"
+                src={activeVideoSrc}
                 controls
                 preload="metadata"
                 poster={videoPoster}
                 playsInline
                 muted={false}
-                onError={() => setIsVideoAvailable(false)}
-              >
-                <source src={videoSrc} type="video/mp4" />
-                <source src={videoFallbackSrc} type="video/mp4" />
-              </video>
+                onError={handleVideoError}
+              />
             </div>
           </motion.div>
         )}
