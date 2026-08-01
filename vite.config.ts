@@ -9,6 +9,11 @@ export default defineConfig({
     allowedHosts: true,
     watch: {
       ignored: [
+        "**/public/**/*.png",
+        "**/public/**/*.jpg",
+        "**/public/**/*.jpeg",
+        "**/public/**/*.webp",
+        "**/public/**/*.svg",
         "**/public/WhatsApp Image *.jpg",
         "**/public/WhatsApp Image *.jpeg",
       ],

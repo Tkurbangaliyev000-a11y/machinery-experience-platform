@@ -254,7 +254,14 @@ export const MODEL_PROFILES: Record<ModelId, ModelProfile> = {
   LT130: createPlaceholderProfile("LT130", "Карьерный самосвал"),
   FW60F: createPlaceholderProfile("FW60F", "Колесный экскаватор"),
   FW160F: createPlaceholderProfile("FW160F", "Колесный экскаватор"),
-  FW215F: createPlaceholderProfile("FW215F", "Колесный экскаватор"),
+  FW215F: (() => {
+    const profile = createPlaceholderProfile("FW215F", "Колесный экскаватор");
+    profile.videos = [
+      { src: `${import.meta.env.BASE_URL}videos/FW215F-mobile.mp4` },
+      { src: `${import.meta.env.BASE_URL}videos/FW215F.MP4` },
+    ];
+    return profile;
+  })(),
   FB878H: createPlaceholderProfile("FB878H", "Экскаватор-погрузчик"),
   FR560F: createPlaceholderProfile("FR560F", "Карьерный экскаватор"),
   FR700F: createPlaceholderProfile("FR700F", "Карьерный экскаватор"),

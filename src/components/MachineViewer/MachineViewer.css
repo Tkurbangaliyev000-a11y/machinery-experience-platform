@@ -244,10 +244,6 @@
   text-shadow: 0 8px 26px rgba(0, 0, 0, 0.78), 0 2px 10px rgba(0, 0, 0, 0.65);
 }
 
-.catalog-page--categories .catalog-card.large h2 {
-  font-size: clamp(1.65rem, 3.8vw, 2.25rem);
-}
-
 .catalog-page--models .catalog-card--model h2 {
   position: absolute;
   top: 16px;
@@ -312,9 +308,9 @@
 
 .catalog-card--excavators { background-image: url("/Excavator.png"); }
 .catalog-card--loader { background-image: url("/category-frontloader.png"); }
-.catalog-card--dumptrucks { background-image: url("/category-Dump-truck.png"); }
-.catalog-card--dumptruck-1 { background-image: url("/category-Dump-truck.png"); background-position: 18% center; }
-.catalog-card--dumptruck-2 { background-image: url("/category-Dump-truck.png"); background-position: center center; }
+.catalog-card--dumptrucks { background-image: url("/LT90.png"); }
+.catalog-card--dumptruck-1 { background-image: url("/LT90.png"); background-position: center center; }
+.catalog-card--dumptruck-2 { background-image: url("/LT110H.png"); background-position: center center; }
 .catalog-card--dumptruck-3 { background-image: url("/category-Dump-truck.png"); background-position: 82% center; }
 .catalog-card--wheeled-excavators { background-image: url("/category-wheel-excavator.png"); }
 .catalog-card--fw60f { background-image: url("/FW60F.png"); }
