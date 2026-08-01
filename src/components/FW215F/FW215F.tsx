@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import {
-  ArrowLeft,
   Camera,
   Download,
   Fuel,
@@ -17,6 +16,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useAppLanguage, type AppLanguage } from "../../i18n";
+import BackArrowButton from "../BackArrowButton/BackArrowButton";
 import "./FW215F.css";
 
 type Props = { onBack: () => void };
@@ -432,10 +432,7 @@ export default function FW215F({ onBack }: Props) {
 
   return (
     <div className="fw215f-page">
-      <button className="fw215f-back" type="button" onClick={onBack} aria-label={copy.back}>
-        <ArrowLeft size={18} />
-        <span>{copy.back}</span>
-      </button>
+      <BackArrowButton onClick={onBack} ariaLabel={copy.back} />
 
       <main className="fw215f-layout">
         <motion.section className="fw215f-hero" variants={revealVariants} initial="hidden" animate="show">

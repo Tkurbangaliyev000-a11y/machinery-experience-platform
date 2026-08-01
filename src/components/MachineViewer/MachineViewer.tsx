@@ -1,13 +1,12 @@
 import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
 import "./MachineViewer.css";
+import BackArrowButton from "../BackArrowButton/BackArrowButton";
 import FR315F from "../FR315F/FR315F";
 import FR215F from "../FR215F/FR215F.tsx";
 import FW215F from "../FW215F/FW215F";
 import Catalog from "./Catalog";
 import { useTranslations } from "../../i18n";
-import { playHoverSound } from "../../hooks/uiAudio.ts";
 
 type ViewerPage =
   | "catalog"
@@ -98,17 +97,7 @@ export default function MachineViewer() {
   if (page === "excavators") {
     return (
       <div className="catalog-page catalog-page--models catalog-page--excavators">
-        <button
-          className="catalog-back-button"
-          onClick={() => navigate("/catalog")}
-          aria-label="Go back"
-          data-feedback="none"
-          onMouseEnter={() => {
-            playHoverSound();
-          }}
-        >
-          <ChevronLeft size={20} strokeWidth={2.5} />
-        </button>
+        <BackArrowButton onClick={() => navigate("/catalog")} />
 
         <img className="catalog-subtitleLogo" src={turkuazLogoSrc} alt="Turkuaz Machinery CA" />
 
@@ -176,14 +165,7 @@ export default function MachineViewer() {
 
         </div>
 
-        <div className="catalog-backWrap">
-          <button
-            className="back-btn"
-            onClick={() => goToPage("catalog")}
-          >
-            {translations.backToCatalog}
-          </button>
-        </div>
+        <BackArrowButton onClick={() => goToPage("catalog")} />
 
       </div>
     );
@@ -205,14 +187,7 @@ export default function MachineViewer() {
 
         </div>
 
-        <div className="catalog-backWrap">
-          <button
-            className="back-btn"
-            onClick={() => goToPage("catalog")}
-          >
-            {translations.backToCatalog}
-          </button>
-        </div>
+        <BackArrowButton onClick={() => goToPage("catalog")} />
 
       </div>
     );
@@ -245,14 +220,7 @@ export default function MachineViewer() {
 
         </div>
 
-        <div className="catalog-backWrap">
-          <button
-            className="back-btn"
-            onClick={() => goToPage("catalog")}
-          >
-            {translations.backToCatalog}
-          </button>
-        </div>
+        <BackArrowButton onClick={() => goToPage("catalog")} />
 
       </div>
     );
@@ -298,14 +266,7 @@ export default function MachineViewer() {
 
         </div>
 
-        <div className="catalog-backWrap">
-          <button
-            className="back-btn"
-            onClick={() => goToPage("catalog")}
-          >
-            {translations.backToCatalog}
-          </button>
-        </div>
+        <BackArrowButton onClick={() => goToPage("catalog")} />
 
       </div>
     );
@@ -335,14 +296,7 @@ export default function MachineViewer() {
 
         </div>
 
-        <div className="catalog-backWrap">
-          <button
-            className="back-btn"
-            onClick={() => goToPage("catalog")}
-          >
-            {translations.backToCatalog}
-          </button>
-        </div>
+        <BackArrowButton onClick={() => goToPage("catalog")} />
 
       </div>
     );
