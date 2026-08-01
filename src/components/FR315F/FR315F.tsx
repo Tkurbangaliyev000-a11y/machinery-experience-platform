@@ -1,5 +1,6 @@
 import { useAppLanguage, type AppLanguage } from "../../i18n";
 import ModelPage, { type ModelPageContent, type ModelPageSpec } from "../ModelPage/ModelPage";
+import ParticleBackground from "../ParticleBackground/ParticleBackground";
 import "./FR315F.css";
 
 import cameraImage from "../../assets/images/FR315F/camera.png";
@@ -40,7 +41,6 @@ const TURKUAZ_LOGO_SRC = `${import.meta.env.BASE_URL}TMlogo.png`;
 const FR315F_VIDEO_SRC = `${import.meta.env.BASE_URL}videos/FR315F-mobile.mp4`;
 const FR315F_VIDEO_FALLBACK_SRC = `${import.meta.env.BASE_URL}videos/FR315F.MP4`;
 const FR315F_VIDEO_POSTER = `${import.meta.env.BASE_URL}videos/FR315F-poster.jpg`;
-const FR315F_HERO_IMAGE_SRC = `${import.meta.env.BASE_URL}FR315F.png`;
 
 const FR315F_COPY: Record<AppLanguage, FR315FCopy> = {
   en: {
@@ -218,10 +218,11 @@ export default function FR315F({ onBack }: Props) {
   const copy = FR315F_COPY[language] ?? FR315F_COPY.ru;
 
   return (
-    <ModelPage
-      onBack={onBack}
+    <>
+      <ParticleBackground />
+      <ModelPage
+        onBack={onBack}
       model="FR315F"
-      image={FR315F_HERO_IMAGE_SRC}
       subtitle={copy.subtitle}
       description={copy.lead}
       specifications={copy.specCards}
@@ -237,12 +238,15 @@ export default function FR315F({ onBack }: Props) {
         actionLeasing: copy.actionLeasing,
         sectionMediaTitle: copy.sectionMediaTitle,
         sectionMediaLead: copy.sectionMediaLead,
+        galleryMissing: "Фотографии скоро будут добавлены",
         videoHint: copy.videoHint,
         videoTitle: copy.videoTitle,
         videoMissing: copy.videoMissing,
+        documentsMissing: "Документы скоро будут добавлены",
         features: copy.features,
         galleryItems: copy.galleryItems,
       }}
     />
+    </>
   );
 }

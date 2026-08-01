@@ -17,9 +17,10 @@
 
 .fr315f-shell {
   position: relative;
+  z-index: 1;
   min-height: 100vh;
   overflow: hidden;
-  background: var(--bg);
+  background: transparent;
   color: #fff;
   font-family: var(--sans);
 }
@@ -489,6 +490,19 @@
   object-fit: cover;
 }
 
+.fr315f-galleryPlaceholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 220px;
+  padding: 1.2rem;
+  text-align: center;
+  color: rgba(230, 236, 244, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  background: linear-gradient(155deg, rgba(84, 101, 118, 0.16), rgba(28, 35, 44, 0.26));
+}
+
 .fr315f-galleryCarouselNav {
   position: absolute;
   appearance: none;
@@ -661,6 +675,14 @@
 .fr315f-videoActivator:focus-visible {
   outline: 2px solid rgba(123, 230, 255, 0.88);
   outline-offset: 2px;
+}
+
+.fr315f-documentsPlaceholder {
+  width: min(700px, 100%);
+  margin-top: -0.25rem;
+  color: rgba(228, 234, 241, 0.72);
+  font-size: 0.88rem;
+  text-align: center;
 }
 
 @media (max-width: 860px) {
@@ -1055,6 +1077,23 @@
   margin-inline: auto;
   object-fit: contain;
   filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.42));
+}
+
+.fr315f-heroMachinePlaceholder {
+  position: relative;
+  width: min(100%, 940px);
+  aspect-ratio: 940 / 470;
+  margin-inline: auto;
+  display: grid;
+  place-items: center;
+  padding: 1.2rem;
+  border-radius: 18px;
+  text-align: center;
+  color: rgba(225, 232, 241, 0.82);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border: 1px solid rgba(126, 148, 166, 0.22);
+  background: linear-gradient(155deg, rgba(14, 21, 29, 0.72), rgba(16, 24, 33, 0.9));
 }
 
 .fr315f-subtitle {

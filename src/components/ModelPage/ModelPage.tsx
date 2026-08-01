@@ -17,9 +17,11 @@ export type ModelPageContent = {
   actionLeasing: string;
   sectionMediaTitle: string;
   sectionMediaLead: string;
+  galleryMissing: string;
   videoHint: string;
   videoTitle: string;
   videoMissing: string;
+  documentsMissing: string;
   features: ModelPageFeature[];
   galleryItems: ModelPageGalleryItem[];
 };
@@ -27,7 +29,6 @@ export type ModelPageContent = {
 type ModelPageProps = {
   onBack: () => void;
   model: string;
-  image: string;
   subtitle: string;
   description: string;
   specifications: ModelPageSpec[];
@@ -35,6 +36,8 @@ type ModelPageProps = {
   lovolLogoSrc: string;
   videoSources: string[];
   videoPoster: string;
+  offerHref?: string;
+  showFeatures?: boolean;
   content: ModelPageContent;
 };
 
@@ -107,7 +110,6 @@ function getSpecIcon(index: number): ReactNode {
 export default function ModelPage({
   onBack,
   model,
-  image,
   subtitle,
   description,
   specifications,
@@ -115,6 +117,8 @@ export default function ModelPage({
   lovolLogoSrc,
   videoSources,
   videoPoster,
+  offerHref,
+  showFeatures = true,
   content,
 }: ModelPageProps) {
   const [showUI] = useState(true);
@@ -556,7 +560,7 @@ export default function ModelPage({
   };
 
   const actions: ActionItem[] = [
-    { label: content.actionOffer, href: "#", primary: true, icon: Download },
+    { label: content.actionOffer, href: offerHref, primary: true, icon: Download },
     { label: content.actionChat, href: "https://wa.me/77000000000", external: true, icon: MessageCircle },
     { label: content.actionCall, href: "tel:+77000000000", icon: Phone },
     { label: content.actionLeasing, stacked: true, icon: HandCoins, onClick: openLeasingModal },
@@ -585,10 +589,6 @@ export default function ModelPage({
                 </span>
                 <ModelBadge model={model} />
               </h1>
-              <div className="fr315f-heroMachine">
-                <div className="fr315f-heroMachineHalo" aria-hidden="true" />
-                <img className="fr315f-heroMachineImage" src={image} alt={`LOVOL ${model}`} loading="eager" decoding="async" />
-              </div>
               <p className="fr315f-subtitle">{subtitle}</p>
               <p className="fr315f-copy">{description}</p>
             </motion.header>
@@ -607,7 +607,7 @@ export default function ModelPage({
               ))}
             </motion.section>
 
-            {activeFeature && (
+            {showFeatures && activeFeature && (
               <motion.section className="fr315f-detail" variants={rowVariants} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }}>
                 <div className="fr315f-detailImage">
                   <img src={activeFeature.image} alt={activeFeature.title} />
@@ -619,29 +619,31 @@ export default function ModelPage({
               </motion.section>
             )}
 
-            <motion.section className="fr315f-features" variants={rowVariants}>
-              <div className="fr315f-featuresGrid">
-                {content.features.map((feature) => {
-                  const active = feature.id === selectedFeatureId;
-                  return (
-                    <motion.button
-                      key={feature.id}
-                      type="button"
-                      className={`fr315f-featureCard ${active ? "active" : ""}`}
-                      onClick={() => setActiveFeatureId(feature.id)}
-                      whileTap={{ scale: 0.97 }}
-                      transition={{ duration: 0.2 }}
-                      aria-pressed={active}
-                    >
-                      <img className="fr315f-featureImage" src={feature.image} alt={feature.title} />
-                      <div className="fr315f-featureOverlay">
-                        <span>{feature.title}</span>
-                      </div>
-                    </motion.button>
-                  );
-                })}
-              </div>
-            </motion.section>
+            {showFeatures && (
+              <motion.section className="fr315f-features" variants={rowVariants}>
+                <div className="fr315f-featuresGrid">
+                  {content.features.map((feature) => {
+                    const active = feature.id === selectedFeatureId;
+                    return (
+                      <motion.button
+                        key={feature.id}
+                        type="button"
+                        className={`fr315f-featureCard ${active ? "active" : ""}`}
+                        onClick={() => setActiveFeatureId(feature.id)}
+                        whileTap={{ scale: 0.97 }}
+                        transition={{ duration: 0.2 }}
+                        aria-pressed={active}
+                      >
+                        <img className="fr315f-featureImage" src={feature.image} alt={feature.title} />
+                        <div className="fr315f-featureOverlay">
+                          <span>{feature.title}</span>
+                        </div>
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              </motion.section>
+            )}
 
             <motion.section className="fr315f-media" variants={rowVariants}>
               <header className="fr315f-mediaHeader">
@@ -651,46 +653,50 @@ export default function ModelPage({
 
               <div className="fr315f-mediaGrid">
                 <article className="fr315f-mediaCard fr315f-mediaCard--gallery">
-                  <div className="fr315f-galleryCarousel">
-                    <div
-                      className="fr315f-galleryCarouselTrack"
-                      onTouchStart={handleGalleryTouchStart}
-                      onTouchEnd={handleGalleryTouchEnd}
-                      onClick={handleOpenFullscreen}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <motion.img
-                        key={galleryCurrentIndex}
-                        src={content.galleryItems[galleryCurrentIndex].src}
-                        alt={content.galleryItems[galleryCurrentIndex].alt}
-                        className="fr315f-galleryCarouselImage"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      />
+                  {content.galleryItems.length > 0 ? (
+                    <div className="fr315f-galleryCarousel">
+                      <div
+                        className="fr315f-galleryCarouselTrack"
+                        onTouchStart={handleGalleryTouchStart}
+                        onTouchEnd={handleGalleryTouchEnd}
+                        onClick={handleOpenFullscreen}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <motion.img
+                          key={galleryCurrentIndex}
+                          src={content.galleryItems[galleryCurrentIndex].src}
+                          alt={content.galleryItems[galleryCurrentIndex].alt}
+                          className="fr315f-galleryCarouselImage"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                        />
+                      </div>
+
+                      <button
+                        className="fr315f-galleryCarouselNav fr315f-galleryCarouselNav--prev"
+                        onClick={goToGalleryPrev}
+                        aria-label="Previous photo"
+                      >
+                        <ChevronLeft size={20} />
+                      </button>
+
+                      <button
+                        className="fr315f-galleryCarouselNav fr315f-galleryCarouselNav--next"
+                        onClick={goToGalleryNext}
+                        aria-label="Next photo"
+                      >
+                        <ChevronRight size={20} />
+                      </button>
+
+                      <div className="fr315f-galleryCarouselCounter">
+                        {galleryCurrentIndex + 1}/{content.galleryItems.length}
+                      </div>
                     </div>
-
-                    <button
-                      className="fr315f-galleryCarouselNav fr315f-galleryCarouselNav--prev"
-                      onClick={goToGalleryPrev}
-                      aria-label="Previous photo"
-                    >
-                      <ChevronLeft size={20} />
-                    </button>
-
-                    <button
-                      className="fr315f-galleryCarouselNav fr315f-galleryCarouselNav--next"
-                      onClick={goToGalleryNext}
-                      aria-label="Next photo"
-                    >
-                      <ChevronRight size={20} />
-                    </button>
-
-                    <div className="fr315f-galleryCarouselCounter">
-                      {galleryCurrentIndex + 1}/{content.galleryItems.length}
-                    </div>
-                  </div>
+                  ) : (
+                    <div className="fr315f-galleryPlaceholder">{content.galleryMissing}</div>
+                  )}
                 </article>
 
                 <article className="fr315f-mediaCard fr315f-mediaCard--video">
@@ -760,6 +766,7 @@ export default function ModelPage({
                 )
               ))}
             </motion.section>
+            {!offerHref && <p className="fr315f-documentsPlaceholder">{content.documentsMissing}</p>}
           </motion.div>
         )}
       </AnimatePresence>
@@ -767,7 +774,7 @@ export default function ModelPage({
       <LeasingApplicationModal key={leasingModalKey} isOpen={isLeasingModalOpen} model={`LOVOL ${model}`} onClose={() => setIsLeasingModalOpen(false)} />
 
       <AnimatePresence>
-        {isFullscreenGallery && (
+        {isFullscreenGallery && content.galleryItems.length > 0 && (
           <motion.div
             className="fr315f-fullscreenGallery"
             initial={{ opacity: 0 }}
