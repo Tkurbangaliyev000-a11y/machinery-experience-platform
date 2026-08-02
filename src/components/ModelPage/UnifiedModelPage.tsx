@@ -16,6 +16,7 @@ const TURKUAZ_LOGO_SRC = `${import.meta.env.BASE_URL}TMlogo.png`;
 export default function UnifiedModelPage({ model, onBack }: Props) {
   const language = useAppLanguage();
   const profile = MODEL_PROFILES[model.id];
+  const isPayloadCategory = model.category === "loaders" || model.category === "dumptrucks";
 
   const labels = {
     en: {
@@ -68,12 +69,20 @@ export default function UnifiedModelPage({ model, onBack }: Props) {
     },
   }[language];
 
+  const depthOrPayloadLabel = isPayloadCategory
+    ? language === "ru"
+      ? "Грузоподьемность"
+      : language === "en"
+        ? "Payload capacity"
+        : "Жүк көтергіштігі"
+    : labels.maxDiggingDepth;
+
   const specs: ModelPageSpec[] = [
     { label: labels.operatingWeight, value: profile.specifications.operatingWeight },
     { label: labels.engine, value: profile.specifications.engine },
     { label: labels.enginePower, value: profile.specifications.enginePower },
     { label: labels.bucketVolume, value: profile.specifications.bucketVolume },
-    { label: labels.maxDiggingDepth, value: profile.specifications.maxDiggingDepth },
+    { label: depthOrPayloadLabel, value: profile.specifications.maxDiggingDepth },
   ];
 
   const videoPoster = profile.videos[0]?.poster ?? "";
