@@ -111,7 +111,7 @@ export default function ModelPage({
   onBack,
   model,
   subtitle,
-  description,
+  // description removed from UI
   specifications,
   brandLogoSrc,
   lovolLogoSrc,
@@ -590,7 +590,6 @@ export default function ModelPage({
                 <ModelBadge model={model} />
               </h1>
               <p className="fr315f-subtitle">{subtitle}</p>
-              <p className="fr315f-copy">{description}</p>
             </motion.header>
 
             <motion.section className="fr315f-specs" variants={rowVariants}>

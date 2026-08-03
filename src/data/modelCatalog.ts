@@ -94,7 +94,7 @@ export const MODEL_CATALOG: ModelCatalogEntry[] = [
     specs: {
       operatingWeight: "33 250 кг",
       engine: "Cummins AA-6HK1XQP",
-      enginePower: "212 кВт / 284 л.с.",
+      enginePower: "225 кВт / 306 л.с.",
       bucketVolume: "1,8 м³",
       maxDiggingDepth: "6 365 мм",
     },
@@ -107,7 +107,7 @@ export const MODEL_CATALOG: ModelCatalogEntry[] = [
     specs: {
       operatingWeight: "37 000 кг",
       engine: "Weichai WP10.5H",
-      enginePower: "273 кВт / 366 л.с.",
+      enginePower: "247 кВт / 336 л.с.",
       bucketVolume: "2,0 м³",
       maxDiggingDepth: "6 960 мм",
     },
@@ -118,7 +118,7 @@ export const MODEL_CATALOG: ModelCatalogEntry[] = [
     category: "loaders",
     cardClassName: "catalog-card--fl955f",
     specs: {
-      operatingWeight: "16 620 кг",
+      operatingWeight: "16 650 кг",
       engine: "Weichai WD10G",
       enginePower: "162 кВт / 220 л.с.",
       bucketVolume: "3,0 м³",
@@ -131,7 +131,7 @@ export const MODEL_CATALOG: ModelCatalogEntry[] = [
     category: "loaders",
     cardClassName: "catalog-card--fl955k",
     specs: {
-      operatingWeight: "17 350 кг",
+      operatingWeight: "17 900 кг",
       engine: "Weichai WD10G",
       enginePower: "162 кВт / 220 л.с.",
       bucketVolume: "3,0 м³",
