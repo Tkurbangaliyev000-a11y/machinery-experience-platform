@@ -14,6 +14,19 @@ import galleryImage5 from "../assets/images/FR315F/gallery/5.jpg";
 import galleryImage6 from "../assets/images/FR315F/gallery/6.jpg";
 import galleryImage7 from "../assets/images/FR315F/gallery/7.jpg";
 
+import fb878hGallery1 from "../assets/images/FB878H/gallery/1.jpg";
+import fb878hGallery2 from "../assets/images/FB878H/gallery/2.jpg";
+import fb878hGallery3 from "../assets/images/FB878H/gallery/3.jpg";
+import fb878hGallery4 from "../assets/images/FB878H/gallery/4.jpg";
+import fb878hGallery5 from "../assets/images/FB878H/gallery/5.jpg";
+import fb878hGallery6 from "../assets/images/FB878H/gallery/6.jpg";
+import fb878hGallery7 from "../assets/images/FB878H/gallery/7.jpg";
+import fb878hGallery8 from "../assets/images/FB878H/gallery/8.jpg";
+import fb878hGallery9 from "../assets/images/FB878H/gallery/9.jpg";
+import fb878hGallery10 from "../assets/images/FB878H/gallery/10.jpg";
+import fb878hGallery11 from "../assets/images/FB878H/gallery/11.jpg";
+import fb878hGallery12 from "../assets/images/FB878H/gallery/12.jpg";
+
 export type ModelProfile = {
   title: string;
   heroImage: string | null;
@@ -256,12 +269,33 @@ export const MODEL_PROFILES: Record<ModelId, ModelProfile> = {
   FW215F: (() => {
     const profile = createPlaceholderProfile("FW215F", "Колесный экскаватор");
     profile.videos = [
-      { src: `${import.meta.env.BASE_URL}videos/FW215F-mobile.mp4` },
-      { src: `${import.meta.env.BASE_URL}videos/FW215F.MP4` },
+      { src: `${import.meta.env.BASE_URL}videos/FW215F-mobile.mp4`, poster: `${import.meta.env.BASE_URL}videos/FW215F-poster.jpg` },
+      { src: `${import.meta.env.BASE_URL}videos/FW215F.MP4`, poster: `${import.meta.env.BASE_URL}videos/FW215F-poster.jpg` },
     ];
     return profile;
   })(),
-  FB878H: createPlaceholderProfile("FB878H", "Экскаватор-погрузчик"),
+  FB878H: (() => {
+    const profile = createPlaceholderProfile("FB878H", "Экскаватор-погрузчик");
+    profile.gallery = [
+      { id: "1", src: fb878hGallery1, alt: "FB878H вид 1" },
+      { id: "2", src: fb878hGallery2, alt: "FB878H вид 2" },
+      { id: "3", src: fb878hGallery3, alt: "FB878H вид 3" },
+      { id: "4", src: fb878hGallery4, alt: "FB878H вид 4" },
+      { id: "5", src: fb878hGallery5, alt: "FB878H вид 5" },
+      { id: "6", src: fb878hGallery6, alt: "FB878H вид 6" },
+      { id: "7", src: fb878hGallery7, alt: "FB878H вид 7" },
+      { id: "8", src: fb878hGallery8, alt: "FB878H вид 8" },
+      { id: "9", src: fb878hGallery9, alt: "FB878H вид 9" },
+      { id: "10", src: fb878hGallery10, alt: "FB878H вид 10" },
+      { id: "11", src: fb878hGallery11, alt: "FB878H вид 11" },
+      { id: "12", src: fb878hGallery12, alt: "FB878H вид 12" },
+    ];
+    profile.videos = [
+      { src: `${import.meta.env.BASE_URL}videos/FB878H-mobile.mp4`, poster: `${import.meta.env.BASE_URL}videos/FB878H-poster.jpg` },
+      { src: `${import.meta.env.BASE_URL}videos/FB878H.MP4`, poster: `${import.meta.env.BASE_URL}videos/FB878H-poster.jpg` },
+    ];
+    return profile;
+  })(),
   FR560F: createPlaceholderProfile("FR560F", "Карьерный экскаватор"),
   FR700F: createPlaceholderProfile("FR700F", "Карьерный экскаватор"),
   FR800F: createPlaceholderProfile("FR800F", "Карьерный экскаватор"),
