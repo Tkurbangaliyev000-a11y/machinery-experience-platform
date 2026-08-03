@@ -312,10 +312,10 @@
 .catalog-card--dumptruck-1 { background-image: url("/LT90.png"); background-position: center center; }
 .catalog-card--dumptruck-2 { background-image: url("/LT110H.png"); background-position: center center; }
 .catalog-card--dumptruck-3 { background-image: url("/LT130H.png"); background-position: center center; }
-.catalog-card--wheeled-excavators { background-image: url("/category-wheel-excavator.png"); }
+.catalog-card--wheeled-excavators { background-image: url("/FW215F.png"); }
 .catalog-card--fw60f { background-image: url("/FW60F.png"); }
-.catalog-card--fw160f { background-image: url("/category-wheel-excavator160.png"); }
-.catalog-card--fw215f { background-image: url("/category-wheel-excavator.png"); }
+.catalog-card--fw160f { background-image: url("/FW160F.png"); }
+.catalog-card--fw215f { background-image: url("/FW215F.png"); }
 .catalog-card--backhoes { background-image: url("/category-backhoe-loader.png"); }
 .catalog-card--fb878h { background-image: url("/category-backhoe-loader.png"); }
 .catalog-card--fl955f { background-image: url("/FL955F.png"); }
@@ -326,14 +326,14 @@
 .catalog-card--fr315f { background-image: url("/FR315F.png"); }
 .catalog-card--fr335f { background-image: url("/FR335F.png"); }
 .catalog-card--fr375f { background-image: url("/FR375F.png"); }
-.catalog-card--fr560f { background-image: url("/Excavator.png"); }
+.catalog-card--fr560f { background-image: url("/FR560F.png"); }
 .catalog-card--fr700f { background-image: url("/FR700F.png"); }
 .catalog-card--fr800f { background-image: url("/FR800F.png"); }
 .catalog-card--fr1000f { background-image: url("/FR1000F.png"); }
 .catalog-card--fr1350f { background-image: url("/FR1350F.png"); }
 .catalog-card--fr1500f { background-image: url("/FR1500F.png"); }
-.catalog-card--fr2000f { background-image: url("/category-gornayatehnika.png"); }
-.catalog-card--mining { background-image: url("/category-gornayatehnika.png"); }
+.catalog-card--fr2000f { background-image: url("/FR2000F.png"); }
+.catalog-card--mining { background-image: url("/FR2000F.png"); }
 
 @keyframes cardReveal {
   from {

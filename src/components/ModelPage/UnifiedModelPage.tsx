@@ -77,11 +77,19 @@ export default function UnifiedModelPage({ model, onBack }: Props) {
         : "Жүк көтергіштігі"
     : labels.maxDiggingDepth;
 
+  const bucketOrBodyLabel = model.category === "dumptrucks"
+    ? language === "ru"
+      ? "Объем кузова"
+      : language === "en"
+        ? "Body volume"
+        : "Кузов көлемі"
+    : labels.bucketVolume;
+
   const specs: ModelPageSpec[] = [
     { label: labels.operatingWeight, value: profile.specifications.operatingWeight },
     { label: labels.engine, value: profile.specifications.engine },
     { label: labels.enginePower, value: profile.specifications.enginePower },
-    { label: labels.bucketVolume, value: profile.specifications.bucketVolume },
+    { label: bucketOrBodyLabel, value: profile.specifications.bucketVolume },
     { label: depthOrPayloadLabel, value: profile.specifications.maxDiggingDepth },
   ];
 

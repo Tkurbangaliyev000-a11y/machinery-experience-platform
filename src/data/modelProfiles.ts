@@ -13,7 +13,6 @@ import galleryImage4 from "../assets/images/FR315F/gallery/4.jpg";
 import galleryImage5 from "../assets/images/FR315F/gallery/5.jpg";
 import galleryImage6 from "../assets/images/FR315F/gallery/6.jpg";
 import galleryImage7 from "../assets/images/FR315F/gallery/7.jpg";
-import fw215fMainImage from "../assets/Machines/Fw215f-main.jpg";
 
 export type ModelProfile = {
   title: string;
@@ -177,7 +176,7 @@ const HERO_IMAGE_BY_MODEL: Record<ModelId, string | null> = {
   FR2000F: null,
   FW60F: `${import.meta.env.BASE_URL}FW60F.png`,
   FW160F: null,
-  FW215F: fw215fMainImage,
+  FW215F: `${import.meta.env.BASE_URL}category-wheel-excavator160.png`,
   FL955F: `${import.meta.env.BASE_URL}FL955F.png`,
   FL955K: `${import.meta.env.BASE_URL}FL955K.png`,
   "FL980K-HST": `${import.meta.env.BASE_URL}FL980K.png`,
