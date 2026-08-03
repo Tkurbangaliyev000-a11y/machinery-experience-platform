@@ -296,8 +296,22 @@ export const MODEL_PROFILES: Record<ModelId, ModelProfile> = {
     ];
     return profile;
   })(),
-  FR560F: createPlaceholderProfile("FR560F", "Карьерный экскаватор"),
-  FR700F: createPlaceholderProfile("FR700F", "Карьерный экскаватор"),
+  FR560F: (() => {
+    const profile = createPlaceholderProfile("FR560F", "Карьерный экскаватор");
+    profile.videos = [
+      { src: `${import.meta.env.BASE_URL}videos/FR560F-mobile.mp4`, poster: `${import.meta.env.BASE_URL}videos/FR560F-poster.jpg` },
+      { src: `${import.meta.env.BASE_URL}videos/FR560F.MP4`, poster: `${import.meta.env.BASE_URL}videos/FR560F-poster.jpg` },
+    ];
+    return profile;
+  })(),
+  FR700F: (() => {
+    const profile = createPlaceholderProfile("FR700F", "Карьерный экскаватор");
+    profile.videos = [
+      { src: `${import.meta.env.BASE_URL}videos/FR700F-mobile.mp4`, poster: `${import.meta.env.BASE_URL}videos/FR700F-poster.jpg` },
+      { src: `${import.meta.env.BASE_URL}videos/FR700F.MP4`, poster: `${import.meta.env.BASE_URL}videos/FR700F-poster.jpg` },
+    ];
+    return profile;
+  })(),
   FR800F: createPlaceholderProfile("FR800F", "Карьерный экскаватор"),
   FR1000F: createPlaceholderProfile("FR1000F", "Карьерный экскаватор"),
   FR1350F: createPlaceholderProfile("FR1350F", "Карьерный экскаватор"),
