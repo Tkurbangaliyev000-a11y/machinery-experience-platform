@@ -56,6 +56,17 @@ import lt90Gallery7 from "../assets/images/LT90/gallery/7.jpg";
 import lt90Gallery8 from "../assets/images/LT90/gallery/8.jpg";
 import lt90Gallery9 from "../assets/images/LT90/gallery/9.jpg";
 
+import fw60fGallery1 from "../assets/images/FW60F/1.jpg";
+import fw60fGallery2 from "../assets/images/FW60F/2.jpg";
+import fw60fGallery3 from "../assets/images/FW60F/3.jpg";
+import fw60fGallery4 from "../assets/images/FW60F/4.jpg";
+import fw60fGallery5 from "../assets/images/FW60F/5.jpg";
+import fw60fGallery6 from "../assets/images/FW60F/6.jpg";
+import fw60fGallery7 from "../assets/images/FW60F/7.jpg";
+import fw60fGallery8 from "../assets/images/FW60F/8.jpg";
+import fw60fGallery9 from "../assets/images/FW60F/9.jpg";
+import fw60fGallery10 from "../assets/images/FW60F/10.jpg";
+
 export type ModelProfile = {
   title: string;
   heroImage: string | null;
@@ -334,7 +345,26 @@ export const MODEL_PROFILES: Record<ModelId, ModelProfile> = {
   })(),
   LT110: createPlaceholderProfile("LT110", "Карьерный самосвал"),
   LT130: createPlaceholderProfile("LT130", "Карьерный самосвал"),
-  FW60F: createPlaceholderProfile("FW60F", "Колесный экскаватор"),
+  FW60F: (() => {
+    const profile = createPlaceholderProfile("FW60F", "Колесный экскаватор");
+    profile.gallery = [
+      { id: "1", src: fw60fGallery1, alt: "FW60F вид 1" },
+      { id: "2", src: fw60fGallery2, alt: "FW60F вид 2" },
+      { id: "3", src: fw60fGallery3, alt: "FW60F вид 3" },
+      { id: "4", src: fw60fGallery4, alt: "FW60F вид 4" },
+      { id: "5", src: fw60fGallery5, alt: "FW60F вид 5" },
+      { id: "6", src: fw60fGallery6, alt: "FW60F вид 6" },
+      { id: "7", src: fw60fGallery7, alt: "FW60F вид 7" },
+      { id: "8", src: fw60fGallery8, alt: "FW60F вид 8" },
+      { id: "9", src: fw60fGallery9, alt: "FW60F вид 9" },
+      { id: "10", src: fw60fGallery10, alt: "FW60F вид 10" },
+    ];
+    profile.videos = [
+      { src: `${import.meta.env.BASE_URL}videos/FW60F-mobile.mp4`, poster: `${import.meta.env.BASE_URL}videos/FW60F-poster.jpg` },
+      { src: `${import.meta.env.BASE_URL}videos/FW60F.MP4`, poster: `${import.meta.env.BASE_URL}videos/FW60F-poster.jpg` },
+    ];
+    return profile;
+  })(),
   FW160F: createPlaceholderProfile("FW160F", "Колесный экскаватор"),
   FW215F: (() => {
     const profile = createPlaceholderProfile("FW215F", "Колесный экскаватор");
