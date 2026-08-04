@@ -27,6 +27,35 @@ import fb878hGallery10 from "../assets/images/FB878H/gallery/10.jpg";
 import fb878hGallery11 from "../assets/images/FB878H/gallery/11.jpg";
 import fb878hGallery12 from "../assets/images/FB878H/gallery/12.jpg";
 
+import fl955fGallery1 from "../assets/images/FL955F/gallery/1.jpg";
+import fl955fGallery2 from "../assets/images/FL955F/gallery/2.jpg";
+import fl955fGallery3 from "../assets/images/FL955F/gallery/3.jpg";
+import fl955fGallery4 from "../assets/images/FL955F/gallery/4.jpg";
+import fl955fGallery5 from "../assets/images/FL955F/gallery/5.jpg";
+import fl955fGallery6 from "../assets/images/FL955F/gallery/6.jpg";
+import fl955fGallery7 from "../assets/images/FL955F/gallery/7.jpg";
+import fl955fGallery8 from "../assets/images/FL955F/gallery/8.jpg";
+
+import fl955kGallery1 from "../assets/images/FL955K/gallery/1.jpg";
+import fl955kGallery2 from "../assets/images/FL955K/gallery/2.jpg";
+import fl955kGallery3 from "../assets/images/FL955K/gallery/3.jpg";
+import fl955kGallery4 from "../assets/images/FL955K/gallery/4.jpg";
+import fl955kGallery5 from "../assets/images/FL955K/gallery/5.jpg";
+import fl955kGallery6 from "../assets/images/FL955K/gallery/6.jpg";
+import fl955kGallery7 from "../assets/images/FL955K/gallery/7.jpg";
+import fl955kGallery8 from "../assets/images/FL955K/gallery/8.jpg";
+import fl955kGallery9 from "../assets/images/FL955K/gallery/9.jpg";
+
+import lt90Gallery1 from "../assets/images/LT90/gallery/1.jpg";
+import lt90Gallery2 from "../assets/images/LT90/gallery/2.jpg";
+import lt90Gallery3 from "../assets/images/LT90/gallery/3.jpg";
+import lt90Gallery4 from "../assets/images/LT90/gallery/4.jpg";
+import lt90Gallery5 from "../assets/images/LT90/gallery/5.jpg";
+import lt90Gallery6 from "../assets/images/LT90/gallery/6.jpg";
+import lt90Gallery7 from "../assets/images/LT90/gallery/7.jpg";
+import lt90Gallery8 from "../assets/images/LT90/gallery/8.jpg";
+import lt90Gallery9 from "../assets/images/LT90/gallery/9.jpg";
+
 export type ModelProfile = {
   title: string;
   heroImage: string | null;
@@ -258,10 +287,51 @@ export const MODEL_PROFILES: Record<ModelId, ModelProfile> = {
   FR260F: createExcavatorPlaceholderProfile("FR260F"),
   FR335F: createExcavatorPlaceholderProfile("FR335F"),
   FR375F: createExcavatorPlaceholderProfile("FR375F"),
-  FL955F: createPlaceholderProfile("FL955F", "Фронтальный погрузчик"),
-  FL955K: createPlaceholderProfile("FL955K", "Фронтальный погрузчик"),
+  FL955F: (() => {
+    const profile = createPlaceholderProfile("FL955F", "Фронтальный погрузчик");
+    profile.gallery = [
+      { id: "1", src: fl955fGallery1, alt: "FL955F вид 1" },
+      { id: "2", src: fl955fGallery2, alt: "FL955F вид 2" },
+      { id: "3", src: fl955fGallery3, alt: "FL955F вид 3" },
+      { id: "4", src: fl955fGallery4, alt: "FL955F вид 4" },
+      { id: "5", src: fl955fGallery5, alt: "FL955F вид 5" },
+      { id: "6", src: fl955fGallery6, alt: "FL955F вид 6" },
+      { id: "7", src: fl955fGallery7, alt: "FL955F вид 7" },
+      { id: "8", src: fl955fGallery8, alt: "FL955F вид 8" },
+    ];
+    return profile;
+  })(),
+  FL955K: (() => {
+    const profile = createPlaceholderProfile("FL955K", "Фронтальный погрузчик");
+    profile.gallery = [
+      { id: "1", src: fl955kGallery1, alt: "FL955K вид 1" },
+      { id: "2", src: fl955kGallery2, alt: "FL955K вид 2" },
+      { id: "3", src: fl955kGallery3, alt: "FL955K вид 3" },
+      { id: "4", src: fl955kGallery4, alt: "FL955K вид 4" },
+      { id: "5", src: fl955kGallery5, alt: "FL955K вид 5" },
+      { id: "6", src: fl955kGallery6, alt: "FL955K вид 6" },
+      { id: "7", src: fl955kGallery7, alt: "FL955K вид 7" },
+      { id: "8", src: fl955kGallery8, alt: "FL955K вид 8" },
+      { id: "9", src: fl955kGallery9, alt: "FL955K вид 9" },
+    ];
+    return profile;
+  })(),
   "FL980K-HST": createPlaceholderProfile("FL980K-HST", "Фронтальный погрузчик"),
-  LT90: createPlaceholderProfile("LT90", "Карьерный самосвал"),
+  LT90: (() => {
+    const profile = createPlaceholderProfile("LT90", "Карьерный самосвал");
+    profile.gallery = [
+      { id: "1", src: lt90Gallery1, alt: "LT90 вид 1" },
+      { id: "2", src: lt90Gallery2, alt: "LT90 вид 2" },
+      { id: "3", src: lt90Gallery3, alt: "LT90 вид 3" },
+      { id: "4", src: lt90Gallery4, alt: "LT90 вид 4" },
+      { id: "5", src: lt90Gallery5, alt: "LT90 вид 5" },
+      { id: "6", src: lt90Gallery6, alt: "LT90 вид 6" },
+      { id: "7", src: lt90Gallery7, alt: "LT90 вид 7" },
+      { id: "8", src: lt90Gallery8, alt: "LT90 вид 8" },
+      { id: "9", src: lt90Gallery9, alt: "LT90 вид 9" },
+    ];
+    return profile;
+  })(),
   LT110: createPlaceholderProfile("LT110", "Карьерный самосвал"),
   LT130: createPlaceholderProfile("LT130", "Карьерный самосвал"),
   FW60F: createPlaceholderProfile("FW60F", "Колесный экскаватор"),
